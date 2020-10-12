@@ -7,7 +7,9 @@ Anggota :
 3. 1119033 - Fedly Septian
 
 - Kampus       : Institut Teknologi Harapan Bangsa
+- Kode Kelas   : IF-301
 - Kelas        : Pemrograman Berorientasi Object
+- Dosen        : Hans ChrisCan K., S.T., M.T. 
 - Bahasa       : Java
 - Nama Project : Final Static Fashion
 
