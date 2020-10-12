@@ -15,4 +15,6 @@ public class Admin extends Person {
         super(username, password, gender, email, d, m, y);
     }
 
+    public Admin() {
+    }
 }
