@@ -6,8 +6,10 @@ Anggota :
 2. 1119023 - Jedediah Fanuel
 3. 1119033 - Fedly Septian
 
-Nama Project : Final Static Fashion
+Kampus       : Institut Teknologi Harapan Bangsa
+Kelas        : Pemrograman Berorientasi Object
 Bahasa       : Java
+Nama Project : Final Static Fashion
 
 Penjelasan   :
 Aplikasi ini terdiri dari 4 level user, (Non-Member, Member, Seller, Admin)
