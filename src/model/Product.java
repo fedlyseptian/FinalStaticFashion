@@ -9,7 +9,7 @@ package model;
  *
  * @author TimothyRay
  */
-public class Product {
+public abstract class Product {
     String productID;
     String productName;
     String productBrand;
