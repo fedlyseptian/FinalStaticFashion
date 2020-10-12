@@ -9,14 +9,14 @@ package model;
  *
  * @author jeded
  */
-public class Person {
-    String username;
-    String password;
-    char gender;
-    String email;
-    int d;
-    int m;
-    int y;
+public abstract class Person {
+    private String username;
+    private String password;
+    private char gender;
+    private String email;
+    private int d;
+    private int m;
+    private int y;
 
     public Person(String username, String password, char gender, String email, int d, int m, int y) {
         this.username = username;

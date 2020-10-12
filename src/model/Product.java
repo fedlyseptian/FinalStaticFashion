@@ -9,18 +9,15 @@ package model;
  *
  * @author TimothyRay
  */
-public abstract class Product {
-    String productID;
-    String productName;
-    String productBrand;
-    String productCategory;
-    String productStock;
-    String sellerName;
-    String productPrice;
-    String productSize;
-
-    public Product() {
-    }
+public class Product {
+    private String productID;
+    private String productName;
+    private String productBrand;
+    private String productCategory;
+    private String productStock;
+    private String sellerName;
+    private String productPrice;
+    private String productSize;
 
     public Product(String productID, String productName, String productBrand, String productCategory, String productStock, String sellerName, String productPrice, String productSize) {
         this.productID = productID;
