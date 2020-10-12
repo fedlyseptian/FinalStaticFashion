@@ -17,11 +17,11 @@ public class Transactions {
     private int m;
     private int y;
     private int paymentOption;
-    private float taxSeller;
+    private double taxSeller;
     private String username;
     private ArrayList<Product> listProduct = new ArrayList<>();
 
-    public Transactions(String transactionID, int d, int m, int y, int paymentOption, float taxSeller, String username) {
+    public Transactions(String transactionID, int d, int m, int y, int paymentOption, double taxSeller, String username) {
         this.transactionID = transactionID;
         this.d = d;
         this.m = m;
@@ -33,6 +33,14 @@ public class Transactions {
 
     public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
+    }
+
+    public void setTaxSeller(double taxSeller) {
+        this.taxSeller = taxSeller;
+    }
+
+    public double getTaxSeller() {
+        return taxSeller;
     }
 
     public void setD(int d) {
@@ -49,10 +57,6 @@ public class Transactions {
 
     public void setPaymentOption(int paymentOption) {
         this.paymentOption = paymentOption;
-    }
-
-    public void setTaxSeller(float taxSeller) {
-        this.taxSeller = taxSeller;
     }
 
     public void setUsername(String username) {
@@ -81,10 +85,6 @@ public class Transactions {
 
     public int getPaymentOption() {
         return paymentOption;
-    }
-
-    public float getTaxSeller() {
-        return taxSeller;
     }
 
     public String getUsername() {
