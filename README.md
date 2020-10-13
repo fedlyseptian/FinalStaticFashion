@@ -14,8 +14,10 @@
 - **Nama Project** : Final Static Fashion
 
 ### Penjelasan   :
-- Aplikasi ini terdiri dari 4 level user, (Non-Member, Member, Seller, Admin)
-- Saat aplikasi pertama kali dibuka, user akan diarahkan sebagai non-member user yang memiliki akses ke menu (Login, Registrasi, Product, Store, About Us)
+- Aplikasi ini terdiri dari 4 level user,  
+  (Non-Member, Member, Seller, Admin)
+- Saat aplikasi pertama kali dibuka, user akan diarahkan sebagai non-member user yang memiliki akses ke menu  
+  (Login, Registrasi, Product, Store, About Us)
 - Pada menu product, user dapat melihat-lihat product yang terdaftar di database, namun belum bisa membeli
 - Pada menu store, user dapat melihat-lihat store yang terdaftar di database
 - Jika ingin melakukan transaksi, user harus registrasi sebagai member / seller atau juga bisa melakukan login jika sudah mempunyai akun
