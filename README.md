@@ -6,7 +6,7 @@
 2. 1119023 - **Jedediah Fanuel**
 3. 1119033 - **Fedly Septian**
 
-- **Kampus** <code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code>: Institut Teknologi Harapan Bangsa
+- **Kampus** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Institut Teknologi Harapan Bangsa
 - **Kode Kelas** <code>&nbsp;</code><code>&nbsp;</code>: IF-301
 - **Kelas** <code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code>: Pemrograman Berorientasi Object
 - **Dosen** <code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code><code>&nbsp;</code>: Hans ChrisCan K., S.T., M.T. 
