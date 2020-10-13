@@ -6,10 +6,10 @@
 2. 1119023 - **Jedediah Fanuel**
 3. 1119033 - **Fedly Septian**
 
-- **Kampus** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Institut Teknologi Harapan Bangsa
-- **Kode Kelas** &nbsp; &nbsp; : IF-301
+- **Kampus** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; : Institut Teknologi Harapan Bangsa
+- **Kode Kelas** &nbsp; &nbsp;  &nbsp;  &nbsp; : IF-301
 - **Kelas** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Pemrograman Berorientasi Object
-- **Dosen** &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: Hans ChrisCan K., S.T., M.T. 
+- **Dosen** &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : Hans ChrisCan K., S.T., M.T. 
 - **Bahasa** &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: Java
 - **Nama Project** : Final Static Fashion
 
