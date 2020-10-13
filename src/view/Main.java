@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         // temporary aja
         Scanner scanner = new Scanner(System.in);
         String inputs;
@@ -49,7 +50,6 @@ public class Main {
                     break chooseMenu;
             }
         }
-
     }
 
 }
