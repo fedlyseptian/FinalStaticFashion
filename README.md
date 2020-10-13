@@ -1,7 +1,7 @@
 # FinalStaticFashion
-### Tugas Besar PBO
+## Tugas Besar PBO
 
-## Anggota : 
+### Anggota : 
 1. 1119007 - **Timothy Ray**
 2. 1119023 - **Jedediah Fanuel**
 3. 1119033 - **Fedly Septian**
@@ -13,7 +13,7 @@
 - **Bahasa**       : Java
 - **Nama Project** : Final Static Fashion
 
-## Penjelasan   :
+### Penjelasan   :
 - Aplikasi ini terdiri dari 4 level user, (Non-Member, Member, Seller, Admin)
 - Saat aplikasi pertama kali dibuka, user akan diarahkan sebagai non-member user yang memiliki akses ke menu (Login, Registrasi, Product, Store, About Us)
 - Pada menu product, user dapat melihat-lihat product yang terdaftar di database, namun belum bisa membeli
