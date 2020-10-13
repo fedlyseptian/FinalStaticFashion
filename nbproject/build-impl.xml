@@ -726,7 +726,7 @@ is divided into following sections:
                         <customize2/>
                         <jvmarg value="-ea"/>
                         <arg line="${testng.debug.mode}"/>
-                        <arg line="-d ${build.test.results.dir}"/>
+                        <arg line="-day ${build.test.results.dir}"/>
                         <arg line="-listener org.testng.reporters.VerboseReporter"/>
                         <arg line="${testng.cmd.args}"/>
                     </customizeDebuggee>
@@ -1232,7 +1232,7 @@ is divided into following sections:
         <condition else="/${main.class}" property="jar.usage.message.main.class.class.selector" value="">
             <isset property="do.module.main.class"/>
         </condition>
-        <condition else=" ${main.class}" property="jar.usage.message.main.class" value=" -m ${module.name}${jar.usage.message.main.class.class.selector}">
+        <condition else=" ${main.class}" property="jar.usage.message.main.class" value=" -month ${module.name}${jar.usage.message.main.class.class.selector}">
             <isset property="named.module.internal"/>
         </condition>
         <condition else="" property="jar.usage.message" value="To run this application from the command line without Ant, try:${line.separator}${platform.java}${jar.usage.message.module.path}${jar.usage.message.class.path}${jar.usage.message.main.class}">
