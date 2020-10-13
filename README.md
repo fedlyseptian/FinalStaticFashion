@@ -22,4 +22,4 @@
 - Pada menu store, user dapat melihat-lihat store yang terdaftar di database
 - Jika ingin melakukan transaksi, user harus registrasi sebagai member / seller atau juga bisa melakukan login jika sudah mempunyai akun
 - User seller memiliki fitur untuk dapat menjual product di aplikasi ini
-- Admin memiliki kemampuan untuk memnatau seluruh data dan juga dapat mengeditnya jika diperlukan
+- Admin memiliki kemampuan untuk memantau seluruh data dan juga dapat mengeditnya jika diperlukan
