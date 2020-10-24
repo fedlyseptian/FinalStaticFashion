@@ -8,16 +8,17 @@ package view;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @author Asus
  */
-public class Main {
+public class Main implements ActionListener {
 
-    JFrame frame = new JFrame("Final Static Fashion");
+    JFrame frame = new JFrame(" Final Static Fashion ");
     JPanel panelTitle = new JPanel();
     JPanel panelTitle2 = new JPanel();
     JPanel panelProduct = new JPanel();
@@ -27,6 +28,10 @@ public class Main {
     JPanel panelAbout = new JPanel();
 
     Main() {
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ADD FONT : Cramer Regular
@@ -49,15 +54,8 @@ public class Main {
             ge.registerFont(mindfullyFont);
         } catch (IOException | FontFormatException ignored) {}
 
-        // Panel Set Bound
-        panelTitle.setBounds(0, 0, 1280, 200);
-        panelTitle.setBorder(new EmptyBorder(160, 10, 0, 10));
-        panelTitle2.setBounds(0, 200, 1280, 200);
-        panelProduct.setBounds(0, 400, 256, 320);
-        panelStore.setBounds(256, 400, 256, 320);
-        panelLogin.setBounds(512, 400, 256, 320);
-        panelRegister.setBounds(768, 400, 256, 320);
-        panelAbout.setBounds(1024, 400, 256, 320);
+        // Panel Title Some Padding
+        panelTitle.setBorder(new EmptyBorder(160, 10, -100, 10));
 
         // Panel Set Background : BLACK
         panelTitle.setBackground(Color.BLACK);
@@ -71,13 +69,13 @@ public class Main {
         // LABEL: Welcome To
         JLabel title = new JLabel("WELCOME TO");
         title.setFont(crafterFont);
-        title.setForeground(Color.ORANGE);
+        title.setForeground(new Color(255, 145, 0));
         panelTitle.add(title);
 
         // LABEL: Final Static Fashion
         JLabel title2 = new JLabel("Final Static Fashion");
         title2.setFont(mindfullyFont);
-        title2.setForeground(Color.ORANGE);
+        title2.setForeground(new Color(255, 145, 0));
         panelTitle2.add(title2);
 
         // LABEL: Products
@@ -98,6 +96,8 @@ public class Main {
         btnProduct.setBounds(0, 0, 100, 25);
         panelProduct.add(titleProduct);
         panelProduct.add(btnProduct);
+        btnProduct.setActionCommand("Product");
+        btnProduct.addActionListener(this);
 
         // LABEL: Store
         ImageIcon iconStore = new ImageIcon("media/storeIcon.png");
@@ -117,6 +117,8 @@ public class Main {
         btnStore.setBounds(0, 0, 100, 25);
         panelStore.add(titleStore);
         panelStore.add(btnStore);
+        btnStore.setActionCommand("Store");
+        btnStore.addActionListener(this);
 
         // LABEL: Login
         ImageIcon iconLogin = new ImageIcon("media/loginIcon.png");
@@ -136,6 +138,8 @@ public class Main {
         btnLogin.setBounds(0, 0, 100, 25);
         panelLogin.add(titleLogin);
         panelLogin.add(btnLogin);
+        btnLogin.setActionCommand("Login");
+        btnLogin.addActionListener(this);
 
         // LABEL: Register
         ImageIcon iconRegister = new ImageIcon("media/registerIcon.png");
@@ -155,6 +159,8 @@ public class Main {
         btnRegister.setBounds(0, 0, 100, 25);
         panelRegister.add(titleRegister);
         panelRegister.add(btnRegister);
+        btnRegister.setActionCommand("Register");
+        btnRegister.addActionListener(this);
 
         // LABEL: About
         ImageIcon iconAbout = new ImageIcon("media/aboutIcon.png");
@@ -174,62 +180,57 @@ public class Main {
         btnAbout.setBounds(0, 0, 100, 25);
         panelAbout.add(titleAbout);
         panelAbout.add(btnAbout);
+        btnAbout.setActionCommand("About");
+        btnAbout.addActionListener(this);
 
         // Add to FRAME
+        BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS); // top to bottom
+        frame.setLayout(boxLayout);
         frame.add(panelTitle);
         frame.add(panelTitle2);
-        frame.add(panelProduct);
-        frame.add(panelStore);
-        frame.add(panelLogin);
-        frame.add(panelRegister);
-        frame.add(panelAbout);
+
+        // Grouping menu panel
+        JPanel panelMenu = new JPanel(new GridLayout(1,5));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(0,-2,0,-2));
+        panelMenu.add(panelProduct);
+        panelMenu.add(panelStore);
+        panelMenu.add(panelLogin);
+        panelMenu.add(panelRegister);
+        panelMenu.add(panelAbout);
+
+        frame.add(panelMenu);
+
         frame.setSize(1280, 720);
-        frame.setLayout(null);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Product":
+                new ProductMenu();
+                break;
+            case "Store":
+                new StoreMenu();
+                break;
+            case "Login":
+                new LoginMenu();
+                break;
+            case "Register":
+                new RegisterMenu();
+                break;
+            case "About":
+                new AboutUsMenu();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
     }
 
     public static void main(String[] args) {
 
         new Main();
 
-        // temporary aja
-        Scanner scanner = new Scanner(System.in);
-        String inputs;
-
-        chooseMenu:
-        while (true) {
-            System.out.println("Welcome To Final Static Fashion\n" +
-                    "1. Product\n" +
-                    "2. Store\n" +
-                    "3. Login\n" +
-                    "4. Register\n" +
-                    "5. About Us\n" +
-                    "6. EXIT\n" +
-                    "-> ");
-            inputs = scanner.nextLine();
-            switch (inputs) {
-                case "1":
-                    new ProductMenu();
-                    break;
-                case "2":
-                    new StoreMenu();
-                    break;
-                case "3":
-                    new LoginMenu();
-                    break;
-                case "4":
-                    new RegisterMenu();
-                    break;
-                case "5":
-                    new AboutUsMenu();
-                    break;
-                default:
-                    System.out.println("\nThank You\n");
-                    break chooseMenu;
-            }
-
-        }
-
     }
-
 }
