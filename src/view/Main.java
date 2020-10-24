@@ -18,20 +18,16 @@ import java.util.Scanner;
 public class Main {
 
     JFrame frame = new JFrame("Final Static Fashion");
-    JPanel panel = new JPanel();
-    JPanel panel2 = new JPanel();
+    JPanel panelTitle = new JPanel();
+    JPanel panelTitle2 = new JPanel();
     JPanel panelProduct = new JPanel();
     JPanel panelStore = new JPanel();
     JPanel panelLogin = new JPanel();
     JPanel panelRegister = new JPanel();
     JPanel panelAbout = new JPanel();
-    //JScrollBar scrollBar = new JScrollBar();
 
     Main() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        //scrollBar.setBounds(1250,0, 15, 720);
-        //frame.add(scrollBar);
 
         // ADD FONT : Cramer Regular
         Font crafterFont = null;
@@ -54,18 +50,18 @@ public class Main {
         } catch (IOException | FontFormatException ignored) {}
 
         // Panel Set Bound
-        panel.setBounds(0, 0, 1280, 200);
-        panel.setBorder(new EmptyBorder(160, 10, 0, 10));
-        panel2.setBounds(0, 200, 1280, 200);
+        panelTitle.setBounds(0, 0, 1280, 200);
+        panelTitle.setBorder(new EmptyBorder(160, 10, 0, 10));
+        panelTitle2.setBounds(0, 200, 1280, 200);
         panelProduct.setBounds(0, 400, 256, 320);
         panelStore.setBounds(256, 400, 256, 320);
         panelLogin.setBounds(512, 400, 256, 320);
         panelRegister.setBounds(768, 400, 256, 320);
         panelAbout.setBounds(1024, 400, 256, 320);
 
-        // Panel Set Baackground : BLACK
-        panel.setBackground(Color.BLACK);
-        panel2.setBackground(Color.BLACK);
+        // Panel Set Background : BLACK
+        panelTitle.setBackground(Color.BLACK);
+        panelTitle2.setBackground(Color.BLACK);
         panelRegister.setBackground(Color.BLACK);
         panelLogin.setBackground(Color.BLACK);
         panelProduct.setBackground(Color.BLACK);
@@ -76,13 +72,13 @@ public class Main {
         JLabel title = new JLabel("WELCOME TO");
         title.setFont(crafterFont);
         title.setForeground(Color.ORANGE);
-        panel.add(title);
+        panelTitle.add(title);
 
         // LABEL: Final Static Fashion
         JLabel title2 = new JLabel("Final Static Fashion");
         title2.setFont(mindfullyFont);
         title2.setForeground(Color.ORANGE);
-        panel2.add(title2);
+        panelTitle2.add(title2);
 
         // LABEL: Products
         ImageIcon iconProduct = new ImageIcon("media/productIcon.png");
@@ -180,8 +176,8 @@ public class Main {
         panelAbout.add(btnAbout);
 
         // Add to FRAME
-        frame.add(panel);
-        frame.add(panel2);
+        frame.add(panelTitle);
+        frame.add(panelTitle2);
         frame.add(panelProduct);
         frame.add(panelStore);
         frame.add(panelLogin);
