@@ -26,6 +26,8 @@ public class Main implements ActionListener {
     JPanel panelLogin = new JPanel();
     JPanel panelRegister = new JPanel();
     JPanel panelAbout = new JPanel();
+    public static Font crafterFont = null;
+    public static Font mindfullyFont = null;
 
     Main() {
         // Set Title Icon
@@ -35,7 +37,6 @@ public class Main implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ADD FONT : Cramer Regular
-        Font crafterFont = null;
         try {
             //create the font to use. Specify the size!
             crafterFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Crafter Regular.otf")).deriveFont(15f);
@@ -45,7 +46,6 @@ public class Main implements ActionListener {
         } catch (IOException | FontFormatException ignored) {}
 
         // ADD FONT : Mindfully Alternate Italic
-        Font mindfullyFont = null;
         try {
             //create the font to use. Specify the size!
             mindfullyFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Mindfully Alternate Italic.ttf")).deriveFont(100f);
@@ -201,6 +201,7 @@ public class Main implements ActionListener {
         frame.add(panelMenu);
 
         frame.setSize(1280, 720);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
 
