@@ -67,10 +67,6 @@ public class LoginScreenMenu {
 
         //Password
 
-
-
-
-
         frame.add(topPanel);
         frame.add(leftPanel);
         frame.add(rightPanel);
