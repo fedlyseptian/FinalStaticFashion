@@ -5,13 +5,19 @@
  */
 package view;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Asus
  */
 public class RegisterScreen {
     
+    JFrame frame = new JFrame("");
+    
     public RegisterScreen(){
         System.out.println("Register Screen Final Static Fashion");
+        
+        
     }
 }
