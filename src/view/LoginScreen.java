@@ -13,5 +13,6 @@ public class LoginScreen {
     
     public LoginScreen(){
         System.out.println("Login Final Static Fashion");
+        System.out.println("Test Edit di Github");
     }
 }
