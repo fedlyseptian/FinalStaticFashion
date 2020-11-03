@@ -16,8 +16,7 @@ import java.io.IOException;
 /**
  * @author Asus
  */
-public class Main implements ActionListener {
-
+public class MainMenu implements ActionListener {
     JFrame frame = new JFrame(" Final Static Fashion ");
     JPanel panelTitle = new JPanel();
     JPanel panelTitle2 = new JPanel();
@@ -29,7 +28,7 @@ public class Main implements ActionListener {
     public static Font crafterFont = null;
     public static Font mindfullyFont = null;
 
-    Main() {
+    public MainMenu() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -227,11 +226,5 @@ public class Main implements ActionListener {
             default:
                 throw new IllegalStateException("Unexpected value: " + command);
         }
-    }
-
-    public static void main(String[] args) {
-
-        new Main();
-
     }
 }
