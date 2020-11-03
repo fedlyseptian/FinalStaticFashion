@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * @author Asus
  */
-public class MainMenu implements ActionListener {
+public class MainMenus implements ActionListener {
     JFrame frame = new JFrame(" Final Static Fashion ");
     JPanel panelTitle = new JPanel();
     JPanel panelTitle2 = new JPanel();
@@ -28,7 +28,7 @@ public class MainMenu implements ActionListener {
     public static Font crafterFont = null;
     public static Font mindfullyFont = null;
 
-    public MainMenu() {
+    public MainMenus() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -215,10 +215,10 @@ public class MainMenu implements ActionListener {
                 new StoreMenu();
                 break;
             case "Login":
-                new LoginMenu();
+                new LoginScreenMenu();
                 break;
             case "Register":
-                new RegisterMenu();
+                //new RegisterScreenMenu();
                 break;
             case "About":
                 new AboutUsMenu();

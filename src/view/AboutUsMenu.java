@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-import static view.MainMenu.mindfullyFont;
+import static view.MainMenus.mindfullyFont;
 
 public class AboutUsMenu {
 

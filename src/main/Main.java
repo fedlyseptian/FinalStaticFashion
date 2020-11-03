@@ -5,7 +5,7 @@
  */
 package main;
 
-import view.MainMenu;
+import view.MainMenus;
 
 /**
  *
@@ -13,6 +13,6 @@ import view.MainMenu;
  */
 public class Main {
     public static void main(String[] args) {
-        new MainMenu();
+        new MainMenus();
     }
 }
