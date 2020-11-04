@@ -18,7 +18,7 @@ public class Member extends Person {
     double point;
     ArrayList<Transactions> listTransaction;
 
-    public Member(String username, String password, char gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction) {
+    public Member(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction) {
         super(username, password, gender, email, day, month, year);
         this.name = name;
         this.address = address;
