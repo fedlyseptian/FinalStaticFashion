@@ -93,5 +93,7 @@ public class Product {
     public String getProductSize() {
         return productSize;
     }
-    
+
+    public Product() {
+    }
 }
