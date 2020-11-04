@@ -11,7 +11,7 @@ package model;
  */
 public class Admin extends Person {
 
-    public Admin(String username, String password, char gender, String email, int day, int month, int year) {
+    public Admin(String username, String password, String gender, String email, int day, int month, int year) {
         super(username, password, gender, email, day, month, year);
     }
 
