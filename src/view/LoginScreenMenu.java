@@ -47,6 +47,7 @@ public class LoginScreenMenu implements ActionListener {
         panelForm.add(labelPassword);
         panelForm.add(isiPassword);
 
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
         loginButton.setActionCommand("Login");
         loginButton.addActionListener(this);
 
@@ -64,7 +65,7 @@ public class LoginScreenMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Login":
-                // Cek ke databawse
+                // Cek ke database
                 // New FRAME
                 frame.dispose();
                 break;
@@ -72,4 +73,5 @@ public class LoginScreenMenu implements ActionListener {
                 throw new IllegalStateException("Unexpected value: " + command);
         }
     }
+
 }
