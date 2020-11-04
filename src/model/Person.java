@@ -11,13 +11,13 @@ package model;
 public abstract class Person {
     private String username;
     private String password;
-    private char gender;
+    private String gender;
     private String email;
     private int day;
     private int month;
     private int year;
 
-    public Person(String username, String password, char gender, String email, int day, int month, int year) {
+    public Person(String username, String password, String gender, String email, int day, int month, int year) {
         this.username = username;
         this.password = password;
         this.gender = gender;
@@ -38,7 +38,7 @@ public abstract class Person {
         return password;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
@@ -66,7 +66,7 @@ public abstract class Person {
         this.password = password;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
