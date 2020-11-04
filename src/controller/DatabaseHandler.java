@@ -11,7 +11,7 @@ public class DatabaseHandler {
     //    private String url = "jdbc:mysql://localhost/";
     private String url = "jdbc:mysql://localhost/finalstaticfashion?serverTimezone=" + TimeZone.getDefault().getID();
     private String username = "root";
-    private String password = "Timothy771180201";
+    private String password = "";
 
     private Connection logOn() {
         try {
