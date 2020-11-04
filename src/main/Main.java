@@ -5,6 +5,9 @@
  */
 package main;
 
+import controller.ControllerDatabase;
+import model.Member;
+import model.Transactions;
 import view.MainMenus;
 
 /**
@@ -12,6 +15,7 @@ import view.MainMenus;
  * @author TimothyRay
  */
 public class Main {
+
     public static void main(String[] args) {
         new MainMenus();
     }
