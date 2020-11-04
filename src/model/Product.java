@@ -14,12 +14,12 @@ public class Product {
     private String productName;
     private String productBrand;
     private String productCategory;
-    private String productStock;
+    private int productStock;
     private String sellerName;
     private double productPrice;
     private String productSize;
 
-    public Product(String productID, String productName, String productBrand, String productCategory, String productStock, String sellerName, double productPrice, String productSize) {
+    public Product(String productID, String productName, String productBrand, String productCategory, int productStock, String sellerName, double productPrice, String productSize) {
         this.productID = productID;
         this.productName = productName;
         this.productBrand = productBrand;
@@ -50,7 +50,7 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public void setProductStock(String productStock) {
+    public void setProductStock(int productStock) {
         this.productStock = productStock;
     }
 
@@ -78,7 +78,7 @@ public class Product {
         return productCategory;
     }
 
-    public String getProductStock() {
+    public int getProductStock() {
         return productStock;
     }
 
