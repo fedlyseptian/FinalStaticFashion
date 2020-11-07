@@ -8,14 +8,14 @@ package controller;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import main.Main;
 import model.Member;
+import model.Product;
 
 /**
  *
@@ -44,6 +44,38 @@ public class ControllerDatabase {
             e.printStackTrace();
             return (false);
         }
+    }
+
+    public static ArrayList<Product> getAllProducts() {
+        ArrayList<Product> listProducts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM products";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setProductStock(rs.getInt("productStock"));
+                product.setProductPrice(rs.getDouble("productPrice"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setSellerName(rs.getString("storeName"));
+                listProducts.add(product);
+//                user.setId(rs.getInt("ID"));
+//                user.setName(rs.getString("Name"));
+//                user.setAddress(rs.getString("Address"));
+//                user.setPhone(rs.getString("Phone"));
+//                user.setAge(rs.getInt("Age"));
+//                users.add(user);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProducts);
     }
 
     public static String md5Java(String message)
