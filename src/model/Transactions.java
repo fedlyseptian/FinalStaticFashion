@@ -31,6 +31,11 @@ public class Transactions {
         this.username = username;
     }
 
+    private double generateTotalPayment() {
+        double grandTotal = 0;
+        return grandTotal;
+    }
+
     public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
     }
