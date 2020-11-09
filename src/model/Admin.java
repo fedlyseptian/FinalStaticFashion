@@ -17,4 +17,42 @@ public class Admin extends Person {
 
     public Admin() {
     }
+
+    private void addAdmin() {
+
+    }
+
+    private boolean editBonusDiscount() {
+        boolean result = false;
+        return result;
+    }
+
+    private boolean editPoint() {
+        boolean result = false;
+        return result;
+    }
+
+    private boolean editTax() {
+        boolean result = false;
+        return result;
+    }
+
+    private boolean editMemberSeller() {
+        boolean result = false;
+        return result;
+    }
+
+    private boolean editProduct() {
+        boolean result = false;
+        return result;
+    }
+
+    private void showMemberSeller() {
+
+    }
+
+    private void showBonusDiscount() {
+
+    }
+
 }

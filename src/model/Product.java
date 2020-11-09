@@ -19,6 +19,9 @@ public class Product {
     private double productPrice;
     private String productSize;
 
+    public Product() {
+    }
+
     public Product(String productID, String productName, String productBrand, String productCategory, int productStock, String sellerName, double productPrice, String productSize) {
         this.productID = productID;
         this.productName = productName;
@@ -92,8 +95,5 @@ public class Product {
 
     public String getProductSize() {
         return productSize;
-    }
-
-    public Product() {
     }
 }
