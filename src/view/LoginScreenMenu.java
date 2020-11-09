@@ -1,9 +1,6 @@
 package view;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -13,12 +10,15 @@ public class LoginScreenMenu implements ActionListener {
 
     //Deklarasi
     JFrame frame = new JFrame("Login");
-    JPanel panel = new JPanel(new GridLayout(3,1, 5, 5));
+    JPanel panelTopLogin = new JPanel();
+    JPanel panelLeftLogin = new JPanel();
+    JPanel panelRightLogin = new JPanel();
+    JPanel panelBottomLogin = new JPanel();
+    JPanel panelCenterLogin = new JPanel(new GridLayout(5 ,1));
 
     //Title
     JLabel labelTitle = new JLabel("Login Form");
 
-    JPanel panelForm = new JPanel(new GridLayout(2, 1, 10, 5));
     //Username
     JLabel labelUsername = new JLabel("Username");
     JTextField isiUsername = new JTextField("");
@@ -29,33 +29,52 @@ public class LoginScreenMenu implements ActionListener {
     JButton loginButton = new JButton("Login");
 
     public LoginScreenMenu(){
-        panel.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        frame.setSize(500,400);
+        frame.setLayout(new BorderLayout());
+
+        panelTopLogin.setPreferredSize(new Dimension(500,80));
+        panelLeftLogin.setPreferredSize(new Dimension(80, 240));
+        panelCenterLogin.setPreferredSize(new Dimension(340, 240));
+        panelRightLogin.setPreferredSize(new Dimension(80, 240));
+        panelBottomLogin.setPreferredSize(new Dimension(500, 80));
+
+        panelTopLogin.setBackground(Color.ORANGE);
+        panelLeftLogin.setBackground(Color.BLACK);
+        panelCenterLogin.setBackground(Color.BLACK);
+        panelRightLogin.setBackground(Color.BLACK);
+        panelBottomLogin.setBackground(Color.BLACK);
+
         //Title
         labelTitle.setFont(new Font("Arial", Font.BOLD, 30));
         labelTitle.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(labelTitle);
+        labelTitle.setForeground(new Color(0, 0, 0));
+        panelTopLogin.add(labelTitle);
 
         //Username
         labelUsername.setFont(new Font("Arial", Font.BOLD, 20));
-        labelUsername.setHorizontalAlignment(JLabel.RIGHT);
-        panelForm.add(labelUsername);
-        panelForm.add(isiUsername);
+        labelUsername.setHorizontalAlignment(JLabel.LEFT);
+        labelUsername.setForeground(new Color(255, 255, 255));
+        panelCenterLogin.add(labelUsername);
+        panelCenterLogin.add(isiUsername);
 
         //Password
         labelPassword.setFont(new Font("Arial", Font.BOLD, 20));
-        labelPassword.setHorizontalAlignment(JLabel.RIGHT);
-        panelForm.add(labelPassword);
-        panelForm.add(isiPassword);
+        labelPassword.setHorizontalAlignment(JLabel.LEFT);
+        labelPassword.setForeground(new Color(255, 255, 255));
+        panelCenterLogin.add(labelPassword);
+        panelCenterLogin.add(isiPassword);
 
         loginButton.setFont(new Font("Arial", Font.BOLD, 20));
         loginButton.setActionCommand("Login");
         loginButton.addActionListener(this);
+        panelBottomLogin.add(loginButton);
 
-        panel.add(panelForm);
-        panel.add(loginButton);
+        frame.add(panelTopLogin,BorderLayout.NORTH);
+        frame.add(panelLeftLogin,BorderLayout.WEST);
+        frame.add(panelCenterLogin,BorderLayout.CENTER);
+        frame.add(panelRightLogin,BorderLayout.EAST);
+        frame.add(panelBottomLogin,BorderLayout.SOUTH);
 
-        frame.add(panel);
-        frame.setSize(500,400);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
@@ -74,4 +93,7 @@ public class LoginScreenMenu implements ActionListener {
         }
     }
 
+    public static void main(String[] args) {
+        new LoginScreenMenu();
+    }
 }

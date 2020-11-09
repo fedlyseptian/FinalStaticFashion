@@ -9,169 +9,145 @@ public class RegisterScreenMenu implements ActionListener {
 
     //Deklarasi
     JFrame frame = new JFrame("Register");
-    JTabbedPane tabPanel = new JTabbedPane();
-//    JPanel panelTitleMember = new JPanel();
-//    JPanel panelTitleSeller = new JPanel();
-    JPanel panelMember = new JPanel(new GridLayout(3,1, 2, 2));
-    JPanel panelSeller = new JPanel(new GridLayout(3,1, 2, 2));
-
-    JButton memberButton = new JButton("Become a Member");
-    JButton sellerButton = new JButton("Become a Seller");
+    JPanel panelTopMember = new JPanel();
+    JPanel panelLeftMember = new JPanel();
+    JPanel panelRightMember = new JPanel();
+    JPanel panelBottomMember = new JPanel();
+    JPanel panelCenterMember = new JPanel(new GridLayout(16,1));
 
     //Title
-    JLabel labelTitleMember = new JLabel("Register Form Member");
-    JLabel labelTitleSeller = new JLabel("Register Form Seller");
+    JLabel labelTitleMember = new JLabel("Register Member");
 
-    JPanel panelFormMember = new JPanel(new GridLayout(10, 1, 5, 2));
-    JPanel panelFormSeller = new JPanel(new GridLayout(10, 1, 5, 2));
     //Username
     JLabel labelUsernameMember = new JLabel("Username");
     JTextField isiUsernameMember = new JTextField("");
-    JLabel labelUsernameSeller = new JLabel("Username");
-    JTextField isiUsernameSeller = new JTextField("");
     //Password
     JLabel labelPasswordMember = new JLabel("Password");
     JPasswordField isiPasswordMember = new JPasswordField();
-    JLabel labelPasswordSeller = new JLabel("Password");
-    JPasswordField isiPasswordSeller = new JPasswordField();
     //Name
     JLabel labelNameMember = new JLabel("Name");
     JTextField isiNameMember = new JTextField("");
-    JLabel labelNameSeller = new JLabel("Name");
-    JTextField isiNameSeller = new JTextField("");
     //Address
     JLabel labelAddressMember = new JLabel("Address");
     JTextField isiAddressMember = new JTextField("");
-    JLabel labelAddressSeller = new JLabel("Address");
-    JTextField isiAddressSeller = new JTextField("");
     //Gender
-    JLabel labelGenderMember = new JLabel("Gender");
-    JTextField isiGenderMember = new JTextField("");
-    JLabel labelGenderSeller = new JLabel("Gender");
-    JTextField isiGenderSeller = new JTextField("");
+    JLabel labelJenisKelamin = new JLabel("Jenis Kelamin");
+    JRadioButton radioPria, radioWanita;
+    ButtonGroup groupJK;
     //Email
     JLabel labelEmailMember = new JLabel("Email");
     JTextField isiEmailMember = new JTextField("");
-    JLabel labelEmailSeller = new JLabel("Email");
-    JTextField isiEmailSeller = new JTextField("");
     //Tanggal Lahir
     JLabel labelTanggalLahirMember = new JLabel("Tanggal Lahir");
     JTextField isiTanggalLahirMember = new JTextField("");
-    JLabel labelTanggalLahirSeller = new JLabel("Tanggal Lahir");
-    JTextField isiTanggalLahirSeller = new JTextField("");
-    //storeName just for Seller
-    JLabel labelStoreName = new JLabel("Store Name");
-    JTextField isiStoreName = new JTextField("");
+
+    JButton memberButton = new JButton("Become a Member");
 
     public RegisterScreenMenu(){
+        frame.setSize(700,600);
+        frame.setLayout(new BorderLayout());
 
-        tabPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        panelTopMember.setPreferredSize(new Dimension(700,80));
+        panelLeftMember.setPreferredSize(new Dimension(100, 320));
+        panelCenterMember.setPreferredSize(new Dimension(460, 320));
+        panelRightMember.setPreferredSize(new Dimension(100, 320));
+        panelBottomMember.setPreferredSize(new Dimension(700, 80));
+
+        panelTopMember.setBackground(Color.ORANGE);
+        panelLeftMember.setBackground(Color.BLACK);
+        panelCenterMember.setBackground(Color.BLACK);
+        panelRightMember.setBackground(Color.BLACK);
+        panelBottomMember.setBackground(Color.BLACK);
 
         //Title
         labelTitleMember.setFont(new Font("Arial", Font.BOLD, 30));
+        labelTitleMember.setForeground(new Color(0,0,0));
         labelTitleMember.setHorizontalAlignment(JLabel.CENTER);
-        panelMember.add(labelTitleMember);
-        labelTitleSeller.setFont(new Font("Arial", Font.BOLD, 30));
-        labelTitleSeller.setHorizontalAlignment(JLabel.CENTER);
-        panelSeller.add(labelTitleSeller);
+        panelTopMember.add(labelTitleMember);
 
         //Username
-        labelUsernameMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelUsernameMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelUsernameMember);
-        panelFormMember.add(isiUsernameMember);
-        labelUsernameSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelUsernameSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelUsernameSeller);
-        panelFormSeller.add(isiUsernameSeller);
+        labelUsernameMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelUsernameMember.setHorizontalAlignment(JLabel.LEFT);
+        labelUsernameMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelUsernameMember);
+        panelCenterMember.add(isiUsernameMember);
 
         //Password
-        labelPasswordMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelPasswordMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelPasswordMember);
-        panelFormMember.add(isiPasswordMember);
-        labelPasswordSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelPasswordSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelPasswordSeller);
-        panelFormSeller.add(isiPasswordSeller);
+        labelPasswordMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelPasswordMember.setHorizontalAlignment(JLabel.LEFT);
+        labelPasswordMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelPasswordMember);
+        panelCenterMember.add(isiPasswordMember);
 
         //Name
-        labelNameMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelNameMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelNameMember);
-        panelFormMember.add(isiNameMember);
-        labelNameSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelNameSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelNameSeller);
-        panelFormSeller.add(isiNameSeller);
-
-        //storeName
-        labelStoreName.setFont(new Font("Arial", Font.BOLD, 20));
-        labelStoreName.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelStoreName);
-        panelFormSeller.add(isiStoreName);
+        labelNameMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelNameMember.setHorizontalAlignment(JLabel.LEFT);
+        labelNameMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelNameMember);
+        panelCenterMember.add(isiNameMember);
 
         //Address
-        labelAddressMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelAddressMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelAddressMember);
-        panelFormMember.add(isiAddressMember);
-        labelAddressSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelAddressSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelAddressSeller);
-        panelFormSeller.add(isiAddressSeller);
+        labelAddressMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelAddressMember.setHorizontalAlignment(JLabel.LEFT);
+        labelAddressMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelAddressMember);
+        panelCenterMember.add(isiAddressMember);
 
         //Gender
-        labelGenderMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelGenderMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelGenderMember);
-        panelFormMember.add(isiGenderMember);
-        labelGenderSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelGenderSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelGenderSeller);
-        panelFormSeller.add(isiGenderSeller);
+        labelJenisKelamin.setFont(new Font("Arial", Font.BOLD, 15));
+        labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
+        labelJenisKelamin.setForeground(new Color(255,255,255));
+        radioPria = new JRadioButton("Pria", true);
+        radioWanita = new JRadioButton("Wanita");
+        radioPria.setForeground(new Color(255, 255, 255));
+        radioWanita.setForeground(new Color(255, 255, 255));
+        radioPria.setBackground(Color.BLACK);
+        radioWanita.setBackground(Color.BLACK);
+
+        groupJK = new ButtonGroup();
+        groupJK.add(radioPria);
+        groupJK.add(radioWanita);
+
+        panelCenterMember.add(labelJenisKelamin);
+        panelCenterMember.add(radioPria);
+        panelCenterMember.add(radioWanita);
 
         //Email
-        labelEmailMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelEmailMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelEmailMember);
-        panelFormMember.add(isiEmailMember);
-        labelEmailSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelEmailSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelEmailSeller);
-        panelFormSeller.add(isiEmailSeller);
+        labelEmailMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelEmailMember.setHorizontalAlignment(JLabel.LEFT);
+        labelEmailMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelEmailMember);
+        panelCenterMember.add(isiEmailMember);
 
         //Tanggal Lahir
-        labelTanggalLahirMember.setFont(new Font("Arial", Font.BOLD, 20));
-        labelTanggalLahirMember.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormMember.add(labelTanggalLahirMember);
-        panelFormMember.add(isiTanggalLahirMember);
-        labelTanggalLahirSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        labelTanggalLahirSeller.setHorizontalAlignment(JLabel.RIGHT);
-        panelFormSeller.add(labelTanggalLahirSeller);
-        panelFormSeller.add(isiTanggalLahirSeller);
+        labelTanggalLahirMember.setFont(new Font("Arial", Font.BOLD, 15));
+        labelTanggalLahirMember.setHorizontalAlignment(JLabel.LEFT);
+        labelTanggalLahirMember.setForeground(new Color(255,255,255));
+        panelCenterMember.add(labelTanggalLahirMember);
+        panelCenterMember.add(isiTanggalLahirMember);
 
+        memberButton.setFont(new Font("Arial", Font.BOLD, 15));
 
-        panelMember.add(panelFormMember);
-        panelSeller.add(panelFormSeller);
+        panelBottomMember.add(memberButton);
 
-        memberButton.setFont(new Font("Arial", Font.BOLD, 20));
-        sellerButton.setFont(new Font("Arial", Font.BOLD, 20));
+        frame.add(panelTopMember,BorderLayout.NORTH);
+        frame.add(panelLeftMember,BorderLayout.WEST);
+        frame.add(panelCenterMember,BorderLayout.CENTER);
+        frame.add(panelRightMember,BorderLayout.EAST);
+        frame.add(panelBottomMember,BorderLayout.SOUTH);
 
-        panelMember.add(memberButton);
-        panelSeller.add(sellerButton);
-
-        tabPanel.add("Member", panelMember);
-        tabPanel.add("Seller", panelSeller);
-
-        frame.add(tabPanel);
-        frame.setSize(900,700);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 
+    }
+
+    public static void main(String[] args) {
+        new RegisterScreenMenu();
     }
 }
