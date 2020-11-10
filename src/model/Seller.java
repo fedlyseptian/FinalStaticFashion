@@ -14,7 +14,7 @@ public class Seller extends Member{
         this.storeName = storeName;
         this.listProducts = listProducts;
     }
-
+    // ini dipake kalo member udh ada
     public Seller(Member member,String storeName,ArrayList<Product> listProducts){
         super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(),member.getListTransaction());
         this.storeName = storeName;
