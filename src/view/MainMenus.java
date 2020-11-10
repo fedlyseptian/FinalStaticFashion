@@ -210,18 +210,23 @@ public class MainMenus implements ActionListener {
         switch (command) {
             case "Product":
                 new ProductMenu();
+                frame.dispose();
                 break;
             case "Store":
                 new StoreMenu();
+                frame.dispose();
                 break;
             case "Login":
                 new LoginScreenMenu();
+                frame.dispose();
                 break;
             case "Register":
-                //new RegisterScreenMenu();
+                new RegisterScreenMenu();
+                frame.dispose();
                 break;
             case "About":
                 new AboutUsMenu();
+                frame.dispose();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + command);

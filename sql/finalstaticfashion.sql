@@ -65,6 +65,7 @@ CREATE TABLE `listproduct` (
 CREATE TABLE `member` (
   `username` varchar(30) NOT NULL,
   `password` varchar(32) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `gender` char(1) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
