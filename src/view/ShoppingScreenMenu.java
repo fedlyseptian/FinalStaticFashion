@@ -112,8 +112,7 @@ public class ShoppingScreenMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Cart":
-                // Add data to database
-                // create new class cart
+                new CartScreenMenu();
                 frame.dispose();
                 break;
             case "Logout":
