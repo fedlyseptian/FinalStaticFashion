@@ -15,6 +15,12 @@ public class Seller extends Member{
         this.listProducts = listProducts;
     }
 
+    public Seller(Member member,String storeName,ArrayList<Product> listProducts){
+        super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(),member.getListTransaction());
+        this.storeName = storeName;
+        this.listProducts = listProducts;
+    }
+
     private boolean addProduct(Product product) {
         boolean result = false;
         return result;
