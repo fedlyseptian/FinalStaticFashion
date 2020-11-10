@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class ShoppingScreenMenu implements ActionListener {
+public class CartScreenMenu implements ActionListener {
     //Deklarasi
     JFrame frame = new JFrame("Final Static Fashion");
     JPanel panelTop = new JPanel();
@@ -19,14 +19,14 @@ public class ShoppingScreenMenu implements ActionListener {
     JPanel panelTitle = new JPanel(new GridLayout(2,1));
 
     //Title
-    JLabel labelTitleWelcome = new JLabel("Welcome to Shopping Menu");
+    JLabel labelTitleWelcome = new JLabel("Welcome to Cart Menu");
     JLabel labelTitle = new JLabel("Final Static Fashion");
 
     //Button
     JButton logoutButton = new JButton("Logout");
-    JButton cartButton = new JButton("Cart");
+    JButton shoppingMenuButton = new JButton("Back To Shopping Menu");
 
-    public ShoppingScreenMenu(){
+    public CartScreenMenu(){
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -71,12 +71,12 @@ public class ShoppingScreenMenu implements ActionListener {
         logoutButton.addActionListener(this);
 
         //Cart Button
-        cartButton.setFont(new Font("Arial", Font.BOLD, 15));
-        cartButton.setActionCommand("Cart");
-        cartButton.addActionListener(this);
+        shoppingMenuButton.setFont(new Font("Arial", Font.BOLD, 15));
+        shoppingMenuButton.setActionCommand("Shopping Menu");
+        shoppingMenuButton.addActionListener(this);
 
-        panelTop.setBorder(new EmptyBorder(0, 1000, 0, 0));
-        panelTop.add(cartButton);
+        panelTop.setBorder(new EmptyBorder(0, 900, 0, 0));
+        panelTop.add(shoppingMenuButton);
         panelTop.add(logoutButton);
 
         //Title Welcome
@@ -104,15 +104,15 @@ public class ShoppingScreenMenu implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new ShoppingScreenMenu();
+        new CartScreenMenu();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "Cart":
-                new CartScreenMenu();
+            case "Shopping Menu":
+                new ShoppingScreenMenu();
                 frame.dispose();
                 break;
             case "Logout":
