@@ -45,6 +45,26 @@ public class ControllerDatabase {
             return (false);
         }
     }
+    public static boolean insertProduct(Product product) {
+        conn.connect();
+        String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+             stmt.setString(1,product.getProductID());
+             stmt.setString(2,product.getProductName());
+             stmt.setString(3,product.getProductBrand());
+             stmt.setString(4,product.getProductCategory());
+             stmt.setInt(5,product.getProductStock());
+             stmt.setDouble(6,product.getProductPrice());
+             stmt.setString(7,product.getProductSize());
+             stmt.setString(8,product.getSellerName());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
 
     public static ArrayList<Product> getAllProducts() {
         ArrayList<Product> listProducts = new ArrayList<>();
