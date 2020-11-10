@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import main.Main;
 import model.Member;
 import model.Product;
+import model.Seller;
 
 /**
  *
@@ -57,7 +58,21 @@ public class ControllerDatabase {
              stmt.setInt(5,product.getProductStock());
              stmt.setDouble(6,product.getProductPrice());
              stmt.setString(7,product.getProductSize());
-             stmt.setString(8,product.getSellerName());
+             stmt.setString(8,product.getStoreName());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean insertSeller(Seller seller) {
+        conn.connect();
+        String query = "INSERT INTO seller VALUES(?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+             stmt.setString(1,seller.getUsername());
+             stmt.setString(2, seller.getStoreName());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -82,15 +97,7 @@ public class ControllerDatabase {
                 product.setProductStock(rs.getInt("productStock"));
                 product.setProductPrice(rs.getDouble("productPrice"));
                 product.setProductSize(rs.getString("productSize"));
-                product.setSellerName(rs.getString("storeName"));
-                listProducts.add(product);
-//                user.setId(rs.getInt("ID"));
-//                user.setName(rs.getString("Name"));
-//                user.setAddress(rs.getString("Address"));
-//                user.setPhone(rs.getString("Phone"));
-//                user.setAge(rs.getInt("Age"));
-//                users.add(user);
-
+                product.setStoreName(rs.getString("storeName"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
