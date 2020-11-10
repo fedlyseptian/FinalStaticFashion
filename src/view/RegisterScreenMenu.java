@@ -129,15 +129,18 @@ public class RegisterScreenMenu implements ActionListener {
         panelCenterMember.add(labelTanggalLahirMember);
         panelCenterMember.add(isiTanggalLahirMember);
 
+        //Back Button
         backButton.setFont(new Font("Arial", Font.ITALIC, 15));
         backButton.setForeground(Color.RED);
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
+        //Member Button
         memberButton.setFont(new Font("Arial", Font.BOLD, 15));
         memberButton.setActionCommand("BeMember");
         memberButton.addActionListener(this);
 
+        //Seller Button
         sellerButton.setFont(new Font("Arial", Font.BOLD, 15));
         sellerButton.setActionCommand("BeSeller");
         sellerButton.addActionListener(this);
@@ -163,7 +166,7 @@ public class RegisterScreenMenu implements ActionListener {
         switch (command) {
             case "BeMember":
                 // Add data to database
-                // New FRAME
+                new ShoppingScreenMenu();
                 frame.dispose();
                 break;
             case "BeSeller":
