@@ -41,13 +41,15 @@ public class RegisterScreenMenu implements ActionListener {
     JLabel labelTanggalLahirMember = new JLabel("Tanggal Lahir");
     JTextField isiTanggalLahirMember = new JTextField("");
 
+    JButton backButton = new JButton("<<< Back to Main Menu");
     JButton memberButton = new JButton("Become a Member");
+    JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenMenu(){
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
-
+        // Set Panel Size
         panelTopMember.setPreferredSize(new Dimension(700,80));
         panelLeftMember.setPreferredSize(new Dimension(100, 320));
         panelCenterMember.setPreferredSize(new Dimension(460, 320));
@@ -127,9 +129,22 @@ public class RegisterScreenMenu implements ActionListener {
         panelCenterMember.add(labelTanggalLahirMember);
         panelCenterMember.add(isiTanggalLahirMember);
 
-        memberButton.setFont(new Font("Arial", Font.BOLD, 15));
+        backButton.setFont(new Font("Arial", Font.ITALIC, 15));
+        backButton.setForeground(Color.RED);
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
 
+        memberButton.setFont(new Font("Arial", Font.BOLD, 15));
+        memberButton.setActionCommand("BeMember");
+        memberButton.addActionListener(this);
+
+        sellerButton.setFont(new Font("Arial", Font.BOLD, 15));
+        sellerButton.setActionCommand("BeSeller");
+        sellerButton.addActionListener(this);
+
+        panelBottomMember.add(backButton);
         panelBottomMember.add(memberButton);
+        panelBottomMember.add(sellerButton);
 
         frame.add(panelTopMember,BorderLayout.NORTH);
         frame.add(panelLeftMember,BorderLayout.WEST);
@@ -143,11 +158,26 @@ public class RegisterScreenMenu implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "BeMember":
+                // Add data to database
+                // New FRAME
+                frame.dispose();
+                break;
+            case "BeSeller":
+                // Pass data to next frame
+                new RegisterScreenSeller();
+                frame.dispose();
+                break;
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
     }
 
-    public static void main(String[] args) {
-        new RegisterScreenMenu();
-    }
 }

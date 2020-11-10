@@ -26,6 +26,7 @@ public class LoginScreenMenu implements ActionListener {
     JLabel labelPassword = new JLabel("Password");
     JPasswordField isiPassword = new JPasswordField();
 
+    JButton backButton = new JButton("<<< Back to Main Menu");
     JButton loginButton = new JButton("Login");
 
     public LoginScreenMenu(){
@@ -64,9 +65,16 @@ public class LoginScreenMenu implements ActionListener {
         panelCenterLogin.add(labelPassword);
         panelCenterLogin.add(isiPassword);
 
-        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
+        backButton.setFont(new Font("Arial", Font.ITALIC, 15));
+        backButton.setForeground(Color.RED);
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
+
+        loginButton.setFont(new Font("Arial", Font.BOLD, 15));
         loginButton.setActionCommand("Login");
         loginButton.addActionListener(this);
+
+        panelBottomLogin.add(backButton);
         panelBottomLogin.add(loginButton);
 
         frame.add(panelTopLogin,BorderLayout.NORTH);
@@ -88,12 +96,13 @@ public class LoginScreenMenu implements ActionListener {
                 // New FRAME
                 frame.dispose();
                 break;
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + command);
         }
     }
 
-    public static void main(String[] args) {
-        new LoginScreenMenu();
-    }
 }

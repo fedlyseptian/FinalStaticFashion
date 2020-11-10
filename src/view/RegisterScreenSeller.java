@@ -44,8 +44,10 @@ public class RegisterScreenSeller implements ActionListener {
     JLabel labelStoreName = new JLabel("Store Name");
     JTextField isiStoreName = new JTextField("");
 
-    JButton SellerButton = new JButton("Become a Seller");
-    
+    JButton backButton = new JButton("<<< Back to Main Menu");
+    JButton memberButton = new JButton("Back to Member");
+    JButton sellerButton = new JButton("Become a Seller");
+
     public RegisterScreenSeller(){
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
@@ -137,9 +139,22 @@ public class RegisterScreenSeller implements ActionListener {
         panelCenterSeller.add(labelStoreName);
         panelCenterSeller.add(isiStoreName);
 
-        SellerButton.setFont(new Font("Arial", Font.BOLD, 15));
+        backButton.setFont(new Font("Arial", Font.ITALIC, 15));
+        backButton.setForeground(Color.RED);
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
 
-        panelBottomSeller.add(SellerButton);
+        memberButton.setFont(new Font("Arial", Font.BOLD, 15));
+        memberButton.setActionCommand("BeMember");
+        memberButton.addActionListener(this);
+
+        sellerButton.setFont(new Font("Arial", Font.BOLD, 15));
+        sellerButton.setActionCommand("BeSeller");
+        sellerButton.addActionListener(this);
+
+        panelBottomSeller.add(backButton);
+        panelBottomSeller.add(memberButton);
+        panelBottomSeller.add(sellerButton);
 
         frame.add(panelTopSeller,BorderLayout.NORTH);
         frame.add(panelLeftSeller,BorderLayout.WEST);
@@ -151,12 +166,26 @@ public class RegisterScreenSeller implements ActionListener {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);        
     }
 
-    public static void main(String[] args) {
-        new RegisterScreenSeller();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        String command = e.getActionCommand();
+        switch (command) {
+            case "BeMember":
+                // Pass data to next frame
+                new RegisterScreenMenu();
+                frame.dispose();
+                break;
+            case "BeSeller":
+                // Add data to database
+                // New FRAME
+                frame.dispose();
+                break;
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
     }
 }
