@@ -12,11 +12,14 @@ import java.util.ArrayList;
  * @author Asus
  */
 public class Member extends Person {
-    
+
     String name;
     String address;
     double point;
     ArrayList<Transactions> listTransaction;
+
+    public Member() {
+    }
 
     public Member(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction) {
         super(username, password, gender, email, day, month, year);
@@ -57,8 +60,5 @@ public class Member extends Person {
     public void setListTransaction(ArrayList<Transactions> listTransaction) {
         this.listTransaction = listTransaction;
     }
-    
-    
-    
-    
+
 }
