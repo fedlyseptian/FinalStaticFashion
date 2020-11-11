@@ -6,9 +6,12 @@ import model.Member;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterScreenMenu implements ActionListener {
 
@@ -52,6 +55,9 @@ public class RegisterScreenMenu implements ActionListener {
     JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenMenu(){
+        ControllerDatabase controller = new ControllerDatabase();
+        ArrayList<String> listUsername = new ArrayList<>();
+        listUsername = controller.getAllUsernames();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -182,6 +188,37 @@ public class RegisterScreenMenu implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
+        ArrayList<String> finalListUsername = listUsername;
+        isiUsernameMember.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
+                        memberButton.setEnabled(false);
+                        break;
+                    }else{
+                        memberButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
+                        memberButton.setEnabled(false);
+                        break;
+                    }else{
+                        memberButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     @Override
@@ -253,5 +290,4 @@ public class RegisterScreenMenu implements ActionListener {
                 throw new IllegalStateException("Unexpected value: " + command);
         }
     }
-
 }

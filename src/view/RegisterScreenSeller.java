@@ -5,9 +5,12 @@ import model.Member;
 import model.Seller;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterScreenSeller implements ActionListener {
 
@@ -54,6 +57,9 @@ public class RegisterScreenSeller implements ActionListener {
     JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenSeller(){
+        ControllerDatabase controller = new ControllerDatabase();
+        ArrayList<String> listUsername = new ArrayList<>();
+        listUsername = controller.getAllUsernames();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -186,7 +192,38 @@ public class RegisterScreenSeller implements ActionListener {
         frame.add(panelBottomSeller,BorderLayout.SOUTH);
 
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);        
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        ArrayList<String> finalListUsername = listUsername;
+        isiUsernameSeller.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
+                        memberButton.setEnabled(false);
+                        break;
+                    }else{
+                        memberButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     @Override
