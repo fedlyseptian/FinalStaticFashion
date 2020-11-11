@@ -291,11 +291,17 @@ public class RegisterScreenSeller implements ActionListener {
                 break;
             case "BeSeller":
                 // Add data to database
-                controller.insertMember(member);
-                Seller seller = new Seller(member,isiStoreName.getText(),null);
-                controller.insertSeller(seller);
-                new ShoppingScreenMenu();
-                frame.dispose();
+                if(isiUsernameSeller.getText().equals("") || pass.equals("") || isiEmailSeller.getText().equals("") || isiNameSeller.getText().equals("") || isiAddressSeller.getText().equals("") || isiStoreName.getText().equals("")){
+                    JOptionPane.showMessageDialog(null,"Please fill in the blank");
+                    new RegisterScreenSeller();
+                    frame.dispose();
+                }else {
+                    controller.insertMember(member);
+                    Seller seller = new Seller(member, isiStoreName.getText(), null);
+                    controller.insertSeller(seller);
+                    new ShoppingScreenMenu();
+                    frame.dispose();
+                }
                 break;
             case "Back":
                 new MainMenus();

@@ -281,9 +281,15 @@ public class RegisterScreenMenu implements ActionListener {
         switch (command) {
             case "BeMember":
                 // Add data to database
-                controller.insertMember(member);
-                new ShoppingScreenMenu();
-                frame.dispose();
+                if(isiUsernameMember.getText().equals("") || pass.equals("") || isiEmailMember.getText().equals("") || isiNameMember.getText().equals("") || isiAddressMember.getText().equals("")){
+                    JOptionPane.showMessageDialog(null,"Please fill in the blank");
+                    new RegisterScreenMenu();
+                    frame.dispose();
+                }else{
+                    controller.insertMember(member);
+                    new ShoppingScreenMenu();
+                    frame.dispose();
+                }
                 break;
             case "BeSeller":
                 // Pass data to next frame
