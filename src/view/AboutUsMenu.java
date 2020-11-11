@@ -152,6 +152,8 @@ public class AboutUsMenu implements ActionListener {
                 new MainMenus();
                 frame.dispose();
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
         }
     }
 }
