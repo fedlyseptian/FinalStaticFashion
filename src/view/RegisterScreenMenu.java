@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,7 @@ public class RegisterScreenMenu implements ActionListener {
     JPanel panelRightMember = new JPanel();
     JPanel panelBottomMember = new JPanel();
     JPanel panelCenterMember = new JPanel(new GridLayout(16,1));
+    JPanel panelTanggalLahir = new JPanel(new GridLayout(1, 5));
 
     //Title
     JLabel labelTitleMember = new JLabel("Register Member");
@@ -39,7 +42,7 @@ public class RegisterScreenMenu implements ActionListener {
     JTextField isiEmailMember = new JTextField("");
     //Tanggal Lahir
     JLabel labelTanggalLahirMember = new JLabel("Tanggal Lahir");
-    JTextField isiTanggalLahirMember = new JTextField("");
+    JSpinner spinnerTanggal, spinnerBulan, spinnerTahun;
 
     JButton backButton = new JButton("<<< Back to Main Menu");
     JButton memberButton = new JButton("Become a Member");
@@ -55,12 +58,14 @@ public class RegisterScreenMenu implements ActionListener {
         panelCenterMember.setPreferredSize(new Dimension(460, 320));
         panelRightMember.setPreferredSize(new Dimension(100, 320));
         panelBottomMember.setPreferredSize(new Dimension(700, 80));
+        panelTanggalLahir.setPreferredSize(new Dimension(700, 80));
 
         panelTopMember.setBackground(Color.ORANGE);
         panelLeftMember.setBackground(Color.BLACK);
         panelCenterMember.setBackground(Color.BLACK);
         panelRightMember.setBackground(Color.BLACK);
         panelBottomMember.setBackground(Color.BLACK);
+        panelTanggalLahir.setBackground(Color.BLACK);
 
         //Title
         labelTitleMember.setFont(new Font("Arial", Font.BOLD, 30));
@@ -122,12 +127,26 @@ public class RegisterScreenMenu implements ActionListener {
         panelCenterMember.add(labelEmailMember);
         panelCenterMember.add(isiEmailMember);
 
-        //Tanggal Lahir
+        //Tanggal Lahir : Cara get data spinner nya pakai getValue(), contoh spinnerTanggal.getValue()
+        panelCenterMember.add(panelTanggalLahir);
+        //Label Tanggal Lahir
         labelTanggalLahirMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelTanggalLahirMember.setHorizontalAlignment(JLabel.LEFT);
         labelTanggalLahirMember.setForeground(new Color(255,255,255));
         panelCenterMember.add(labelTanggalLahirMember);
-        panelCenterMember.add(isiTanggalLahirMember);
+        //Spinner Tanggal
+        spinnerTanggal = new JSpinner(new SpinnerNumberModel(1,1,31,1));
+        //Spinner Bulan
+        String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        spinnerBulan = new JSpinner(new SpinnerListModel(months));
+        //Spinner Tahun
+        spinnerTahun = new JSpinner();
+        spinnerTahun.setValue(1999);
+
+        panelTanggalLahir.add(spinnerTanggal);
+        panelTanggalLahir.add(spinnerBulan);
+        panelTanggalLahir.add(spinnerTahun);
+        panelCenterMember.add(panelTanggalLahir);
 
         //Back Button
         backButton.setFont(new Font("Arial", Font.ITALIC, 15));
