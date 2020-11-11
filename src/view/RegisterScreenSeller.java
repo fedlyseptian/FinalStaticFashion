@@ -195,7 +195,6 @@ public class RegisterScreenSeller implements ActionListener {
             case "BeSeller":
                 // Add data to database
                 new ShoppingScreenMenu();
-                System.out.println(spinnerTanggal.getValue() + " " + spinnerBulan.getValue() + " " + spinnerTahun.getValue());
                 frame.dispose();
                 break;
             case "Back":
