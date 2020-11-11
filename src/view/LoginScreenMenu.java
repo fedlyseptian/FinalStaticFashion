@@ -1,28 +1,24 @@
 package view;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 import javax.swing.border.Border;
 
-public class LoginScreenMenu {
+public class LoginScreenMenu implements ActionListener {
 
     //Deklarasi
     JFrame frame = new JFrame("Login");
-    JPanel topPanel = new JPanel(new GridLayout(2,1));
-    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    JPanel leftPanel = new JPanel(new GridLayout(25,4));
-    JPanel rightPanel = new JPanel(new GridLayout(25,4));
+    JPanel panelTopLogin = new JPanel();
+    JPanel panelLeftLogin = new JPanel();
+    JPanel panelRightLogin = new JPanel();
+    JPanel panelBottomLogin = new JPanel();
+    JPanel panelCenterLogin = new JPanel(new GridLayout(5 ,1));
 
+    //Title
     JLabel labelTitle = new JLabel("Login Form");
+
     //Username
     JLabel labelUsername = new JLabel("Username");
     JTextField isiUsername = new JTextField("");
@@ -30,55 +26,83 @@ public class LoginScreenMenu {
     JLabel labelPassword = new JLabel("Password");
     JPasswordField isiPassword = new JPasswordField();
 
+    JButton backButton = new JButton("<<< Back to Main Menu");
+    JButton loginButton = new JButton("Login");
+
     public LoginScreenMenu(){
-        System.out.println("Login Final Static Fashion");
-
         frame.setSize(500,400);
-        frame.setLocationRelativeTo(null);
-        topPanel.setBounds(0,0,500,80);
-        leftPanel.setBounds(0,80,150,320);
-        rightPanel.setBounds(150,80,350,320);
-        bottomPanel.setBounds(0,400,500,100);
+        frame.setLayout(new BorderLayout());
 
-        topPanel.setBackground(Color.orange);
-        leftPanel.setBackground(Color.darkGray);
-        rightPanel.setBackground(Color.darkGray);
-        bottomPanel.setBackground(Color.darkGray);
+        panelTopLogin.setPreferredSize(new Dimension(500,80));
+        panelLeftLogin.setPreferredSize(new Dimension(80, 240));
+        panelCenterLogin.setPreferredSize(new Dimension(340, 240));
+        panelRightLogin.setPreferredSize(new Dimension(80, 240));
+        panelBottomLogin.setPreferredSize(new Dimension(500, 80));
 
-        Border paddingTop = BorderFactory.createEmptyBorder(0,25,0,25);
-        topPanel.setBorder(paddingTop);
-
-        Border paddingLeft = BorderFactory.createEmptyBorder(0,25,0,0);
-        leftPanel.setBorder(paddingLeft);
-
-        Border paddingRight = BorderFactory.createEmptyBorder(0,0,0,25);
-        rightPanel.setBorder(paddingRight);
-
-        Border paddingBottom = BorderFactory.createEmptyBorder(0,25,0,25);
-        bottomPanel.setBorder(paddingBottom);
+        panelTopLogin.setBackground(Color.ORANGE);
+        panelLeftLogin.setBackground(Color.BLACK);
+        panelCenterLogin.setBackground(Color.BLACK);
+        panelRightLogin.setBackground(Color.BLACK);
+        panelBottomLogin.setBackground(Color.BLACK);
 
         //Title
-        topPanel.add(labelTitle);
         labelTitle.setFont(new Font("Arial", Font.BOLD, 30));
+        labelTitle.setHorizontalAlignment(JLabel.CENTER);
+        labelTitle.setForeground(new Color(0, 0, 0));
+        panelTopLogin.add(labelTitle);
 
         //Username
-        leftPanel.add(labelUsername);
-        rightPanel.add(isiUsername);
+        labelUsername.setFont(new Font("Arial", Font.BOLD, 20));
+        labelUsername.setHorizontalAlignment(JLabel.LEFT);
+        labelUsername.setForeground(new Color(255, 255, 255));
+        panelCenterLogin.add(labelUsername);
+        panelCenterLogin.add(isiUsername);
 
         //Password
+        labelPassword.setFont(new Font("Arial", Font.BOLD, 20));
+        labelPassword.setHorizontalAlignment(JLabel.LEFT);
+        labelPassword.setForeground(new Color(255, 255, 255));
+        panelCenterLogin.add(labelPassword);
+        panelCenterLogin.add(isiPassword);
 
+        backButton.setFont(new Font("Arial", Font.ITALIC, 15));
+        backButton.setForeground(Color.RED);
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
 
+        loginButton.setFont(new Font("Arial", Font.BOLD, 15));
+        loginButton.setActionCommand("Login");
+        loginButton.addActionListener(this);
 
+        panelBottomLogin.add(backButton);
+        panelBottomLogin.add(loginButton);
 
-
-        frame.add(topPanel);
-        frame.add(leftPanel);
-        frame.add(rightPanel);
-        frame.add(bottomPanel);
+        frame.add(panelTopLogin,BorderLayout.NORTH);
+        frame.add(panelLeftLogin,BorderLayout.WEST);
+        frame.add(panelCenterLogin,BorderLayout.CENTER);
+        frame.add(panelRightLogin,BorderLayout.EAST);
+        frame.add(panelBottomLogin,BorderLayout.SOUTH);
 
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        frame.setLayout(null);
         frame.setVisible(true);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Login":
+                // Cek ke database
+                // New FRAME
+                frame.dispose();
+                break;
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
+    }
+
 }

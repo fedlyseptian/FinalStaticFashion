@@ -93,7 +93,7 @@ public class AboutUsMenu {
         panelContributors.add(panelFedly);
         panelContributors.add(panelJeddi);
         panelContributors.add(panelTimothy);
-        panelContributors.setBorder(new EmptyBorder(20,0,0,0));
+//        panelContributors.setBorder(new EmptyBorder(20,0,0,0));
         panelContributors.setBackground(Color.BLACK);
 
         gbc.gridx = 0;
@@ -104,7 +104,7 @@ public class AboutUsMenu {
         contributorPanel.add(panelContributors, gbc);
 
         // Add panels to tabbed panel
-        tabPanel.setBounds(200,200,400,400);
+//        tabPanel.setBounds(200,200,400,400);
         tabPanel.add("A Little Story", storyPanel);
         tabPanel.add("Contributors", contributorPanel);
 
