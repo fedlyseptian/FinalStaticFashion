@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 import static view.MainMenus.mindfullyFont;
@@ -11,17 +12,12 @@ public class AboutUsMenu {
     JFrame frame = new JFrame("About Us : Final Static Fashion");
     JTabbedPane tabPanel = new JTabbedPane();
     JPanel storyPanel = new JPanel();
-    JPanel contributorPanel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
+    JPanel contributorPanel = new JPanel(new BorderLayout());
 
     public AboutUsMenu() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
-
-        // Grid Bag Layout
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
 
         // Story Panel
         JLabel storyTitle = new JLabel("Who Are We");
@@ -38,6 +34,8 @@ public class AboutUsMenu {
         storyPanel.add(storyArticle);
 
         // Contributor Panel
+        contributorPanel.setBorder(new LineBorder(Color.BLACK, 20));
+
         JPanel panelContibutorTitle = new JPanel();
         JLabel contributorTitle = new JLabel("Our Lovely Contributors");
         contributorTitle.setFont(mindfullyFont);
@@ -45,16 +43,15 @@ public class AboutUsMenu {
         contributorTitle.setForeground(new Color(255, 145, 0));
         panelContibutorTitle.add(contributorTitle);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        contributorPanel.add(panelContibutorTitle, gbc);
+        contributorPanel.add(panelContibutorTitle, BorderLayout.NORTH);
         panelContibutorTitle.setBackground(Color.BLACK);
 
+        // Fedly
         JPanel panelContributors = new JPanel(new GridLayout(1, 3));
-        JPanel panelFedly = new JPanel(new GridLayout(2,1));
+        JPanel panelContributorsName = new JPanel(new GridLayout(1, 3));
+
+        JPanel panelFedly = new JPanel(new GridLayout(1,1));
+        JPanel panelFedlyTitle = new JPanel(new GridLayout(1,1));
         JLabel labelFedly = new JLabel("Fedly Septian");
         JLabel fotoFedly = new JLabel();
         fotoFedly.setIcon(new ImageIcon(new ImageIcon("media/fedlyS.jpg").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
@@ -62,11 +59,14 @@ public class AboutUsMenu {
         labelFedly.setHorizontalAlignment(JLabel.CENTER);
         fotoFedly.setHorizontalAlignment(JLabel.CENTER);
         panelFedly.add(fotoFedly);
-        panelFedly.add(labelFedly);
+        panelFedlyTitle.add(labelFedly);
         labelFedly.setForeground(Color.WHITE);
         panelFedly.setBackground(Color.BLACK);
+        panelFedlyTitle.setBackground(Color.BLACK);
 
-        JPanel panelJeddi = new JPanel(new GridLayout(2,1));
+        // Jeddi
+        JPanel panelJeddi = new JPanel(new GridLayout(1,1));
+        JPanel panelJeddiTitle = new JPanel(new GridLayout(1,1));
         JLabel labelJeddi = new JLabel("Jedediah Fanuel");
         JLabel fotoJeddi = new JLabel();
         fotoJeddi.setIcon(new ImageIcon(new ImageIcon("media/jeddiF.jpg").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
@@ -74,11 +74,14 @@ public class AboutUsMenu {
         labelJeddi.setHorizontalAlignment(JLabel.CENTER);
         fotoJeddi.setHorizontalAlignment(JLabel.CENTER);
         panelJeddi.add(fotoJeddi);
-        panelJeddi.add(labelJeddi);
+        panelJeddiTitle.add(labelJeddi);
         labelJeddi.setForeground(Color.WHITE);
         panelJeddi.setBackground(Color.BLACK);
+        panelJeddiTitle.setBackground(Color.BLACK);
 
-        JPanel panelTimothy = new JPanel(new GridLayout(2,1));
+        // Timothy
+        JPanel panelTimothy = new JPanel(new GridLayout(1,1));
+        JPanel panelTimothyTitle = new JPanel(new GridLayout(1,1));
         JLabel labelTimothy = new JLabel("Timothy Ray");
         JLabel fotoTimothy = new JLabel();
         fotoTimothy.setIcon(new ImageIcon(new ImageIcon("media/timothyR.jpg").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
@@ -86,25 +89,25 @@ public class AboutUsMenu {
         labelTimothy.setHorizontalAlignment(JLabel.CENTER);
         fotoTimothy.setHorizontalAlignment(JLabel.CENTER);
         panelTimothy.add(fotoTimothy);
-        panelTimothy.add(labelTimothy);
+        panelTimothyTitle.add(labelTimothy);
         labelTimothy.setForeground(Color.WHITE);
         panelTimothy.setBackground(Color.BLACK);
+        panelTimothyTitle.setBackground(Color.BLACK);
 
         panelContributors.add(panelFedly);
         panelContributors.add(panelJeddi);
         panelContributors.add(panelTimothy);
-//        panelContributors.setBorder(new EmptyBorder(20,0,0,0));
         panelContributors.setBackground(Color.BLACK);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        contributorPanel.add(panelContributors, gbc);
+        panelContributorsName.add(panelFedlyTitle);
+        panelContributorsName.add(panelJeddiTitle);
+        panelContributorsName.add(panelTimothyTitle);
+        panelContributorsName.setBackground(Color.BLACK);
+
+        contributorPanel.add(panelContributors, BorderLayout.CENTER);
+        contributorPanel.add(panelContributorsName, BorderLayout.SOUTH);
 
         // Add panels to tabbed panel
-//        tabPanel.setBounds(200,200,400,400);
         tabPanel.add("A Little Story", storyPanel);
         tabPanel.add("Contributors", contributorPanel);
 
