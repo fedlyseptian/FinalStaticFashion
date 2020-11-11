@@ -14,6 +14,7 @@ public class RegisterScreenSeller implements ActionListener {
     JPanel panelRightSeller = new JPanel();
     JPanel panelBottomSeller = new JPanel();
     JPanel panelCenterSeller = new JPanel(new GridLayout(18,1));
+    JPanel panelTanggalLahir = new JPanel(new GridLayout(1, 3));
 
     //Title
     JLabel labelTitleSeller = new JLabel("Register Seller");
@@ -39,7 +40,7 @@ public class RegisterScreenSeller implements ActionListener {
     JTextField isiEmailSeller = new JTextField("");
     //Tanggal Lahir
     JLabel labelTanggalLahirSeller = new JLabel("Tanggal Lahir");
-    JTextField isiTanggalLahirSeller = new JTextField("");
+    JSpinner spinnerTanggal, spinnerBulan, spinnerTahun;
     //StoreName
     JLabel labelStoreName = new JLabel("Store Name");
     JTextField isiStoreName = new JTextField("");
@@ -58,12 +59,14 @@ public class RegisterScreenSeller implements ActionListener {
         panelCenterSeller.setPreferredSize(new Dimension(460, 320));
         panelRightSeller.setPreferredSize(new Dimension(100, 320));
         panelBottomSeller.setPreferredSize(new Dimension(700, 80));
+        panelTanggalLahir.setPreferredSize(new Dimension(700, 80));
 
         panelTopSeller.setBackground(Color.ORANGE);
         panelLeftSeller.setBackground(Color.BLACK);
         panelCenterSeller.setBackground(Color.BLACK);
         panelRightSeller.setBackground(Color.BLACK);
         panelBottomSeller.setBackground(Color.BLACK);
+        panelTanggalLahir.setBackground(Color.BLACK);
 
         //Title
         labelTitleSeller.setFont(new Font("Arial", Font.BOLD, 30));
@@ -127,12 +130,26 @@ public class RegisterScreenSeller implements ActionListener {
         panelCenterSeller.add(labelEmailSeller);
         panelCenterSeller.add(isiEmailSeller);
 
-        //Tanggal Lahir
+        //Tanggal Lahir : Cara get data spinner nya pakai getValue(), contoh spinnerTanggal.getValue()
+        panelCenterSeller.add(panelTanggalLahir);
+        //Label Tanggal Lahir
         labelTanggalLahirSeller.setFont(new Font("Arial", Font.BOLD, 15));
         labelTanggalLahirSeller.setHorizontalAlignment(JLabel.LEFT);
         labelTanggalLahirSeller.setForeground(new Color(255,255,255));
         panelCenterSeller.add(labelTanggalLahirSeller);
-        panelCenterSeller.add(isiTanggalLahirSeller);
+        //Spinner Tanggal
+        spinnerTanggal = new JSpinner(new SpinnerNumberModel(1,1,31,1));
+        //Spinner Bulan
+        String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        spinnerBulan = new JSpinner(new SpinnerListModel(months));
+        //Spinner Tahun
+        spinnerTahun = new JSpinner();
+        spinnerTahun.setValue(1999);
+
+        panelTanggalLahir.add(spinnerTanggal);
+        panelTanggalLahir.add(spinnerBulan);
+        panelTanggalLahir.add(spinnerTahun);
+        panelCenterSeller.add(panelTanggalLahir);
 
         //StoreName
         labelStoreName.setFont(new Font("Arial", Font.BOLD, 15));
@@ -179,7 +196,7 @@ public class RegisterScreenSeller implements ActionListener {
                 break;
             case "BeSeller":
                 // Add data to database
-                // New FRAME
+                new ShoppingScreenMenu();
                 frame.dispose();
                 break;
             case "Back":
