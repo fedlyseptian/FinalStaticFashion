@@ -16,7 +16,7 @@ public class RegisterScreenMenu implements ActionListener {
     JPanel panelRightMember = new JPanel();
     JPanel panelBottomMember = new JPanel();
     JPanel panelCenterMember = new JPanel(new GridLayout(16,1));
-    JPanel panelTanggalLahir = new JPanel(new GridLayout(1, 5));
+    JPanel panelTanggalLahir = new JPanel(new GridLayout(1, 3));
 
     //Title
     JLabel labelTitleMember = new JLabel("Register Member");
