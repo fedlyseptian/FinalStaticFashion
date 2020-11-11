@@ -71,9 +71,8 @@ public class ControllerDatabase {
         String query = "INSERT INTO seller VALUES(?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
-            System.out.println(seller.getUsername());
-             stmt.setString(1,seller.getStoreName());
-             stmt.setString(2, seller.getUsername());
+            stmt.setString(1,seller.getStoreName());
+            stmt.setString(2, seller.getUsername());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -99,11 +98,28 @@ public class ControllerDatabase {
                 product.setProductPrice(rs.getDouble("productPrice"));
                 product.setProductSize(rs.getString("productSize"));
                 product.setStoreName(rs.getString("storeName"));
+                listProducts.add(product);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return (listProducts);
+    }
+    public static ArrayList<String> getAllUsernames() {
+        ArrayList<String> listUsername = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM member";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String username = rs.getString("username");
+                listUsername.add(username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listUsername);
     }
 
     public static String md5Java(String message)
