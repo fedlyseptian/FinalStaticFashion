@@ -199,10 +199,14 @@ public class RegisterScreenSeller implements ActionListener {
             public void insertUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
                     if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
-                        memberButton.setEnabled(false);
+                        labelUsernameSeller.setText("Username has been used");
+                        labelUsernameSeller.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
                         break;
                     }else{
-                        memberButton.setEnabled(true);
+                        labelUsernameSeller.setText("Username");
+                        labelUsernameSeller.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
                     }
                 }
             }
@@ -211,9 +215,13 @@ public class RegisterScreenSeller implements ActionListener {
             public void removeUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
                     if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
+                        labelUsernameSeller.setText("Username has been used");
+                        labelUsernameSeller.setForeground(Color.RED);
                         sellerButton.setEnabled(false);
                         break;
                     }else{
+                        labelUsernameSeller.setText("Username");
+                        labelUsernameSeller.setForeground(Color.WHITE);
                         sellerButton.setEnabled(true);
                     }
                 }

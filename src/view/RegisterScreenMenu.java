@@ -194,9 +194,13 @@ public class RegisterScreenMenu implements ActionListener {
             public void insertUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
                     if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
+                        labelUsernameMember.setText("Username has been used");
+                        labelUsernameMember.setForeground(Color.RED);
                         memberButton.setEnabled(false);
                         break;
                     }else{
+                        labelUsernameMember.setText("Username");
+                        labelUsernameMember.setForeground(Color.WHITE);
                         memberButton.setEnabled(true);
                     }
                 }
@@ -206,9 +210,13 @@ public class RegisterScreenMenu implements ActionListener {
             public void removeUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
                     if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
+                        labelUsernameMember.setText("Username has been used");
+                        labelUsernameMember.setForeground(Color.RED);
                         memberButton.setEnabled(false);
                         break;
                     }else{
+                        labelUsernameMember.setText("Username");
+                        labelUsernameMember.setForeground(Color.WHITE);
                         memberButton.setEnabled(true);
                     }
                 }
