@@ -1,23 +1,47 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AboutUsMenu {
+public class AboutUsMenu implements ActionListener {
 
     JFrame frame = new JFrame("About Us : Final Static Fashion");
     JTabbedPane tabPanel = new JTabbedPane();
     JPanel storyPanel = new JPanel();
     JPanel contributorPanel = new JPanel(new BorderLayout());
+    JButton backButton = new JButton("<<<");
 
     public AboutUsMenu() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
+
+        backButton.setBounds(5, 25, 75, 30);
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(null);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(new Color(255, 145, 0));
+                backButton.setBackground(new Color(15, 15, 10));
+                backButton.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.WHITE);
+                backButton.setBackground(Color.BLACK);
+                backButton.setBorder(null);
+            }
+        });
+
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
 
         // Story Panel
         JLabel storyTitle = new JLabel("Who Are We");
@@ -111,6 +135,7 @@ public class AboutUsMenu {
         tabPanel.add("A Little Story", storyPanel);
         tabPanel.add("Contributors", contributorPanel);
 
+        frame.add(backButton);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(tabPanel);
         frame.setSize(1280, 720);
@@ -119,4 +144,16 @@ public class AboutUsMenu {
         frame.setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
+    }
 }
