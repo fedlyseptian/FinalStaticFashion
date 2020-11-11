@@ -1,9 +1,13 @@
 package view;
 
+import controller.ControllerDatabase;
+import model.Transactions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Member;
 
 public class RegisterScreenMenu implements ActionListener {
 
@@ -101,7 +105,9 @@ public class RegisterScreenMenu implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
+        radioPria.setActionCommand("Pria");
         radioWanita = new JRadioButton("Wanita");
+        radioWanita.setActionCommand("Wanita");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
         radioPria.setBackground(Color.BLACK);
@@ -162,10 +168,22 @@ public class RegisterScreenMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+//        ControllerDatabase controller = new ControllerDatabase();
         String command = e.getActionCommand();
+//        Member member = new Member(isiUsernameMember.getText(),controller.md5Java(isiPasswordMember.getPassword()),);
+//        String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<
+//        Transactions > listTransaction
         switch (command) {
             case "BeMember":
                 // Add data to database
+//                System.out.println(isiUsernameMember.getText());
+//                System.out.println(isiPasswordMember.getPassword());
+//                System.out.println(groupJK.getSelection().getActionCommand());
+//                System.out.println(isiEmailMember.getText());
+//                System.out.println(isiTanggalLahirMember.getText());
+//                System.out.println(isiNameMember.getText());
+//                System.out.println(isiAddressMember.getText());
+//                System.out.println(0);
                 new ShoppingScreenMenu();
                 frame.dispose();
                 break;
