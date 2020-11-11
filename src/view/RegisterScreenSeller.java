@@ -104,7 +104,9 @@ public class RegisterScreenSeller implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
+        radioPria.setActionCommand("Pria");
         radioWanita = new JRadioButton("Wanita");
+        radioWanita.setActionCommand("Wanita");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
         radioPria.setBackground(Color.BLACK);
