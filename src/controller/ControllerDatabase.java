@@ -71,8 +71,9 @@ public class ControllerDatabase {
         String query = "INSERT INTO seller VALUES(?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
-             stmt.setString(1,seller.getUsername());
-             stmt.setString(2, seller.getStoreName());
+            System.out.println(seller.getUsername());
+             stmt.setString(1,seller.getStoreName());
+             stmt.setString(2, seller.getUsername());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {

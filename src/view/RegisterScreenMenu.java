@@ -1,7 +1,7 @@
 package view;
 
 import controller.ControllerDatabase;
-import model.Transactions;
+import model.Member;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -9,7 +9,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Member;
 
 public class RegisterScreenMenu implements ActionListener {
 
@@ -110,9 +109,9 @@ public class RegisterScreenMenu implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
-        radioPria.setActionCommand("Pria");
+        radioPria.setActionCommand("L");
         radioWanita = new JRadioButton("Wanita");
-        radioWanita.setActionCommand("Wanita");
+        radioWanita.setActionCommand("P");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
         radioPria.setBackground(Color.BLACK);
@@ -187,22 +186,57 @@ public class RegisterScreenMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        ControllerDatabase controller = new ControllerDatabase();
         String command = e.getActionCommand();
-//        Member member = new Member(isiUsernameMember.getText(),controller.md5Java(isiPasswordMember.getPassword()),);
-//        String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<
-//        Transactions > listTransaction
+        ControllerDatabase controller = new ControllerDatabase();
+        int month=-1;
+        switch(spinnerBulan.getValue().toString()){
+            case "January":
+                month=1;
+                break;
+            case "February":
+                month=2;
+                break;
+            case "March":
+                month=3;
+                break;
+            case "April":
+                month=4;
+                break;
+            case "May":
+                month=5;
+                break;
+            case "June":
+                month=6;
+                break;
+            case "July":
+                month=7;
+                break;
+            case "August":
+                month=8;
+                break;
+            case "September":
+                month=9;
+                break;
+            case "October":
+                month=10;
+                break;
+            case "November":
+                month=11;
+                break;
+            case "December":
+                month=12;
+                break;
+            default:
+        }
+        String pass="";
+        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
+            pass+=isiPasswordMember.getPassword()[i];
+        }
+        Member member = new Member(isiUsernameMember.getText(),controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0,null);
         switch (command) {
             case "BeMember":
                 // Add data to database
-//                System.out.println(isiUsernameMember.getText());
-//                System.out.println(isiPasswordMember.getPassword());
-//                System.out.println(groupJK.getSelection().getActionCommand());
-//                System.out.println(isiEmailMember.getText());
-//                System.out.println(isiTanggalLahirMember.getText());
-//                System.out.println(isiNameMember.getText());
-//                System.out.println(isiAddressMember.getText());
-//                System.out.println(0);
+                controller.insertMember(member);
                 new ShoppingScreenMenu();
                 frame.dispose();
                 break;

@@ -1,5 +1,9 @@
 package view;
 
+import controller.ControllerDatabase;
+import model.Member;
+import model.Seller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -107,9 +111,9 @@ public class RegisterScreenSeller implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
-        radioPria.setActionCommand("Pria");
+        radioPria.setActionCommand("l");
         radioWanita = new JRadioButton("Wanita");
-        radioWanita.setActionCommand("Wanita");
+        radioWanita.setActionCommand("P");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
         radioPria.setBackground(Color.BLACK);
@@ -188,6 +192,52 @@ public class RegisterScreenSeller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        ControllerDatabase controller = new ControllerDatabase();
+        int month=-1;
+        switch(spinnerBulan.getValue().toString()){
+            case "January":
+                month=1;
+                break;
+            case "February":
+                month=2;
+                break;
+            case "March":
+                month=3;
+                break;
+            case "April":
+                month=4;
+                break;
+            case "May":
+                month=5;
+                break;
+            case "June":
+                month=6;
+                break;
+            case "July":
+                month=7;
+                break;
+            case "August":
+                month=8;
+                break;
+            case "September":
+                month=9;
+                break;
+            case "October":
+                month=10;
+                break;
+            case "November":
+                month=11;
+                break;
+            case "December":
+                month=12;
+                break;
+            default:
+        }
+        String pass="";
+        for(int i=0;i<isiPasswordSeller.getPassword().length;i++){
+            pass+=isiPasswordSeller.getPassword()[i];
+        }
+        Member member = new Member(isiUsernameSeller.getText(),controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0,null);
         switch (command) {
             case "BeMember":
                 // Pass data to next frame
@@ -196,6 +246,9 @@ public class RegisterScreenSeller implements ActionListener {
                 break;
             case "BeSeller":
                 // Add data to database
+                controller.insertMember(member);
+                Seller seller = new Seller(member,isiStoreName.getText(),null);
+                controller.insertSeller(seller);
                 new ShoppingScreenMenu();
                 frame.dispose();
                 break;
