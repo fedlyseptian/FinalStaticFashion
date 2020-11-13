@@ -106,15 +106,18 @@ public class LoginScreenMenu implements ActionListener {
                 }
                 pass=Controller.md5Java(pass);
                 boolean found= false;
-                for(int i=0;i<listMember.size();i++){
+                int i;
+                for(i=0;i<listMember.size();i++){
                     if(Controller.validateMember(listMember.get(i),listMember.get(i).getUsername(),pass)){
                         found=true;
                         break;
                     }
                 }
                 if(found){
+                    MemberManager.getInstance().setMember(listMember.get(i));
                     new ShoppingScreenMenu();
                 }else{
+                    JOptionPane.showMessageDialog(null,"Username or Password is incorect");
                     new LoginScreenMenu();
                 }
                 // New FRAME
