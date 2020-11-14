@@ -11,20 +11,20 @@ package model;
 public abstract class Person {
     private String username;
     private String password;
-    private String gender;
-    private String email;
-    private int day;
-    private int month;
-    private int year;
+//    private String gender;
+//    private String email;
+//    private int day;
+//    private int month;
+//    private int year;
 
-    public Person(String username, String password, String gender, String email, int day, int month, int year) {
+    public Person(String username, String password/*, String gender, String email, int day, int month, int year*/) {
         this.username = username;
         this.password = password;
-        this.gender = gender;
-        this.email = email;
-        this.day = day;
-        this.month = month;
-        this.year = year;
+//        this.gender = gender;
+//        this.email = email;
+//        this.day = day;
+//        this.month = month;
+//        this.year = year;
     }
 
     public Person() {
@@ -38,25 +38,25 @@ public abstract class Person {
         return password;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public int getYear() {
-        return year;
-    }
+//    public String getGender() {
+//        return gender;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public int getDay() {
+//        return day;
+//    }
+//
+//    public int getMonth() {
+//        return month;
+//    }
+//
+//    public int getYear() {
+//        return year;
+//    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -66,23 +66,23 @@ public abstract class Person {
         this.password = password;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
+//    public void setGender(String gender) {
+//        this.gender = gender;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public void setDay(int day) {
+//        this.day = day;
+//    }
+//
+//    public void setMonth(int month) {
+//        this.month = month;
+//    }
+//
+//    public void setYear(int year) {
+//        this.year = year;
+//    }
 }
