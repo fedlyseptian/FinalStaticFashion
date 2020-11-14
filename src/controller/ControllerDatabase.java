@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import main.Main;
+import model.Admin;
 import model.Member;
 import model.Product;
 import model.Seller;
@@ -23,7 +24,7 @@ public class ControllerDatabase {
     public static boolean insertMember(Member member) {
         Date date = new Date(member.getYear()-1900,member.getMonth()-1,member.getDay());
         conn.connect();
-        String query = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
              stmt.setString(1,member.getUsername());
@@ -34,6 +35,7 @@ public class ControllerDatabase {
              stmt.setString(6,member.getEmail());
              stmt.setDate(7,date);
              stmt.setDouble(8,member.getPoint());
+             stmt.setDouble(9,member.getMoney());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -57,6 +59,20 @@ public class ControllerDatabase {
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean insertAdmin(Admin admin){
+        conn.connect();
+        String query = "INSERT INTO admin VALUES(?,?)";
+        try{
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1, admin.getUsername());
+            stmt.setString(2, admin.getPassword());
+            stmt.executeUpdate();
+            return(true);
+        }catch(SQLException e){
             e.printStackTrace();
             return (false);
         }
@@ -145,5 +161,43 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listMembers);
+    }
+    
+    public static ArrayList<Seller> getAllSellers(){
+        ArrayList<Seller> listSellers = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM seller";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Seller seller = new Seller();
+                seller.setUsername(rs.getString("username"));
+                seller.setStoreName(rs.getString("storeName"));
+                listSellers.add(seller);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listSellers);
+    }
+
+    public static ArrayList<Admin> getAllAdmins(){
+        ArrayList<Admin> listAdmins = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM admin";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Admin admin = new Admin();
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+                listAdmins.add(admin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listAdmins);
     }
 }
