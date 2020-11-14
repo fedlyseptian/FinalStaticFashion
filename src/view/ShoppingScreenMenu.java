@@ -1,7 +1,7 @@
 package view;
 
 import controller.Controller;
-import model.MemberManager;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -121,6 +121,8 @@ public class ShoppingScreenMenu implements ActionListener {
                 break;
             case "Logout":
                 // Logout account
+                MemberManager.getInstance().setMember(null);
+                SellerManager.getInstance().setSeller(null);
                 new MainMenus();
                 frame.dispose();
                 break;
