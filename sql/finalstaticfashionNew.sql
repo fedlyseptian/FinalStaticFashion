@@ -57,8 +57,8 @@ CREATE TABLE transactions (
 );
 
 CREATE TABLE listproduct (
-  `transactionID` char(10) DEFAULT NULL,
-  `productID` char(10) DEFAULT NULL,
+  `transactionID` char(10) NOT NULL,
+  `productID` char(10) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `total` double DEFAULT NULL,
   PRIMARY KEY (transactionID, productID),
