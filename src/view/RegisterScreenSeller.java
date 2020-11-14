@@ -3,7 +3,9 @@ package view;
 import controller.Controller;
 import controller.ControllerDatabase;
 import model.Member;
+import model.MemberManager;
 import model.Seller;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -118,7 +120,7 @@ public class RegisterScreenSeller implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
-        radioPria.setActionCommand("l");
+        radioPria.setActionCommand("L");
         radioWanita = new JRadioButton("Wanita");
         radioWanita.setActionCommand("P");
         radioPria.setForeground(new Color(255, 255, 255));
@@ -279,11 +281,12 @@ public class RegisterScreenSeller implements ActionListener {
                 break;
             default:
         }
-        String pass="";
-        for(int i=0;i<isiPasswordSeller.getPassword().length;i++){
-            pass+=isiPasswordSeller.getPassword()[i];
-        }
-        Member member = new Member(isiUsernameSeller.getText(), Controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0);
+//        String pass="";
+//        for(int i=0;i<isiPasswordSeller.getPassword().length;i++){
+//            pass+=isiPasswordSeller.getPassword()[i];
+//        }
+        String pass = Controller.md5Java(Controller.toStringPass(isiPasswordSeller.getPassword()));
+        Member member = new Member(isiUsernameSeller.getText(), pass,groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0,0);
         switch (command) {
             case "BeMember":
                 // Pass data to next frame
@@ -298,6 +301,7 @@ public class RegisterScreenSeller implements ActionListener {
                 }else {
                     controller.insertMember(member);
                     Seller seller = new Seller(member, isiStoreName.getText(), null);
+                    SellerManager.getInstance().setSeller(seller);
                     controller.insertSeller(seller);
                     new ShoppingScreenMenu();
                 }

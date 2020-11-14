@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import controller.ControllerDatabase;
 import model.Member;
+import model.MemberManager;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -274,11 +275,12 @@ public class RegisterScreenMenu implements ActionListener {
                 break;
             default:
         }
-        String pass="";
-        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
-            pass+=isiPasswordMember.getPassword()[i];
-        }
-        Member member = new Member(isiUsernameMember.getText(), Controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0);
+//        String pass="";
+//        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
+//            pass+=isiPasswordMember.getPassword()[i];
+//        }
+        String pass = Controller.md5Java(Controller.toStringPass(isiPasswordMember.getPassword()));
+        Member member = new Member(isiUsernameMember.getText(), pass,groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0,0);
         switch (command) {
             case "BeMember":
                 // Add data to database
@@ -288,6 +290,7 @@ public class RegisterScreenMenu implements ActionListener {
                     frame.dispose();
                 }else{
                     controller.insertMember(member);
+                    MemberManager.getInstance().setMember(member);
                     new ShoppingScreenMenu();
                     frame.dispose();
                 }
