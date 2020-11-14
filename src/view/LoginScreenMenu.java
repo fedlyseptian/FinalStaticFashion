@@ -1,8 +1,14 @@
 package view;
 
+import controller.Controller;
+import controller.ControllerDatabase;
+import model.Member;
+import model.MemberManager;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -93,6 +99,27 @@ public class LoginScreenMenu implements ActionListener {
         switch (command) {
             case "Login":
                 // Cek ke database
+                ArrayList<Member> listMember = ControllerDatabase.getAllMembers();
+                String pass="";
+                for(int i=0;i<isiPassword.getPassword().length;i++){
+                    pass+=isiPassword.getPassword()[i];
+                }
+                pass=Controller.md5Java(pass);
+                boolean found= false;
+                int i;
+                for(i=0;i<listMember.size();i++){
+                    if(Controller.validateMember(listMember.get(i),listMember.get(i).getUsername(),pass)){
+                        found=true;
+                        break;
+                    }
+                }
+                if(found){
+                    MemberManager.getInstance().setMember(listMember.get(i));
+                    new ShoppingScreenMenu();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Username or Password is incorect");
+                    new LoginScreenMenu();
+                }
                 // New FRAME
                 frame.dispose();
                 break;

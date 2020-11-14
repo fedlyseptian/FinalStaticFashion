@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
 import model.Member;
 import model.Seller;
@@ -282,7 +283,7 @@ public class RegisterScreenSeller implements ActionListener {
         for(int i=0;i<isiPasswordSeller.getPassword().length;i++){
             pass+=isiPasswordSeller.getPassword()[i];
         }
-        Member member = new Member(isiUsernameSeller.getText(),controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0,null);
+        Member member = new Member(isiUsernameSeller.getText(), Controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0);
         switch (command) {
             case "BeMember":
                 // Pass data to next frame
@@ -294,14 +295,13 @@ public class RegisterScreenSeller implements ActionListener {
                 if(isiUsernameSeller.getText().equals("") || pass.equals("") || isiEmailSeller.getText().equals("") || isiNameSeller.getText().equals("") || isiAddressSeller.getText().equals("") || isiStoreName.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
                     new RegisterScreenSeller();
-                    frame.dispose();
                 }else {
                     controller.insertMember(member);
                     Seller seller = new Seller(member, isiStoreName.getText(), null);
                     controller.insertSeller(seller);
                     new ShoppingScreenMenu();
-                    frame.dispose();
                 }
+                frame.dispose();
                 break;
             case "Back":
                 new MainMenus();

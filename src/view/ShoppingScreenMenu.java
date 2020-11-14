@@ -1,5 +1,8 @@
 package view;
 
+import controller.Controller;
+import model.MemberManager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -7,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.MemoryManagerMXBean;
 
 public class ShoppingScreenMenu implements ActionListener {
     //Deklarasi

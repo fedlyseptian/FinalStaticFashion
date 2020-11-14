@@ -5,13 +5,8 @@
  */
 package controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import main.Main;
 import model.Member;
@@ -105,6 +100,8 @@ public class ControllerDatabase {
         }
         return (listProducts);
     }
+    
+    //dibuat biar hemat waktu get, soalnya cuma butuh username
     public static ArrayList<String> getAllUsernames() {
         ArrayList<String> listUsername = new ArrayList<>();
         conn.connect();
@@ -122,26 +119,31 @@ public class ControllerDatabase {
         return (listUsername);
     }
 
-    public static String md5Java(String message)
-    {
-        String digest = null;
+    public static ArrayList<Member> getAllMembers(){
+        ArrayList<Member> listMembers = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM member";
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(message.getBytes("UTF-8"));
-            //merubah byte array ke dalam String Hexadecimal
-            StringBuilder sb = new StringBuilder(2*hash.length);
-            for(byte b : hash)
-            {
-                sb.append(String.format("%02x", b&0xff));
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Member member = new Member();
+                member.setUsername(rs.getString("username"));
+                member.setPassword(rs.getString("password"));
+                member.setName(rs.getString("name"));
+                member.setAddress(rs.getString("address"));
+                member.setGender(rs.getString("gender"));
+                member.setEmail(rs.getString("email"));
+                Date date = rs.getDate("birthDate");
+                member.setDay(date.getDate());
+                member.setMonth(date.getMonth()+1);
+                member.setYear(date.getYear()+1900);
+                member.setPoint(rs.getDouble("point"));
+                listMembers.add(member);
             }
-            digest = sb.toString();
-        } catch (UnsupportedEncodingException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return digest;
+        return (listMembers);
     }
 }

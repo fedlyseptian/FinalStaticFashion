@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
 import model.Member;
 
@@ -277,7 +278,7 @@ public class RegisterScreenMenu implements ActionListener {
         for(int i=0;i<isiPasswordMember.getPassword().length;i++){
             pass+=isiPasswordMember.getPassword()[i];
         }
-        Member member = new Member(isiUsernameMember.getText(),controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0,null);
+        Member member = new Member(isiUsernameMember.getText(), Controller.md5Java(pass),groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0);
         switch (command) {
             case "BeMember":
                 // Add data to database

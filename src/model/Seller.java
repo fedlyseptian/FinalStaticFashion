@@ -8,15 +8,22 @@ public class Seller extends Member{
 
     public Seller() {
     }
+    //Dengan ListTransaction
+//    public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction, String storeName, ArrayList<Product> listProducts) {
+//        super(username, password, gender, email, day, month, year, name, address, point, listTransaction);
+//        this.storeName = storeName;
+//        this.listProducts = listProducts;
+//    }
 
-    public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction, String storeName, ArrayList<Product> listProducts) {
-        super(username, password, gender, email, day, month, year, name, address, point, listTransaction);
+    //Tanpa listTransaction
+    public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, String storeName, ArrayList<Product> listProducts) {
+        super(username, password, gender, email, day, month, year, name, address, point);
         this.storeName = storeName;
         this.listProducts = listProducts;
     }
     // ini dipake kalo member udh ada
     public Seller(Member member,String storeName,ArrayList<Product> listProducts){
-        super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(),member.getListTransaction());
+        super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint());
         this.storeName = storeName;
         this.listProducts = listProducts;
     }
