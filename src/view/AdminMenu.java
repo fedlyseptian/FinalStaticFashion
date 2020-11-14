@@ -268,7 +268,6 @@ public class AdminMenu implements ActionListener {
         panelAdminMenu.setBackground(Color.BLACK);
 
         // Add to main panel and frame
-//        JScrollPane jsp = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         panel.add(panelAdminTitle, BorderLayout.NORTH);
         panel.add(panelAdminMenu, BorderLayout.CENTER);
         frame.add(panel);
