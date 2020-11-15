@@ -1,12 +1,15 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class ProductMenu {
+public class ProductMenu implements ActionListener {
 
     JFrame frame = new JFrame();
     JPanel panel = new JPanel(new BorderLayout());
@@ -15,10 +18,10 @@ public class ProductMenu {
     JPanel panelProduct = new JPanel();
 
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
+    JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     JLabel lblTitle = new JLabel("Products");
-
-    JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    JButton backButton = new JButton("<<<");
 
     public ProductMenu() {
         // Set Title Icon
@@ -112,7 +115,33 @@ public class ProductMenu {
         panelTitle.setBackground(new Color(0,0,0,0));
         panelProduct.setBackground(new Color(0,0,0,0));
 
+        // Coloring Panel
         panel.setBackground(Color.BLACK);
+
+        // Back Button
+        backButton.setBounds(5, 25, 100, 50);
+        backButton.setFont(backButton.getFont().deriveFont(30f));
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(null);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(new Color(255, 145, 0));
+                backButton.setBackground(new Color(15, 15, 10));
+                backButton.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.WHITE);
+                backButton.setBackground(Color.BLACK);
+                backButton.setBorder(null);
+            }
+        });
+
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
+
+        frame.add(backButton);
+
         panel.add(panelTitle, BorderLayout.NORTH);
         panel.add(panelProduct, BorderLayout.CENTER);
         frame.add(scrollPane);
@@ -121,5 +150,18 @@ public class ProductMenu {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Back":
+                new MainMenus();
+                frame.dispose();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
     }
 }
