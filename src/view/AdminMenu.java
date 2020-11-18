@@ -1,5 +1,8 @@
 package view;
 
+import model.Admin;
+import model.AdminManager;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -321,6 +324,7 @@ public class AdminMenu implements ActionListener {
                 break;
             case "Logout":
                 // Clear Session
+                AdminManager.getInstance().setAdmin(null);
                 new MainMenus();
                 frame.dispose();
                 break;
