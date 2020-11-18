@@ -39,9 +39,8 @@ public class ProductMenu implements ActionListener {
         lblTitle.setForeground(new Color(255, 145, 0));
 
         // Loop through product list
-        ArrayList<Product> listProduct = new ArrayList<>();
+        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
         for (int i = 0; i < listProduct.size(); i++) {
-//            Product product = listProduct.get(i);
 
             // Panel Declaration
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));

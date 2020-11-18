@@ -73,11 +73,11 @@ CREATE TABLE listproduct (
 INSERT INTO discount VALUES ("FED1", 0.05);
 INSERT INTO taxSeller VALUES (0.01);
 
-INSERT INTO admin VALUES ("admin", "admin");
+INSERT INTO admin VALUES ("admin", "21232f297a57a5a743894a0e4a801fc3");
 
-INSERT INTO member VALUES ("Jeddi123", "jeddi123", "Jedediah Fanuel", "Jl. Kembar Sari Indah 1 No. 5", "L", "if-19023@students.ithb.ac.id", "2001-04-28", 0, 0);
-INSERT INTO member VALUES ("Fedly123", "septian123", "Fedly Septian", "Jl. Cicadas", "L", "if-19033@students.ithb.ac.id", "1999-09-05", 0, 0);
-INSERT INTO member VALUES ("Timothy123", "timothy123", "Timothy Ray", "Jl. Singapur", "L", "if-19033@students.ithb.ac.id", "2001-02-18", 0, 0);
+INSERT INTO member VALUES ("Jeddi123", "360d913221f977222b9028ada63cf7d7", "Jedediah Fanuel", "Jl. Kembar Sari Indah 1 No. 5", "L", "if-19023@students.ithb.ac.id", "2001-04-28", 0, 0);
+INSERT INTO member VALUES ("Fedly123", "eaec8de3a25ffaad45461d875060005f", "Fedly Septian", "Jl. Cicadas", "L", "if-19033@students.ithb.ac.id", "1999-09-05", 0, 0);
+INSERT INTO member VALUES ("Timothy123", "fc40bc0ee14780238c5d7dd6e2de5cc0", "Timothy Ray", "Jl. Singapur", "L", "if-19033@students.ithb.ac.id", "2001-02-18", 0, 0);
 
 INSERT INTO seller VALUES ("Bebas Cinta Fashion", "Fedly123", "FED1", NULL);
 
