@@ -1,11 +1,16 @@
 package view;
 
+import controller.ControllerDatabase;
+import model.Product;
+import model.Seller;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
@@ -36,7 +41,8 @@ public class StoreMenu implements ActionListener {
         lblTitle.setForeground(new Color(255, 145, 0));
 
         // Loop through product list
-        for (int i = 0; i < 10; i++) {
+        ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
+        for (int i = 0; i < listSeller.size(); i++) {
             // Panel Declaration
             JPanel storeContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
@@ -55,12 +61,12 @@ public class StoreMenu implements ActionListener {
 
             // Product Data
             // --> Name
-            JLabel labelStoreName = new JLabel("Bandung Oblong");
+            JLabel labelStoreName = new JLabel(listSeller.get(i).getStoreName());
             labelStoreName.setFont(new Font("Arial", Font.BOLD, 25));
             labelStoreName.setForeground(Color.WHITE);
 
             // --> Brand
-            JLabel labelOwner = new JLabel("Owner : Username");
+            JLabel labelOwner = new JLabel(("Owner : " + listSeller.get(i).getUsername()));
             labelOwner.setFont(new Font("Arial", Font.PLAIN, 20));
             labelOwner.setForeground(Color.WHITE);
 
