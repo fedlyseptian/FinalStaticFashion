@@ -1,11 +1,15 @@
 package view;
 
+import controller.ControllerDatabase;
+import model.Product;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
@@ -35,7 +39,10 @@ public class ProductMenu implements ActionListener {
         lblTitle.setForeground(new Color(255, 145, 0));
 
         // Loop through product list
-        for (int i = 0; i < 10; i++) {
+        ArrayList<Product> listProduct = new ArrayList<>();
+        for (int i = 0; i < listProduct.size(); i++) {
+//            Product product = listProduct.get(i);
+
             // Panel Declaration
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
@@ -56,32 +63,32 @@ public class ProductMenu implements ActionListener {
 
             // Product Data
             // --> Name
-            JLabel labelProductName = new JLabel("T-Shirt 3Second New Variant Red Mariant");
+            JLabel labelProductName = new JLabel(listProduct.get(i).getProductName());
             labelProductName.setFont(new Font("Arial", Font.BOLD, 25));
             labelProductName.setForeground(Color.WHITE);
 
             // --> Brand
-            JLabel labelProductBrand = new JLabel("Brand : 3Second");
+            JLabel labelProductBrand = new JLabel("Brand : " + listProduct.get(i).getProductBrand());
             labelProductBrand.setFont(new Font("Arial", Font.PLAIN, 20));
             labelProductBrand.setForeground(Color.WHITE);
 
             // --> Category
-            JLabel labelProductCategory = new JLabel("( T-Shirt )");
+            JLabel labelProductCategory = new JLabel("( " + listProduct.get(i).getProductCategory() + " )");
             labelProductCategory.setFont(new Font("Arial", Font.PLAIN, 20));
             labelProductCategory.setForeground(Color.WHITE);
 
             // --> Price
-            JLabel labelProductPrice = new JLabel("Price : 120000");
+            JLabel labelProductPrice = new JLabel("Price : " + listProduct.get(i).getProductPrice());
             labelProductPrice.setFont(new Font("Arial", Font.PLAIN, 20));
             labelProductPrice.setForeground(Color.WHITE);
 
             // --> Size
-            JLabel labelProductSize = new JLabel("Size : L");
+            JLabel labelProductSize = new JLabel("Size : " + listProduct.get(i).getProductSize());
             labelProductSize.setFont(new Font("Arial", Font.PLAIN, 20));
             labelProductSize.setForeground(Color.WHITE);
 
             // --> Store Name
-            JLabel labelStoreName = new JLabel("Store Name : 3Second Official");
+            JLabel labelStoreName = new JLabel("Store Name : " + listProduct.get(i).getStoreName());
             labelStoreName.setFont(new Font("Arial", Font.PLAIN, 20));
             labelStoreName.setForeground(Color.WHITE);
 
