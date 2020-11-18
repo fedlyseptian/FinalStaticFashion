@@ -3,6 +3,15 @@ CREATE TABLE `admin` (
   `password` varchar(32) NOT NULL
 );
 
+CREATE TABLE discount (
+  `discountID` char(10) NOT NULL PRIMARY KEY,
+  `discountValue` double DEFAULT NULL
+);
+
+CREATE TABLE taxseller (
+  `taxValue` double DEFAULT NULL
+);
+
 CREATE TABLE member (
   `username` varchar(30) NOT NULL PRIMARY KEY,
   `password` varchar(32) NOT NULL,
@@ -18,7 +27,10 @@ CREATE TABLE member (
 CREATE TABLE seller (
   `storeName` varchar(30) NOT NULL PRIMARY KEY,
   `username` varchar(30) NOT NULL,
-  CONSTRAINT FK_Username FOREIGN KEY (username) REFERENCES member(username)
+  `discountID` char(10) DEFAULT NULL,
+  `pathLogo` varchar(255) DEFAULT NULL,
+  CONSTRAINT FK_Username FOREIGN KEY (username) REFERENCES member(username),
+  CONSTRAINT FK_DiscountIDSeller FOREIGN KEY (discountID) REFERENCES discount(discountID)
 );
 
 CREATE TABLE products (
@@ -30,16 +42,8 @@ CREATE TABLE products (
   `productPrice` double DEFAULT NULL,
   `productSize` char(2) DEFAULT NULL,
   `storeName` varchar(30) DEFAULT NULL,
+  `pathFotoProduct` varchar(255) DEFAULT NULL,
   CONSTRAINT FK_Storename FOREIGN KEY (storeName) REFERENCES seller(storeName)
-);
-
-CREATE TABLE discount (
-  `discountID` char(10) NOT NULL PRIMARY KEY,
-  `discountValue` double DEFAULT NULL
-);
-
-CREATE TABLE taxseller (
-  `taxValue` double DEFAULT NULL
 );
 
 CREATE TABLE transactions (
@@ -65,3 +69,22 @@ CREATE TABLE listproduct (
   CONSTRAINT FK_TransactionID FOREIGN KEY (transactionID) REFERENCES transactions(transactionID),
   CONSTRAINT FK_ProductID FOREIGN KEY (productID) REFERENCES products(productID)
 );
+
+INSERT INTO discount VALUES ("FED1", 0.05);
+INSERT INTO taxSeller VALUES (0.01);
+
+INSERT INTO admin VALUES ("admin", "admin");
+
+INSERT INTO member VALUES ("Jeddi123", "jeddi123", "Jedediah Fanuel", "Jl. Kembar Sari Indah 1 No. 5", "L", "if-19023@students.ithb.ac.id", "2001-04-28", 0, 0);
+INSERT INTO member VALUES ("Fedly123", "septian123", "Fedly Septian", "Jl. Cicadas", "L", "if-19033@students.ithb.ac.id", "1999-09-05", 0, 0);
+INSERT INTO member VALUES ("Timothy123", "timothy123", "Timothy Ray", "Jl. Singapur", "L", "if-19033@students.ithb.ac.id", "2001-02-18", 0, 0);
+
+INSERT INTO seller VALUES ("Bebas Cinta Fashion", "Fedly123", "FED1", NULL);
+
+INSERT INTO products VALUES ("PF001", "Kaos Makaroni", "OriginalFedly", "Kaos", 100, 120000, "L", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF002", "Kaos Makaroni", "OriginalFedly", "Kaos", 90, 120000, "M", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF003", "Kaos Makaroni", "OriginalFedly", "Kaos", 20, 120000, "S", "Bebas Cinta Fashion", NULL);
+
+INSERT INTO products VALUES ("PF004", "Celana Merah FD", "OriginalFedly", "Celana", 80, 100000, "L", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF005", "Celana Merah FD", "OriginalFedly", "Celana", 76, 100000, "M", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF006", "Celana Merah FD", "OriginalFedly", "Celana", 56, 100000, "S", "Bebas Cinta Fashion", NULL);
