@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RegisterScreenMenu implements ActionListener {
 
@@ -153,8 +154,7 @@ public class RegisterScreenMenu implements ActionListener {
         String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         spinnerBulan = new JSpinner(new SpinnerListModel(months));
         //Spinner Tahun
-        spinnerTahun = new JSpinner();
-        spinnerTahun.setValue(1999);
+        spinnerTahun = new JSpinner(new SpinnerNumberModel(1999,1900,new Date().getYear()+1900,1));
 
         panelTanggalLahir.add(spinnerTanggal);
         panelTanggalLahir.add(spinnerBulan);

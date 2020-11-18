@@ -107,10 +107,6 @@ public class ShoppingScreenMenu implements ActionListener {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        new ShoppingScreenMenu();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
