@@ -40,6 +40,10 @@ public class LoginScreenMenu implements ActionListener {
     ArrayList<Admin> listAdmin = ControllerDatabase.getAllAdmins();
 
     public LoginScreenMenu(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         frame.setSize(500,400);
         frame.setLayout(new BorderLayout());
 

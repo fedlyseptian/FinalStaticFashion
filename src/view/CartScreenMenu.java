@@ -27,6 +27,10 @@ public class CartScreenMenu implements ActionListener {
     JButton shoppingMenuButton = new JButton("Back To Shopping Menu");
 
     public CartScreenMenu(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

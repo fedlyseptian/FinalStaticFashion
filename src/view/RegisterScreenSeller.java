@@ -60,6 +60,10 @@ public class RegisterScreenSeller implements ActionListener {
     JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenSeller(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         ControllerDatabase controller = new ControllerDatabase();
         ArrayList<String> listUsername = new ArrayList<>();
         listUsername = controller.getAllUsernames();

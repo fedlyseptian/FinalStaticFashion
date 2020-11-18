@@ -58,6 +58,10 @@ public class RegisterScreenMenu implements ActionListener {
     JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenMenu(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         ControllerDatabase controller = new ControllerDatabase();
         ArrayList<String> listUsername = new ArrayList<>();
         listUsername = controller.getAllUsernames();
