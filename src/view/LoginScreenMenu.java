@@ -139,7 +139,7 @@ public class LoginScreenMenu implements ActionListener {
                     }
                 }
                 if(isSeller){
-                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null));
+                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getPathLogo(),listSeller.get(j).getDiscountID()));
                     new ShoppingScreenMenu();
                 }else if(isMember){
                     MemberManager.getInstance().setMember(listMember.get(i));

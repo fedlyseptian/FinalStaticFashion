@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.nio.channels.Selector;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -79,11 +80,13 @@ public class ControllerDatabase {
     }
     public static boolean insertSeller(Seller seller) {
         conn.connect();
-        String query = "INSERT INTO seller VALUES(?,?)";
+        String query = "INSERT INTO seller VALUES(?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1,seller.getStoreName());
             stmt.setString(2, seller.getUsername());
+            stmt.setString(3,seller.getDiscountID());
+            stmt.setString(4,seller.getPathLogo());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -174,6 +177,8 @@ public class ControllerDatabase {
                 Seller seller = new Seller();
                 seller.setUsername(rs.getString("username"));
                 seller.setStoreName(rs.getString("storeName"));
+                seller.setPathLogo(rs.getString("pathLogo"));
+                seller.setPathLogo(rs.getString("discountID"));
                 listSellers.add(seller);
             }
         } catch (SQLException e) {
