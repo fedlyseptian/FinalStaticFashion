@@ -19,6 +19,7 @@ import model.*;
 public class ControllerDatabase {
     static DatabaseHandler conn = new DatabaseHandler();
 
+    // Insert New Member
     public static boolean insertMember(Member member) {
         Date date = new Date(member.getYear()-1900,member.getMonth()-1,member.getDay());
         conn.connect();
@@ -41,6 +42,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Product
     public static boolean insertProduct(Product product) {
         conn.connect();
         String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
@@ -61,6 +64,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Admin
     public static boolean insertAdmin(Admin admin){
         conn.connect();
         String query = "INSERT INTO admin VALUES(?,?)";
@@ -75,6 +80,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Seller
     public static boolean insertSeller(Seller seller) {
         conn.connect();
         String query = "INSERT INTO seller VALUES(?,?,?,?)";
@@ -106,6 +113,7 @@ public class ControllerDatabase {
         }
     }
 
+    // Get All Products
     public static ArrayList<Product> getAllProducts() {
         ArrayList<Product> listProducts = new ArrayList<>();
         conn.connect();
@@ -149,6 +157,7 @@ public class ControllerDatabase {
         return (listUsername);
     }
 
+    // Get All Members
     public static ArrayList<Member> getAllMembers(){
         ArrayList<Member> listMembers = new ArrayList<>();
         conn.connect();
@@ -176,7 +185,8 @@ public class ControllerDatabase {
         }
         return (listMembers);
     }
-    
+
+    // Get All Sellers
     public static ArrayList<Seller> getAllSellers(){
         ArrayList<Seller> listSellers = new ArrayList<>();
         conn.connect();
@@ -198,6 +208,7 @@ public class ControllerDatabase {
         return (listSellers);
     }
 
+    // Get All Admins
     public static ArrayList<Admin> getAllAdmins(){
         ArrayList<Admin> listAdmins = new ArrayList<>();
         conn.connect();
@@ -234,5 +245,69 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listDiscounts);
+    }
+  
+    // Get Tax Seller
+    public static TaxSeller getTaxSeller() {
+        TaxSeller taxSeller = new TaxSeller();
+        conn.connect();
+        String query = "SELECT * FROM taxseller";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                taxSeller.setTaxValue(rs.getDouble("taxValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (taxSeller);
+    }
+
+    // Update Tax Seller
+    public static boolean updateTaxSeller(double lastValue, double newValue) {
+        conn.connect();
+        String query = "UPDATE taxseller SET taxValue='" + newValue + "' "
+                + " WHERE taxValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Get About Us Text
+    public static String getAboutUsText() {
+        String tempString = "";
+        conn.connect();
+        String query = "SELECT aboutUsText FROM aboutus";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                tempString = rs.getString("aboutUsText");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (tempString);
+    }
+
+    // Update About Us Text
+    public static boolean updateAboutUsText(String newText) {
+        conn.connect();
+        String query = "UPDATE aboutus SET aboutUsText='" + newText + "'"
+                + " WHERE aboutUsID='AUT'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 }

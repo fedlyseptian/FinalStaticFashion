@@ -70,7 +70,13 @@ CREATE TABLE listproduct (
   CONSTRAINT FK_ProductID FOREIGN KEY (productID) REFERENCES products(productID)
 );
 
+CREATE TABLE aboutus (
+  `aboutUsID` char(10) NOT NULL PRIMARY KEY,
+  `aboutUsText` varchar(255) DEFAULT NULL
+);
+
 INSERT INTO discount VALUES ("FED1", 0.05);
+
 INSERT INTO taxSeller VALUES (0.01);
 
 INSERT INTO admin VALUES ("admin", "21232f297a57a5a743894a0e4a801fc3");
@@ -88,3 +94,5 @@ INSERT INTO products VALUES ("PF003", "Kaos Makaroni", "OriginalFedly", "Kaos", 
 INSERT INTO products VALUES ("PF004", "Celana Merah FD", "OriginalFedly", "Celana", 80, 100000, "L", "Bebas Cinta Fashion", NULL);
 INSERT INTO products VALUES ("PF005", "Celana Merah FD", "OriginalFedly", "Celana", 76, 100000, "M", "Bebas Cinta Fashion", NULL);
 INSERT INTO products VALUES ("PF006", "Celana Merah FD", "OriginalFedly", "Celana", 56, 100000, "S", "Bebas Cinta Fashion", NULL);
+
+INSERT INTO aboutus VALUES ("AUT", "Final Static Fashion is the new branded fashion online store that gather the most known branded outfit creator. We always care for our customer satisfify. Do not wait any longer. Lets go shopping with us, and become our member or seller.");

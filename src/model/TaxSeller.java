@@ -12,6 +12,9 @@ package model;
 public class TaxSeller {
     private double taxValue;
 
+    public TaxSeller() {
+    }
+
     public TaxSeller(double taxValue) {
         this.taxValue = taxValue;
     }

@@ -10,6 +10,7 @@ import model.Member;
 import model.Product;
 import model.Transactions;
 import view.AdminMenu;
+import view.AdminProduct;
 import view.MainMenus;
 
 import java.util.ArrayList;
@@ -22,10 +23,5 @@ public class Main {
 
     public static void main(String[] args) {
         new MainMenus();
-//        ArrayList<Product> listProduct = new ArrayList<>();
-//        listProduct = ControllerDatabase.getAllProducts();
-//        for (int i = 0; i < listProduct.size(); i++) {
-//            System.out.println(listProduct.get(i).getProductName());
-//        }
     }
 }
