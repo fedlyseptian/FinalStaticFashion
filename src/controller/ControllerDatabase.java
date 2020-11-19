@@ -240,4 +240,37 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Get About Us Text
+    public static String getAboutUsText() {
+        String tempString = "";
+        conn.connect();
+        String query = "SELECT aboutUsText FROM aboutus";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                tempString = rs.getString("aboutUsText");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (tempString);
+    }
+
+    // Update About Us Text
+    public static boolean updateAboutUsText(String newText) {
+        conn.connect();
+        String query = "UPDATE aboutus SET aboutUsText='" + newText + "'"
+                + " WHERE aboutUsID='AUT'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
 }

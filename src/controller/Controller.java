@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static view.AboutUsMenu.aboutUsText;
+
 public class Controller {
+
+    // Password to md5
     public static String md5Java(String message)
     {
         String digest = null;
@@ -34,6 +38,7 @@ public class Controller {
         return digest;
     }
 
+    // Validate Member
     public static boolean validateMember(Member member, String username, String password){
         if(member.getUsername().equals(username) && member.getPassword().equals(password)){
             return true;
@@ -42,11 +47,13 @@ public class Controller {
         }
     }
 
-    public static String toStringPass(char [] password){
-        String pass="";
-        for(int i=0;i<password.length;i++){
-            pass+=password[i];
+    // Password to String
+    public static String toStringPass(char [] password) {
+        String pass = "";
+        for (int i = 0; i < password.length; i++) {
+            pass += password[i];
         }
         return pass;
     }
+
 }

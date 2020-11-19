@@ -1,7 +1,7 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
-import model.TaxSeller;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -11,25 +11,23 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminTax implements ActionListener {
+public class AdminAbout implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Tax Seller");
+    JFrame frame = new JFrame("Admin --> About Us");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
-    JPanel panelForm = new JPanel(new GridLayout(4, 1, 10, 20));
+    JPanel panelForm = new JPanel(new FlowLayout());
 
-    JLabel lblTitle = new JLabel("Admin - Tax");
-
-    JLabel lblTaxSeller = new JLabel("Tax Value : ");
-    JTextField txtTaxSeller = new JTextField();
+    JLabel lblTitle = new JLabel("Admin - About Us");
 
     JButton editButton = new JButton("Edit");
-    JButton submitButton = new JButton("Submit");
+    JButton submitButton = new JButton("Save");
     JButton backButton = new JButton("<<<");
 
-    static double tempTaxValue;
+    JTextArea aboutTextArea = new JTextArea(20, 70);
+    JScrollPane sp = new JScrollPane(aboutTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-    public AdminTax() {
+    public AdminAbout() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -39,7 +37,6 @@ public class AdminTax implements ActionListener {
 
         // Title
         lblTitle.setFont(mindfullyFont);
-        lblTitle.setFont(lblTitle.getFont().deriveFont(50f));
         lblTitle.setForeground(new Color(255, 145, 0));
         panelAdminTitle.add(lblTitle);
         panelAdminTitle.setBackground(new Color(0, 0, 0, 0));
@@ -65,18 +62,11 @@ public class AdminTax implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        // Tax Label
-        lblTaxSeller.setFont(new Font("Arial", Font.BOLD, 20));
-        lblTaxSeller.setForeground(Color.WHITE);
-
-        // Tax Seller Text Field
-        txtTaxSeller.setEditable(false);
-        TaxSeller taxSeller = ControllerDatabase.getTaxSeller();
-        txtTaxSeller.setText(String.valueOf(taxSeller.getTaxValue()));
-
-        // Form Tax Value
-        panelForm.add(lblTaxSeller);
-        panelForm.add(txtTaxSeller);
+        // About Text Area
+        aboutTextArea.setText((ControllerDatabase.getAboutUsText()));
+        aboutTextArea.setEditable(false);
+        aboutTextArea.setLineWrap(true);
+        panelForm.add(sp);
 
         // Edit Button
         editButton.setActionCommand("Edit");
@@ -103,7 +93,7 @@ public class AdminTax implements ActionListener {
         frame.add(backButton);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(panel);
-        frame.setSize(400, 500);
+        frame.setSize(700, 800);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -114,19 +104,13 @@ public class AdminTax implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Edit":
-                tempTaxValue = Double.parseDouble(txtTaxSeller.getText());
-                txtTaxSeller.setEditable(true);
+                aboutTextArea.setEditable(true);
                 submitButton.setVisible(true);
                 break;
             case "Submit":
-                if (Double.parseDouble(txtTaxSeller.getText()) >= 0.0) {
-                    if (ControllerDatabase.updateTaxSeller(tempTaxValue, Double.parseDouble(txtTaxSeller.getText()))) {
-                        new AdminTax();
-                        frame.dispose();
-                    }
-                } else {
-                    lblTaxSeller.setText("Tax Value : (ERROR)");
-                }
+                ControllerDatabase.updateAboutUsText(aboutTextArea.getText());
+                new AdminAbout();
+                frame.dispose();
                 break;
             case "Back":
                 new AdminMenu();
