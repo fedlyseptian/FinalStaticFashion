@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import controller.ControllerDatabase;
 import model.Admin;
+import model.TaxSeller;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -27,6 +28,8 @@ public class AdminTax implements ActionListener {
     JButton editButton = new JButton("Edit");
     JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
+
+    static double tempTaxValue;
 
     public AdminTax() {
         // Set Title Icon
@@ -69,7 +72,9 @@ public class AdminTax implements ActionListener {
         lblTaxSeller.setForeground(Color.WHITE);
 
         txtTaxSeller.setEditable(false);
-        txtTaxSeller.setText("Sample Value");
+
+        TaxSeller taxSeller = ControllerDatabase.getTaxSeller();
+        txtTaxSeller.setText(String.valueOf(taxSeller.getTaxValue()));
 
         // Form Tax Value
         panelForm.add(lblTaxSeller);
@@ -99,7 +104,8 @@ public class AdminTax implements ActionListener {
         frame.add(backButton);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(panel);
-        frame.setSize(600, 700);
+        frame.setSize(400, 500);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
@@ -109,13 +115,19 @@ public class AdminTax implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Edit":
+                tempTaxValue = Double.parseDouble(txtTaxSeller.getText());
                 txtTaxSeller.setEditable(true);
                 submitButton.setVisible(true);
                 break;
             case "Submit":
-                // Set ke database
-                new AdminTax();
-                frame.dispose();
+                if (Double.parseDouble(txtTaxSeller.getText()) >= 0.0) {
+                    if (ControllerDatabase.updateTaxSeller(tempTaxValue, Double.parseDouble(txtTaxSeller.getText()))) {
+                        new AdminTax();
+                        frame.dispose();
+                    }
+                } else {
+                    lblTaxSeller.setText("Tax Value : (ERROR)");
+                }
                 break;
             case "Back":
                 new AdminMenu();

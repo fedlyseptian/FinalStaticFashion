@@ -9,10 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import main.Main;
-import model.Admin;
-import model.Member;
-import model.Product;
-import model.Seller;
+import model.*;
 
 /**
  *
@@ -21,6 +18,7 @@ import model.Seller;
 public class ControllerDatabase {
     static DatabaseHandler conn = new DatabaseHandler();
 
+    // Insert New Member
     public static boolean insertMember(Member member) {
         Date date = new Date(member.getYear()-1900,member.getMonth()-1,member.getDay());
         conn.connect();
@@ -43,6 +41,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Product
     public static boolean insertProduct(Product product) {
         conn.connect();
         String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
@@ -63,6 +63,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Admin
     public static boolean insertAdmin(Admin admin){
         conn.connect();
         String query = "INSERT INTO admin VALUES(?,?)";
@@ -77,6 +79,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Seller
     public static boolean insertSeller(Seller seller) {
         conn.connect();
         String query = "INSERT INTO seller VALUES(?,?)";
@@ -92,6 +96,7 @@ public class ControllerDatabase {
         }
     }
 
+    // Get All Products
     public static ArrayList<Product> getAllProducts() {
         ArrayList<Product> listProducts = new ArrayList<>();
         conn.connect();
@@ -135,6 +140,7 @@ public class ControllerDatabase {
         return (listUsername);
     }
 
+    // Get All Members
     public static ArrayList<Member> getAllMembers(){
         ArrayList<Member> listMembers = new ArrayList<>();
         conn.connect();
@@ -162,7 +168,8 @@ public class ControllerDatabase {
         }
         return (listMembers);
     }
-    
+
+    // Get All Sellers
     public static ArrayList<Seller> getAllSellers(){
         ArrayList<Seller> listSellers = new ArrayList<>();
         conn.connect();
@@ -182,6 +189,7 @@ public class ControllerDatabase {
         return (listSellers);
     }
 
+    // Get All Admins
     public static ArrayList<Admin> getAllAdmins(){
         ArrayList<Admin> listAdmins = new ArrayList<>();
         conn.connect();
@@ -199,5 +207,37 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listAdmins);
+    }
+
+    // Get Tax Seller
+    public static TaxSeller getTaxSeller() {
+        TaxSeller taxSeller = new TaxSeller();
+        conn.connect();
+        String query = "SELECT * FROM taxseller";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                taxSeller.setTaxValue(rs.getDouble("taxValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (taxSeller);
+    }
+
+    // Update Tax Seller
+    public static boolean updateTaxSeller(double lastValue, double newValue) {
+        conn.connect();
+        String query = "UPDATE taxseller SET taxValue='" + newValue + "' "
+                + " WHERE taxValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 }

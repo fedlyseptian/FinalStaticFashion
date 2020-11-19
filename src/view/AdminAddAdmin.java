@@ -98,6 +98,7 @@ public class AdminAddAdmin implements ActionListener {
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(panel);
         frame.setSize(600, 700);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
