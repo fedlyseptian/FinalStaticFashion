@@ -16,20 +16,6 @@ public class Seller extends Member{
         this.listProducts = listProducts;
     }
 
-    private boolean addProduct(Product product) {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean editStoreDiscount(Discount discount) {
-        boolean result = false;
-        return result;
-    }
-
-    private void editStore() {
-
-    }
-
     public String getStoreName() {
         return storeName;
     }
