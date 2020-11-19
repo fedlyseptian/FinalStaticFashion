@@ -287,7 +287,7 @@ public class AdminMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Product":
-                // New FRAME
+                new AdminProduct();
                 frame.dispose();
                 break;
             case "Store":
@@ -299,7 +299,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "AddAdmin":
-                // New FRAME
+                new AdminAddAdmin();
                 frame.dispose();
                 break;
             case "EditAdmin":

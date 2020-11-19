@@ -6,8 +6,6 @@ import model.Member;
 import model.MemberManager;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -63,7 +61,7 @@ public class RegisterScreenMenu implements ActionListener {
         frame.setIconImage(icon);
 
         ControllerDatabase controller = new ControllerDatabase();
-        ArrayList<String> listUsername = new ArrayList<>();
+        ArrayList<String> listUsername;
         listUsername = controller.getAllUsernames();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
@@ -155,7 +153,7 @@ public class RegisterScreenMenu implements ActionListener {
         //Spinner Tanggal
         spinnerTanggal = new JSpinner(new SpinnerNumberModel(1,1,31,1));
         //Spinner Bulan
-        String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         spinnerBulan = new JSpinner(new SpinnerListModel(months));
         //Spinner Tahun
         spinnerTahun = new JSpinner(new SpinnerNumberModel(1999,1900,new Date().getYear()+1900,1));
@@ -279,10 +277,13 @@ public class RegisterScreenMenu implements ActionListener {
                 break;
             default:
         }
-//        String pass="";
-//        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
-//            pass+=isiPasswordMember.getPassword()[i];
-//        }
+/*
+        String pass="";
+        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
+            pass+=isiPasswordMember.getPassword()[i];
+        }
+*/
+
         String pass = Controller.md5Java(Controller.toStringPass(isiPasswordMember.getPassword()));
         Member member = new Member(isiUsernameMember.getText(), pass,groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0,0);
         switch (command) {
