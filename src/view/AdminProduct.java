@@ -15,7 +15,7 @@ import static view.MainMenus.mindfullyFont;
 
 public class AdminProduct implements ActionListener {
 
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Admin --> Products");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -24,7 +24,7 @@ public class AdminProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    JLabel lblTitle = new JLabel("Products");
+    JLabel lblTitle = new JLabel("Admin -- Products");
     JButton backButton = new JButton("<<<");
 
     public AdminProduct() {

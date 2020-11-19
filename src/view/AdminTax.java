@@ -12,25 +12,23 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminAddAdmin implements ActionListener {
+public class AdminTax implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Add Admin");
+    JFrame frame = new JFrame("Admin --> Tax Seller");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
-    JPanel panelForm = new JPanel(new GridLayout(5, 1, 10, 20));
+    JPanel panelForm = new JPanel(new GridLayout(4, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Admin - Add Admin");
+    JLabel lblTitle = new JLabel("Admin - Tax");
 
-    JLabel lblUsername = new JLabel("Username : ");
-    JTextField txtUsername = new JTextField();
+    JLabel lblTaxSeller = new JLabel("Tax Value : ");
+    JTextField txtTaxSeller = new JTextField();
 
-    JLabel lblPassword = new JLabel("Password : ");
-    JPasswordField adminPassword = new JPasswordField();
-
+    JButton editButton = new JButton("Edit");
     JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
 
-    public AdminAddAdmin() {
+    public AdminTax() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -40,6 +38,7 @@ public class AdminAddAdmin implements ActionListener {
 
         // Title
         lblTitle.setFont(mindfullyFont);
+        lblTitle.setFont(lblTitle.getFont().deriveFont(50f));
         lblTitle.setForeground(new Color(255, 145, 0));
         panelAdminTitle.add(lblTitle);
         panelAdminTitle.setBackground(new Color(0, 0, 0, 0));
@@ -65,23 +64,26 @@ public class AdminAddAdmin implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        // Form Username
-        lblUsername.setFont(new Font("Arial", Font.BOLD, 20));
-        lblUsername.setBackground(Color.BLACK);
-        lblUsername.setForeground(Color.WHITE);
-        panelForm.add(lblUsername);
-        panelForm.add(txtUsername);
+        // Tax Label
+        lblTaxSeller.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTaxSeller.setForeground(Color.WHITE);
 
-        // Form Password
-        lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
-        lblPassword.setBackground(Color.BLACK);
-        lblPassword.setForeground(Color.WHITE);
-        panelForm.add(lblPassword);
-        panelForm.add(adminPassword);
+        txtTaxSeller.setEditable(false);
+        txtTaxSeller.setText("Sample Value");
+
+        // Form Tax Value
+        panelForm.add(lblTaxSeller);
+        panelForm.add(txtTaxSeller);
+
+        // Edit Button
+        editButton.setActionCommand("Edit");
+        editButton.addActionListener(this);
+        panelForm.add(editButton);
 
         // Submit Button
         submitButton.setActionCommand("Submit");
         submitButton.addActionListener(this);
+        submitButton.setVisible(false);
         panelForm.add(submitButton);
 
         panelForm.setBorder(BorderFactory.createLineBorder(Color.BLACK, 40));
@@ -106,11 +108,13 @@ public class AdminAddAdmin implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
+            case "Edit":
+                txtTaxSeller.setEditable(true);
+                submitButton.setVisible(true);
+                break;
             case "Submit":
-                String adminPass = Controller.md5Java(Controller.toStringPass(adminPassword.getPassword()));
-                Admin admin = new Admin(txtUsername.getText(), adminPass);
-                ControllerDatabase.insertAdmin(admin);
-                new AdminMenu();
+                // Set ke database
+                new AdminTax();
                 frame.dispose();
                 break;
             case "Back":

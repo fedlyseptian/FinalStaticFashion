@@ -16,7 +16,7 @@ import static view.MainMenus.mindfullyFont;
 
 public class AdminStore implements ActionListener {
 
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Admin --> Store");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -25,7 +25,7 @@ public class AdminStore implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelStore, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    JLabel lblTitle = new JLabel("Store");
+    JLabel lblTitle = new JLabel("Admin - Store");
 
     JButton backButton = new JButton("<<<");
 
