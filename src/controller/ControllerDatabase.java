@@ -209,6 +209,25 @@ public class ControllerDatabase {
         return (listAdmins);
     }
 
+    public static ArrayList<Discount> getAllDiscount(){
+        ArrayList<Discount> listDiscounts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM discount";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Discount discount = new Discount();
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+                listDiscounts.add(discount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listDiscounts);
+    }
+
     // Get Tax Seller
     public static TaxSeller getTaxSeller() {
         TaxSeller taxSeller = new TaxSeller();
@@ -272,5 +291,4 @@ public class ControllerDatabase {
             return (false);
         }
     }
-
 }
