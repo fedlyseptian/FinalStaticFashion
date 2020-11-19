@@ -1,8 +1,6 @@
 package view;
 
-import controller.Controller;
 import controller.ControllerDatabase;
-import model.Admin;
 import model.TaxSeller;
 
 import javax.swing.*;
