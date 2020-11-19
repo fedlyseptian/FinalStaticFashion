@@ -10,10 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import main.Main;
-import model.Admin;
-import model.Member;
-import model.Product;
-import model.Seller;
+import model.*;
 
 /**
  *
@@ -87,6 +84,20 @@ public class ControllerDatabase {
             stmt.setString(2, seller.getUsername());
             stmt.setString(3,seller.getDiscountID());
             stmt.setString(4,seller.getPathLogo());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean insertDiscount(Discount discount) {
+        conn.connect();
+        String query = "INSERT INTO discount VALUES(?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1,discount.getDiscountID());
+            stmt.setDouble(2, discount.getDiscountValue());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -204,5 +215,24 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listAdmins);
+    }
+
+    public static ArrayList<Discount> getAllDiscount(){
+        ArrayList<Discount> listDiscounts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM discount";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Discount discount = new Discount();
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+                listDiscounts.add(discount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listDiscounts);
     }
 }
