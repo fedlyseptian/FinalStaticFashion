@@ -291,7 +291,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Store":
-                // New Frame
+                new AdminStore();
                 frame.dispose();
                 break;
             case "Discount":
