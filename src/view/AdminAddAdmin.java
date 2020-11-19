@@ -78,6 +78,10 @@ public class AdminAddAdmin implements ActionListener {
         lblPassword.setForeground(Color.WHITE);
         panelForm.add(lblPassword);
         panelForm.add(adminPassword);
+
+        // Submit Button
+        submitButton.setActionCommand("Submit");
+        submitButton.addActionListener(this);
         panelForm.add(submitButton);
 
         panelForm.setBorder(BorderFactory.createLineBorder(Color.BLACK, 40));
