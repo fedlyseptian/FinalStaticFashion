@@ -23,7 +23,7 @@ public class ShoppingScreenMenu implements ActionListener {
     JPanel panelTitle = new JPanel(new GridLayout(2,1));
 
     //Title
-    JLabel labelTitleWelcome = new JLabel("Welcome to Shopping Menu");
+    JLabel labelTitleWelcome = new JLabel();
     JLabel labelTitle = new JLabel("Final Static Fashion");
 
     //Button
@@ -31,6 +31,12 @@ public class ShoppingScreenMenu implements ActionListener {
     JButton cartButton = new JButton("Cart");
 
     public ShoppingScreenMenu(){
+        if(MemberManager.getInstance().getMember()!=null){
+            labelTitleWelcome = new JLabel("Welcome "+MemberManager.getInstance().getMember().getUsername()+" to Shopping Menu");
+        }else{
+            new MainMenus();
+            frame.dispose();
+        }
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);

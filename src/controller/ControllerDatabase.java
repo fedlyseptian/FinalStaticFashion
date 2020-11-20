@@ -310,4 +310,17 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    public static boolean deleteAdmin(Admin admin) {
+        conn.connect();
+        String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
 }
