@@ -59,7 +59,8 @@ public class AdminStore implements ActionListener {
             panelButton.setPreferredSize(new Dimension(250, 30));
 
             // Store Logo
-            JLabel labelImg = new JLabel(new ImageIcon("media/storeIcon.png"));
+            JLabel labelImg = new JLabel();
+            labelImg.setIcon(new ImageIcon(new ImageIcon(listSeller.get(i).getPathLogo()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
 
             // Product Data
             // --> Name
@@ -79,7 +80,8 @@ public class AdminStore implements ActionListener {
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(listSeller.get(finalI).getStoreName());
+                    new AdminEditSeller(listSeller.get(finalI).getStoreName());
+                    frame.dispose();
                 }
             });
 

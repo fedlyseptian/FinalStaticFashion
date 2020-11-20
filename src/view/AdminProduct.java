@@ -60,7 +60,8 @@ public class AdminProduct implements ActionListener {
             panelButton.setPreferredSize(new Dimension(150, 30));
 
             // Product Image
-            JLabel labelImg = new JLabel(new ImageIcon("media/productIcon.png"));
+            JLabel labelImg = new JLabel();
+            labelImg.setIcon(new ImageIcon(new ImageIcon(listProduct.get(i).getProductPath()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
 
             // Product Data
             // --> Name
@@ -100,7 +101,8 @@ public class AdminProduct implements ActionListener {
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(listProduct.get(finalI).getProductID());
+                    new AdminEditProduct(listProduct.get(finalI).getProductID());
+                    frame.dispose();
                 }
             });
 

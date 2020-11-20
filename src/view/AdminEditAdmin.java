@@ -19,7 +19,7 @@ public class AdminEditAdmin implements ActionListener {
     JPanel panelAdminTitle = new JPanel();
     JPanel panelForm = new JPanel(new GridLayout(5, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Admin - Add Admin");
+    JLabel lblTitle = new JLabel("Admin - Edit Admin");
 
     JLabel lblUsername = new JLabel("Username : ");
     JTextField txtUsername = new JTextField(AdminManager.getInstance().getAdmin().getUsername());

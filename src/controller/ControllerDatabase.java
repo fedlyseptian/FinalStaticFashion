@@ -46,7 +46,7 @@ public class ControllerDatabase {
     // Insert New Product
     public static boolean insertProduct(Product product) {
         conn.connect();
-        String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
              stmt.setString(1,product.getProductID());
@@ -57,6 +57,7 @@ public class ControllerDatabase {
              stmt.setDouble(6,product.getProductPrice());
              stmt.setString(7,product.getProductSize());
              stmt.setString(8,product.getStoreName());
+            stmt.setString(9,product.getProductPath());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -98,6 +99,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Insert New Discount
     public static boolean insertDiscount(Discount discount) {
         conn.connect();
         String query = "INSERT INTO discount VALUES(?,?)";
@@ -131,6 +134,7 @@ public class ControllerDatabase {
                 product.setProductPrice(rs.getDouble("productPrice"));
                 product.setProductSize(rs.getString("productSize"));
                 product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
                 listProducts.add(product);
             }
         } catch (SQLException e) {
@@ -138,8 +142,78 @@ public class ControllerDatabase {
         }
         return (listProducts);
     }
+
+    // Get Specific Products
+    public static Product getProduct(String pID) {
+        Product product = new Product();
+        conn.connect();
+        String query = "SELECT * FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setProductStock(rs.getInt("productStock"));
+                product.setProductPrice(rs.getDouble("productPrice"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (product);
+    }
+
+    // Check Product ID
+    public static boolean checkProductIDAvailability(String pID) {
+        boolean isAvailable = true;
+        conn.connect();
+        String query = "SELECT productID FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (pID.equals(rs.getString("productID"))) {
+                    isAvailable = false;
+                }
+            }
+        } catch (SQLException e) {
+            isAvailable = true;
+            e.printStackTrace();
+        }
+        return (isAvailable);
+    }
+
+    // Update Product Data
+    public static boolean updateProduct(Product product, String pID) {
+        conn.connect();
+        String query = "UPDATE products SET " +
+                "productID='" + product.getProductID() + "', " +
+                "productName='" + product.getProductName() + "', " +
+                "productBrand='" + product.getProductBrand() + "', " +
+                "productCategory='" + product.getProductCategory() + "', " +
+                "productStock='" + product.getProductStock() + "', " +
+                "productPrice='" + product.getProductPrice() + "', " +
+                "productSize='" + product.getProductSize() + "', " +
+                "storeName='" + product.getStoreName() + "', " +
+                "pathFotoProduct='" + product.getProductPath() + "' " +
+                "WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
     
     //dibuat biar hemat waktu get, soalnya cuma butuh username
+    // Get All Username
     public static ArrayList<String> getAllUsernames() {
         ArrayList<String> listUsername = new ArrayList<>();
         conn.connect();
@@ -198,8 +272,8 @@ public class ControllerDatabase {
                 Seller seller = new Seller();
                 seller.setUsername(rs.getString("username"));
                 seller.setStoreName(rs.getString("storeName"));
+                seller.setDiscountID(rs.getString("discountID"));
                 seller.setPathLogo(rs.getString("pathLogo"));
-                seller.setPathLogo(rs.getString("discountID"));
                 listSellers.add(seller);
             }
         } catch (SQLException e) {
@@ -228,6 +302,7 @@ public class ControllerDatabase {
         return (listAdmins);
     }
 
+    // Get All Discount
     public static ArrayList<Discount> getAllDiscount(){
         ArrayList<Discount> listDiscounts = new ArrayList<>();
         conn.connect();
@@ -311,6 +386,7 @@ public class ControllerDatabase {
         }
     }
 
+    // Delete admin
     public static boolean deleteAdmin(Admin admin) {
         conn.connect();
         String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";

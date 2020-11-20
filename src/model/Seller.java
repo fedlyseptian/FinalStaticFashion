@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Seller extends Member{
     String storeName;
     ArrayList<Product> listProducts = new ArrayList<>();
-    String pathLogo;
     String discountID;
+    String pathLogo;
 
     public String getPathLogo() {
         return pathLogo;
@@ -27,19 +27,19 @@ public class Seller extends Member{
     public Seller() {
     }
 
-    public Seller(Member member,String storeName,ArrayList<Product> listProducts,String pathLogo,String discountID){
+    public Seller(Member member,String storeName,ArrayList<Product> listProducts,String discountID, String pathLogo){
         super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(), member.getMoney());
         this.storeName = storeName;
         this.listProducts = listProducts;
-        this.pathLogo=pathLogo;
         this.discountID=discountID;
+        this.pathLogo=pathLogo;
     }
 
-    public Seller(String storeName, ArrayList<Product> listProducts, String pathLogo, String discountID) {
+    public Seller(String storeName, ArrayList<Product> listProducts, String discountID, String pathLogo) {
         this.storeName = storeName;
         this.listProducts = listProducts;
-        this.pathLogo = pathLogo;
         this.discountID = discountID;
+        this.pathLogo = pathLogo;
     }
 
     public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, double money, String storeName, ArrayList<Product> listProducts, String pathLogo, String discountID) {
