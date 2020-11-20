@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class AdminManager {
     private static AdminManager instance;
     private Admin admin;
+    private String password;
 
     private AdminManager(){
 
@@ -23,5 +24,13 @@ public class AdminManager {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

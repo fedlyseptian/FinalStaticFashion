@@ -303,7 +303,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "EditAdmin":
-                // New FRAME
+                new AdminEditAdmin();
                 frame.dispose();
                 break;
             case "AboutUs":
@@ -325,6 +325,7 @@ public class AdminMenu implements ActionListener {
             case "Logout":
                 // Clear Session
                 AdminManager.getInstance().setAdmin(null);
+                AdminManager.getInstance().setPassword(null);
                 new MainMenus();
                 frame.dispose();
                 break;
