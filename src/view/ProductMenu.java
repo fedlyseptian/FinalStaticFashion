@@ -58,7 +58,8 @@ public class ProductMenu implements ActionListener {
             panelDescRight.setPreferredSize(new Dimension(500, 120));
 
             // Product Image
-            JLabel labelImg = new JLabel(new ImageIcon("media/productIcon.png"));
+            JLabel labelImg = new JLabel();
+            labelImg.setIcon(new ImageIcon(new ImageIcon(listProduct.get(i).getProductPath()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
 
             // Product Data
             // --> Name

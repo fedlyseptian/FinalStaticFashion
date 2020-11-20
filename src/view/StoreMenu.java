@@ -57,7 +57,8 @@ public class StoreMenu implements ActionListener {
             panelDesc.setPreferredSize(new Dimension(1090, 120));
 
             // Store Logo
-            JLabel labelImg = new JLabel(new ImageIcon("media/storeIcon.png"));
+            JLabel labelImg = new JLabel();
+            labelImg.setIcon(new ImageIcon(new ImageIcon(listSeller.get(i).getPathLogo()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
 
             // Product Data
             // --> Name

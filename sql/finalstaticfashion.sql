@@ -85,14 +85,14 @@ INSERT INTO member VALUES ("Jeddi123", "360d913221f977222b9028ada63cf7d7", "Jede
 INSERT INTO member VALUES ("Fedly123", "eaec8de3a25ffaad45461d875060005f", "Fedly Septian", "Jl. Cicadas", "L", "if-19033@students.ithb.ac.id", "1999-09-05", 0, 0);
 INSERT INTO member VALUES ("Timothy123", "fc40bc0ee14780238c5d7dd6e2de5cc0", "Timothy Ray", "Jl. Singapur", "L", "if-19033@students.ithb.ac.id", "2001-02-18", 0, 0);
 
-INSERT INTO seller VALUES ("Bebas Cinta Fashion", "Fedly123", "FED1", NULL);
+INSERT INTO seller VALUES ("Bebas Cinta Fashion", "Fedly123", "FED1", "./media/Store/Bebas Cinta Fashion.jpg");
 
-INSERT INTO products VALUES ("PF001", "Kaos Makaroni", "OriginalFedly", "Kaos", 100, 120000, "L", "Bebas Cinta Fashion", NULL);
-INSERT INTO products VALUES ("PF002", "Kaos Makaroni", "OriginalFedly", "Kaos", 90, 120000, "M", "Bebas Cinta Fashion", NULL);
-INSERT INTO products VALUES ("PF003", "Kaos Makaroni", "OriginalFedly", "Kaos", 20, 120000, "S", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF001", "Kaos Makaroni", "OriginalFedly", "Kaos", 100, 120000, "L", "Bebas Cinta Fashion", "./media/Product/PF001.jpg");
+INSERT INTO products VALUES ("PF002", "Kaos Makaroni", "OriginalFedly", "Kaos", 90, 120000, "M", "Bebas Cinta Fashion", "./media/Product/PF002.jpg");
+INSERT INTO products VALUES ("PF003", "Kaos Makaroni", "OriginalFedly", "Kaos", 20, 120000, "S", "Bebas Cinta Fashion", "./media/Product/PF003.jpg");
 
-INSERT INTO products VALUES ("PF004", "Celana Merah FD", "OriginalFedly", "Celana", 80, 100000, "L", "Bebas Cinta Fashion", NULL);
-INSERT INTO products VALUES ("PF005", "Celana Merah FD", "OriginalFedly", "Celana", 76, 100000, "M", "Bebas Cinta Fashion", NULL);
-INSERT INTO products VALUES ("PF006", "Celana Merah FD", "OriginalFedly", "Celana", 56, 100000, "S", "Bebas Cinta Fashion", NULL);
+INSERT INTO products VALUES ("PF004", "Celana Merah FD", "OriginalFedly", "Celana", 80, 100000, "L", "Bebas Cinta Fashion", "./media/Product/PF004.jpg");
+INSERT INTO products VALUES ("PF005", "Celana Merah FD", "OriginalFedly", "Celana", 76, 100000, "M", "Bebas Cinta Fashion", "./media/Product/PF005.jpg");
+INSERT INTO products VALUES ("PF006", "Celana Merah FD", "OriginalFedly", "Celana", 56, 100000, "S", "Bebas Cinta Fashion", "./media/Product/PF006.jpg");
 
 INSERT INTO aboutus VALUES ("AUT", "Final Static Fashion is the new branded fashion online store that gather the most known branded outfit creator. We always care for our customer satisfify. Do not wait any longer. Lets go shopping with us, and become our member or seller.");
