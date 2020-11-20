@@ -15,24 +15,27 @@ public class Product {
     private String productBrand;
     private String productCategory;
     private int productStock;
-    private String sellerName;
+//    private String sellerName;
+    private String storeName;
     private double productPrice;
     private String productSize;
+    private String productPath;
 
     public Product() {
     }
 
-    public Product(String productID, String productName, String productBrand, String productCategory, int productStock, String sellerName, double productPrice, String productSize) {
+    public Product(String productID, String productName, String productBrand, String productCategory, int productStock, String storeName, double productPrice, String productSize, String productPath) {
         this.productID = productID;
         this.productName = productName;
         this.productBrand = productBrand;
         this.productCategory = productCategory;
         this.productStock = productStock;
-        this.sellerName = sellerName;
+        this.storeName = storeName;
         this.productPrice = productPrice;
         this.productSize = productSize;
+        this.productPath = productPath;
     }
-    
+
     public String getProductID() {
         return productID;
     }
@@ -57,9 +60,9 @@ public class Product {
         this.productStock = productStock;
     }
 
-    public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
-    }
+//    public void setSellerName(String sellerName) {
+//        this.sellerName = sellerName;
+//    }
 
     public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
@@ -85,9 +88,9 @@ public class Product {
         return productStock;
     }
 
-    public String getSellerName() {
-        return sellerName;
-    }
+//    public String getSellerName() {
+//        return sellerName;
+//    }
 
     public double getProductPrice() {
         return productPrice;
@@ -95,5 +98,21 @@ public class Product {
 
     public String getProductSize() {
         return productSize;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getProductPath() {
+        return productPath;
+    }
+
+    public void setProductPath(String productPath) {
+        this.productPath = productPath;
     }
 }

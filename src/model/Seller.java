@@ -5,28 +5,49 @@ import java.util.ArrayList;
 public class Seller extends Member{
     String storeName;
     ArrayList<Product> listProducts = new ArrayList<>();
+    String discountID;
+    String pathLogo;
+
+    public String getPathLogo() {
+        return pathLogo;
+    }
+
+    public String getDiscountID() {
+        return discountID;
+    }
+
+    public void setPathLogo(String pathLogo) {
+        this.pathLogo = pathLogo;
+    }
+
+    public void setDiscountID(String discountID) {
+        this.discountID = discountID;
+    }
 
     public Seller() {
     }
 
-    public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction, String storeName, ArrayList<Product> listProducts) {
-        super(username, password, gender, email, day, month, year, name, address, point, listTransaction);
+    public Seller(Member member,String storeName,ArrayList<Product> listProducts,String discountID, String pathLogo){
+        super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(), member.getMoney());
         this.storeName = storeName;
         this.listProducts = listProducts;
+        this.discountID=discountID;
+        this.pathLogo=pathLogo;
     }
 
-    private boolean addProduct(Product product) {
-        boolean result = false;
-        return result;
+    public Seller(String storeName, ArrayList<Product> listProducts, String discountID, String pathLogo) {
+        this.storeName = storeName;
+        this.listProducts = listProducts;
+        this.discountID = discountID;
+        this.pathLogo = pathLogo;
     }
 
-    private boolean editStoreDiscount(Discount discount) {
-        boolean result = false;
-        return result;
-    }
-
-    private void editStore() {
-
+    public Seller(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, double money, String storeName, ArrayList<Product> listProducts, String pathLogo, String discountID) {
+        super(username, password, gender, email, day, month, year, name, address, point, money);
+        this.storeName = storeName;
+        this.listProducts = listProducts;
+        this.pathLogo = pathLogo;
+        this.discountID = discountID;
     }
 
     public String getStoreName() {

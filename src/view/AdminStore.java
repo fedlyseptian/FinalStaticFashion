@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class StoreMenu implements ActionListener {
+public class AdminStore implements ActionListener {
 
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Admin --> Store");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -25,11 +25,11 @@ public class StoreMenu implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelStore, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    JLabel lblTitle = new JLabel("Store");
+    JLabel lblTitle = new JLabel("Admin - Store");
 
     JButton backButton = new JButton("<<<");
 
-    public StoreMenu() {
+    public AdminStore() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -47,6 +47,7 @@ public class StoreMenu implements ActionListener {
             JPanel storeContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
             JPanel panelDesc = new JPanel(new GridLayout(2, 1));
+            JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
             // Border Separator
             storeContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
@@ -54,7 +55,8 @@ public class StoreMenu implements ActionListener {
             // Set Panel Dimension
             storeContainer.setPreferredSize(new Dimension(1200, 200));
             panelImg.setPreferredSize(new Dimension(200, 200));
-            panelDesc.setPreferredSize(new Dimension(1090, 120));
+            panelDesc.setPreferredSize(new Dimension(780, 120));
+            panelButton.setPreferredSize(new Dimension(250, 30));
 
             // Store Logo
             JLabel labelImg = new JLabel();
@@ -71,10 +73,23 @@ public class StoreMenu implements ActionListener {
             labelOwner.setFont(new Font("Arial", Font.PLAIN, 20));
             labelOwner.setForeground(Color.WHITE);
 
+            // --> Next Button
+            JButton productButton = new JButton("> " + listSeller.get(i).getStoreName());
+
+            int finalI = i;
+            productButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new AdminEditSeller(listSeller.get(finalI).getStoreName());
+                    frame.dispose();
+                }
+            });
+
             // Transparent background
             storeContainer.setBackground(new Color(0,0,0, 0));
             panelImg.setBackground(new Color(0, 0, 0, 0));
             panelDesc.setBackground(new Color(0, 0, 0, 0));
+            panelButton.setBackground(new Color(0,0,0, 0));
 
             // Add to main panel
             panelImg.add(labelImg);
@@ -82,8 +97,11 @@ public class StoreMenu implements ActionListener {
             panelDesc.add(labelStoreName);
             panelDesc.add(labelOwner);
 
+            panelButton.add(productButton);
+
             storeContainer.add(panelImg);
             storeContainer.add(panelDesc);
+            storeContainer.add(panelButton);
 
             panelStore.add(storeContainer);
         }
@@ -136,7 +154,7 @@ public class StoreMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Back":
-                new MainMenus();
+                new AdminMenu();
                 frame.dispose();
                 break;
             default:

@@ -11,40 +11,11 @@ package model;
  */
 public class Admin extends Person {
 
-    public Admin(String username, String password, String gender, String email, int day, int month, int year) {
-        super(username, password, gender, email, day, month, year);
+    public Admin(String username, String password) {
+        super(username, password);
     }
 
     public Admin() {
-    }
-
-    private void addAdmin() {
-
-    }
-
-    private boolean editBonusDiscount() {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean editPoint() {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean editTax() {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean editMemberSeller() {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean editProduct() {
-        boolean result = false;
-        return result;
     }
 
     private void showMemberSeller() {

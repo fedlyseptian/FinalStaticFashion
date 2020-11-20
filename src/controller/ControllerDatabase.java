@@ -5,17 +5,12 @@
  */
 package controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.nio.channels.Selector;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import main.Main;
-import model.Member;
-import model.Product;
+import model.*;
 
 /**
  *
@@ -24,10 +19,11 @@ import model.Product;
 public class ControllerDatabase {
     static DatabaseHandler conn = new DatabaseHandler();
 
+    // Insert New Member
     public static boolean insertMember(Member member) {
         Date date = new Date(member.getYear()-1900,member.getMonth()-1,member.getDay());
         conn.connect();
-        String query = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
              stmt.setString(1,member.getUsername());
@@ -38,6 +34,7 @@ public class ControllerDatabase {
              stmt.setString(6,member.getEmail());
              stmt.setDate(7,date);
              stmt.setDouble(8,member.getPoint());
+             stmt.setDouble(9,member.getMoney());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -46,6 +43,80 @@ public class ControllerDatabase {
         }
     }
 
+    // Insert New Product
+    public static boolean insertProduct(Product product) {
+        conn.connect();
+        String query = "INSERT INTO products VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+             stmt.setString(1,product.getProductID());
+             stmt.setString(2,product.getProductName());
+             stmt.setString(3,product.getProductBrand());
+             stmt.setString(4,product.getProductCategory());
+             stmt.setInt(5,product.getProductStock());
+             stmt.setDouble(6,product.getProductPrice());
+             stmt.setString(7,product.getProductSize());
+             stmt.setString(8,product.getStoreName());
+            stmt.setString(9,product.getProductPath());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Insert New Admin
+    public static boolean insertAdmin(Admin admin){
+        conn.connect();
+        String query = "INSERT INTO admin VALUES(?,?)";
+        try{
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1, admin.getUsername());
+            stmt.setString(2, admin.getPassword());
+            stmt.executeUpdate();
+            return(true);
+        }catch(SQLException e){
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Insert New Seller
+    public static boolean insertSeller(Seller seller) {
+        conn.connect();
+        String query = "INSERT INTO seller VALUES(?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1,seller.getStoreName());
+            stmt.setString(2, seller.getUsername());
+            stmt.setString(3,seller.getDiscountID());
+            stmt.setString(4,seller.getPathLogo());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Insert New Discount
+    public static boolean insertDiscount(Discount discount) {
+        conn.connect();
+        String query = "INSERT INTO discount VALUES(?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1,discount.getDiscountID());
+            stmt.setDouble(2, discount.getDiscountValue());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Get All Products
     public static ArrayList<Product> getAllProducts() {
         ArrayList<Product> listProducts = new ArrayList<>();
         conn.connect();
@@ -62,15 +133,9 @@ public class ControllerDatabase {
                 product.setProductStock(rs.getInt("productStock"));
                 product.setProductPrice(rs.getDouble("productPrice"));
                 product.setProductSize(rs.getString("productSize"));
-                product.setSellerName(rs.getString("storeName"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
                 listProducts.add(product);
-//                user.setId(rs.getInt("ID"));
-//                user.setName(rs.getString("Name"));
-//                user.setAddress(rs.getString("Address"));
-//                user.setPhone(rs.getString("Phone"));
-//                user.setAge(rs.getInt("Age"));
-//                users.add(user);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,26 +143,260 @@ public class ControllerDatabase {
         return (listProducts);
     }
 
-    public static String md5Java(String message)
-    {
-        String digest = null;
+    // Get Specific Products
+    public static Product getProduct(String pID) {
+        Product product = new Product();
+        conn.connect();
+        String query = "SELECT * FROM products WHERE productID='" + pID + "'";
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(message.getBytes("UTF-8"));
-            //merubah byte array ke dalam String Hexadecimal
-            StringBuilder sb = new StringBuilder(2*hash.length);
-            for(byte b : hash)
-            {
-                sb.append(String.format("%02x", b&0xff));
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setProductStock(rs.getInt("productStock"));
+                product.setProductPrice(rs.getDouble("productPrice"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
             }
-            digest = sb.toString();
-        } catch (UnsupportedEncodingException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return digest;
+        return (product);
+    }
+
+    // Check Product ID
+    public static boolean checkProductIDAvailability(String pID) {
+        boolean isAvailable = true;
+        conn.connect();
+        String query = "SELECT productID FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (pID.equals(rs.getString("productID"))) {
+                    isAvailable = false;
+                }
+            }
+        } catch (SQLException e) {
+            isAvailable = true;
+            e.printStackTrace();
+        }
+        return (isAvailable);
+    }
+
+    // Update Product Data
+    public static boolean updateProduct(Product product, String pID) {
+        conn.connect();
+        String query = "UPDATE products SET " +
+                "productID='" + product.getProductID() + "', " +
+                "productName='" + product.getProductName() + "', " +
+                "productBrand='" + product.getProductBrand() + "', " +
+                "productCategory='" + product.getProductCategory() + "', " +
+                "productStock='" + product.getProductStock() + "', " +
+                "productPrice='" + product.getProductPrice() + "', " +
+                "productSize='" + product.getProductSize() + "', " +
+                "storeName='" + product.getStoreName() + "', " +
+                "pathFotoProduct='" + product.getProductPath() + "' " +
+                "WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    
+    //dibuat biar hemat waktu get, soalnya cuma butuh username
+    // Get All Username
+    public static ArrayList<String> getAllUsernames() {
+        ArrayList<String> listUsername = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM member";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String username = rs.getString("username");
+                listUsername.add(username);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listUsername);
+    }
+
+    // Get All Members
+    public static ArrayList<Member> getAllMembers(){
+        ArrayList<Member> listMembers = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM member";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Member member = new Member();
+                member.setUsername(rs.getString("username"));
+                member.setPassword(rs.getString("password"));
+                member.setName(rs.getString("name"));
+                member.setAddress(rs.getString("address"));
+                member.setGender(rs.getString("gender"));
+                member.setEmail(rs.getString("email"));
+                Date date = rs.getDate("birthDate");
+                member.setDay(date.getDate());
+                member.setMonth(date.getMonth()+1);
+                member.setYear(date.getYear()+1900);
+                member.setPoint(rs.getDouble("point"));
+                listMembers.add(member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listMembers);
+    }
+
+    // Get All Sellers
+    public static ArrayList<Seller> getAllSellers(){
+        ArrayList<Seller> listSellers = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM seller";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Seller seller = new Seller();
+                seller.setUsername(rs.getString("username"));
+                seller.setStoreName(rs.getString("storeName"));
+                seller.setDiscountID(rs.getString("discountID"));
+                seller.setPathLogo(rs.getString("pathLogo"));
+                listSellers.add(seller);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listSellers);
+    }
+
+    // Get All Admins
+    public static ArrayList<Admin> getAllAdmins(){
+        ArrayList<Admin> listAdmins = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM admin";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Admin admin = new Admin();
+                admin.setUsername(rs.getString("username"));
+                admin.setPassword(rs.getString("password"));
+                listAdmins.add(admin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listAdmins);
+    }
+
+    // Get All Discount
+    public static ArrayList<Discount> getAllDiscount(){
+        ArrayList<Discount> listDiscounts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM discount";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Discount discount = new Discount();
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+                listDiscounts.add(discount);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listDiscounts);
+    }
+  
+    // Get Tax Seller
+    public static TaxSeller getTaxSeller() {
+        TaxSeller taxSeller = new TaxSeller();
+        conn.connect();
+        String query = "SELECT * FROM taxseller";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                taxSeller.setTaxValue(rs.getDouble("taxValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (taxSeller);
+    }
+
+    // Update Tax Seller
+    public static boolean updateTaxSeller(double lastValue, double newValue) {
+        conn.connect();
+        String query = "UPDATE taxseller SET taxValue='" + newValue + "' "
+                + " WHERE taxValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Get About Us Text
+    public static String getAboutUsText() {
+        String tempString = "";
+        conn.connect();
+        String query = "SELECT aboutUsText FROM aboutus";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                tempString = rs.getString("aboutUsText");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (tempString);
+    }
+
+    // Update About Us Text
+    public static boolean updateAboutUsText(String newText) {
+        conn.connect();
+        String query = "UPDATE aboutus SET aboutUsText='" + newText + "'"
+                + " WHERE aboutUsID='AUT'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Delete admin
+    public static boolean deleteAdmin(Admin admin) {
+        conn.connect();
+        String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 }

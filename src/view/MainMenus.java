@@ -25,8 +25,25 @@ public class MainMenus implements ActionListener {
     JPanel panelLogin = new JPanel();
     JPanel panelRegister = new JPanel();
     JPanel panelAbout = new JPanel();
-    public static Font crafterFont = null;
-    public static Font mindfullyFont = null;
+    public static Font crafterFont;
+
+    static {
+        try {
+            crafterFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Crafter Regular.otf")).deriveFont(15f);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Font mindfullyFont;
+
+    static {
+        try {
+            mindfullyFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Mindfully Alternate Italic.ttf")).deriveFont(100f);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public MainMenus() {
         // Set Title Icon
@@ -36,22 +53,13 @@ public class MainMenus implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ADD FONT : Cramer Regular
-        try {
-            //create the font to use. Specify the size!
-            crafterFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Crafter Regular.otf")).deriveFont(15f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
-            ge.registerFont(crafterFont);
-        } catch (IOException | FontFormatException ignored) {}
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //register the font
+        ge.registerFont(crafterFont);
 
         // ADD FONT : Mindfully Alternate Italic
-        try {
-            //create the font to use. Specify the size!
-            mindfullyFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Mindfully Alternate Italic.ttf")).deriveFont(100f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
-            ge.registerFont(mindfullyFont);
-        } catch (IOException | FontFormatException ignored) {}
+        //register the font
+        ge.registerFont(mindfullyFont);
 
         // Panel Title Some Padding
         panelTitle.setBorder(new EmptyBorder(160, 10, -100, 10));

@@ -1,9 +1,19 @@
 package view;
 
+import controller.Controller;
+import controller.ControllerDatabase;
+import model.Member;
+import model.MemberManager;
+import model.Seller;
+import model.SellerManager;
+
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterScreenSeller implements ActionListener {
 
@@ -50,6 +60,13 @@ public class RegisterScreenSeller implements ActionListener {
     JButton sellerButton = new JButton("Become a Seller");
 
     public RegisterScreenSeller(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
+        ControllerDatabase controller = new ControllerDatabase();
+        ArrayList<String> listUsername = new ArrayList<>();
+        listUsername = controller.getAllUsernames();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -107,7 +124,9 @@ public class RegisterScreenSeller implements ActionListener {
         labelJenisKelamin.setHorizontalAlignment(JLabel.LEFT);
         labelJenisKelamin.setForeground(new Color(255,255,255));
         radioPria = new JRadioButton("Pria", true);
+        radioPria.setActionCommand("L");
         radioWanita = new JRadioButton("Wanita");
+        radioWanita.setActionCommand("P");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
         radioPria.setBackground(Color.BLACK);
@@ -180,12 +199,98 @@ public class RegisterScreenSeller implements ActionListener {
         frame.add(panelBottomSeller,BorderLayout.SOUTH);
 
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);        
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        ArrayList<String> finalListUsername = listUsername;
+        isiUsernameSeller.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
+                        labelUsernameSeller.setText("Username has been used");
+                        labelUsernameSeller.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelUsernameSeller.setText("Username");
+                        labelUsernameSeller.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                for(int i = 0; i< finalListUsername.size(); i++){
+                    if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
+                        labelUsernameSeller.setText("Username has been used");
+                        labelUsernameSeller.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelUsernameSeller.setText("Username");
+                        labelUsernameSeller.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        ControllerDatabase controller = new ControllerDatabase();
+        int month=-1;
+        switch(spinnerBulan.getValue().toString()){
+            case "January":
+                month=1;
+                break;
+            case "February":
+                month=2;
+                break;
+            case "March":
+                month=3;
+                break;
+            case "April":
+                month=4;
+                break;
+            case "May":
+                month=5;
+                break;
+            case "June":
+                month=6;
+                break;
+            case "July":
+                month=7;
+                break;
+            case "August":
+                month=8;
+                break;
+            case "September":
+                month=9;
+                break;
+            case "October":
+                month=10;
+                break;
+            case "November":
+                month=11;
+                break;
+            case "December":
+                month=12;
+                break;
+            default:
+        }
+//        String pass="";
+//        for(int i=0;i<isiPasswordSeller.getPassword().length;i++){
+//            pass+=isiPasswordSeller.getPassword()[i];
+//        }
+        String pass = Controller.md5Java(Controller.toStringPass(isiPasswordSeller.getPassword()));
+        Member member = new Member(isiUsernameSeller.getText(), pass,groupJK.getSelection().getActionCommand(),isiEmailSeller.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameSeller.getText(),isiAddressSeller.getText(),0,0);
         switch (command) {
             case "BeMember":
                 // Pass data to next frame
@@ -194,7 +299,16 @@ public class RegisterScreenSeller implements ActionListener {
                 break;
             case "BeSeller":
                 // Add data to database
-                new ShoppingScreenMenu();
+                if(isiUsernameSeller.getText().equals("") || pass.equals("") || isiEmailSeller.getText().equals("") || isiNameSeller.getText().equals("") || isiAddressSeller.getText().equals("") || isiStoreName.getText().equals("")){
+                    JOptionPane.showMessageDialog(null,"Please fill in the blank");
+                    new RegisterScreenSeller();
+                }else {
+                    controller.insertMember(member);
+                    Seller seller = new Seller(member, isiStoreName.getText(), null,"","non");
+                    SellerManager.getInstance().setSeller(seller);
+                    controller.insertSeller(seller);
+                    new ShoppingScreenMenu();
+                }
                 frame.dispose();
                 break;
             case "Back":

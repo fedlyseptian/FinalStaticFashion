@@ -7,8 +7,13 @@ package main;
 
 import controller.ControllerDatabase;
 import model.Member;
+import model.Product;
 import model.Transactions;
+import view.AdminMenu;
+import view.AdminProduct;
 import view.MainMenus;
+
+import java.util.ArrayList;
 
 /**
  *

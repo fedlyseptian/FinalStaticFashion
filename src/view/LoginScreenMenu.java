@@ -1,8 +1,13 @@
 package view;
 
+import controller.Controller;
+import controller.ControllerDatabase;
+import model.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -29,7 +34,16 @@ public class LoginScreenMenu implements ActionListener {
     JButton backButton = new JButton("<<< Back to Main Menu");
     JButton loginButton = new JButton("Login");
 
+
+    ArrayList<Member> listMember = ControllerDatabase.getAllMembers();
+    ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
+    ArrayList<Admin> listAdmin = ControllerDatabase.getAllAdmins();
+
     public LoginScreenMenu(){
+        // Set Title Icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
+        frame.setIconImage(icon);
+
         frame.setSize(500,400);
         frame.setLayout(new BorderLayout());
 
@@ -93,6 +107,56 @@ public class LoginScreenMenu implements ActionListener {
         switch (command) {
             case "Login":
                 // Cek ke database
+//                String pass="";
+//                for(int i=0;i<isiPassword.getPassword().length;i++){
+//                    pass+=isiPassword.getPassword()[i];
+//                }
+                String pass=Controller.md5Java(Controller.toStringPass(isiPassword.getPassword()));
+                boolean isMember=false;
+                boolean isSeller=false;
+                int i;
+                int j=0;
+                //cek ada ga di member
+                for(i=0;i<listMember.size();i++){
+                    if(Controller.validateMember(listMember.get(i),isiUsername.getText(),pass)){
+                        isMember=true;
+                        //cek username ada ga di table seller
+                        for(j=0;j<listSeller.size();j++){
+                            if(listMember.get(i).getUsername().equals(listSeller.get(j).getUsername())){
+                                isSeller=true;
+                                break;
+                            }
+                        }
+                        if(isMember || isSeller){
+                            break;
+                        }
+                    }
+                }
+                boolean isAdmin = false;
+                int k=0;
+                if(!isMember && !isSeller){
+                    for(k=0;k<listAdmin.size();k++){
+                        if(isiUsername.getText().equals(listAdmin.get(k).getUsername()) && Controller.md5Java(Controller.toStringPass(isiPassword.getPassword())).equals(listAdmin.get(k).getPassword())){
+                            isAdmin=true;
+                            break;
+                        }
+                    }
+                }
+                if(isSeller){
+                    MemberManager.getInstance().setMember(listMember.get(i));
+                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getPathLogo(),listSeller.get(j).getDiscountID()));
+                    new ShoppingScreenMenu();
+                }else if(isMember){
+                    MemberManager.getInstance().setMember(listMember.get(i));
+                    new ShoppingScreenMenu();
+                }else if(isAdmin){
+                    AdminManager.getInstance().setAdmin(listAdmin.get(k));
+                    AdminManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
+                    new AdminMenu();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Username or Password is incorect");
+                    new LoginScreenMenu();
+                }
                 // New FRAME
                 frame.dispose();
                 break;

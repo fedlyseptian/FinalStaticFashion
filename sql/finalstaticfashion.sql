@@ -1,224 +1,98 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Oct 12, 2020 at 07:47 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `finalstaticfashion`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
 CREATE TABLE `admin` (
-  `adminID` char(5) NOT NULL,
-  `username` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `username` varchar(30) NOT NULL PRIMARY KEY,
+  `password` varchar(32) NOT NULL
+);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `discount`
---
-
-CREATE TABLE `discount` (
-  `discountID` char(10) NOT NULL,
+CREATE TABLE discount (
+  `discountID` char(10) NOT NULL PRIMARY KEY,
   `discountValue` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+);
 
--- --------------------------------------------------------
+CREATE TABLE taxseller (
+  `taxValue` double DEFAULT NULL
+);
 
---
--- Table structure for table `listproduct`
---
-
-CREATE TABLE `listproduct` (
-  `transactionID` char(10) DEFAULT NULL,
-  `productID` char(10) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `total` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `member`
---
-
-CREATE TABLE `member` (
-  `username` varchar(30) NOT NULL,
-  `password` varchar(32) DEFAULT NULL,
+CREATE TABLE member (
+  `username` varchar(30) NOT NULL PRIMARY KEY,
+  `password` varchar(32) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `gender` char(1) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `birthDate` date DEFAULT NULL,
-  `point` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `point` double DEFAULT NULL,
+  `money` double DEFAULT NULL
+);
 
--- --------------------------------------------------------
+CREATE TABLE seller (
+  `storeName` varchar(30) NOT NULL PRIMARY KEY,
+  `username` varchar(30) NOT NULL,
+  `discountID` char(10) DEFAULT NULL,
+  `pathLogo` varchar(255) DEFAULT NULL,
+  CONSTRAINT FK_Username FOREIGN KEY (username) REFERENCES member(username),
+  CONSTRAINT FK_DiscountIDSeller FOREIGN KEY (discountID) REFERENCES discount(discountID)
+);
 
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
-  `productID` char(10) NOT NULL,
+CREATE TABLE products (
+  `productID` char(10) NOT NULL PRIMARY KEY,
   `productName` varchar(30) DEFAULT NULL,
   `productBrand` varchar(30) DEFAULT NULL,
   `productCategory` varchar(30) DEFAULT NULL,
   `productStock` int(11) DEFAULT NULL,
   `productPrice` double DEFAULT NULL,
   `productSize` char(2) DEFAULT NULL,
-  `storeName` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `storeName` varchar(30) DEFAULT NULL,
+  `pathFotoProduct` varchar(255) DEFAULT NULL,
+  CONSTRAINT FK_Storename FOREIGN KEY (storeName) REFERENCES seller(storeName)
+);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `seller`
---
-
-CREATE TABLE `seller` (
-  `storeName` varchar(30) NOT NULL,
-  `username` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `taxseller`
---
-
-CREATE TABLE `taxseller` (
-  `taxValue` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transactions`
---
-
-CREATE TABLE `transactions` (
-  `transactionID` char(10) NOT NULL,
+CREATE TABLE transactions (
+  `transactionID` char(10) NOT NULL PRIMARY KEY,
   `username` varchar(30) DEFAULT NULL,
   `productID` char(10) DEFAULT NULL,
   `discountID` char(10) DEFAULT NULL,
   `transactionDate` date DEFAULT NULL,
   `paymentOption` int(11) DEFAULT NULL,
   `subTotalTransaction` double DEFAULT NULL,
-  `taxSeller` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `taxSeller` double DEFAULT NULL,
+  CONSTRAINT FK_UsernameTr FOREIGN KEY (username) REFERENCES member(username),
+  CONSTRAINT FK_ProductIDTr FOREIGN KEY (productID) REFERENCES products(productID),
+  CONSTRAINT FK_DiscountID FOREIGN KEY (discountID) REFERENCES discount(discountID)
+);
 
---
--- Indexes for dumped tables
---
+CREATE TABLE listproduct (
+  `transactionID` char(10) NOT NULL,
+  `productID` char(10) NOT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  PRIMARY KEY (transactionID, productID),
+  CONSTRAINT FK_TransactionID FOREIGN KEY (transactionID) REFERENCES transactions(transactionID),
+  CONSTRAINT FK_ProductID FOREIGN KEY (productID) REFERENCES products(productID)
+);
 
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adminID`),
-  ADD KEY `username` (`username`);
+CREATE TABLE aboutus (
+  `aboutUsID` char(10) NOT NULL PRIMARY KEY,
+  `aboutUsText` varchar(255) DEFAULT NULL
+);
 
---
--- Indexes for table `discount`
---
-ALTER TABLE `discount`
-  ADD PRIMARY KEY (`discountID`);
+INSERT INTO discount VALUES ("FED1", 0.05);
 
---
--- Indexes for table `listproduct`
---
-ALTER TABLE `listproduct`
-  ADD KEY `transactionID` (`transactionID`),
-  ADD KEY `productID` (`productID`);
+INSERT INTO taxSeller VALUES (0.01);
 
---
--- Indexes for table `member`
---
-ALTER TABLE `member`
-  ADD PRIMARY KEY (`username`);
+INSERT INTO admin VALUES ("admin", "21232f297a57a5a743894a0e4a801fc3");
 
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`productID`),
-  ADD KEY `storeName` (`storeName`);
+INSERT INTO member VALUES ("Jeddi123", "360d913221f977222b9028ada63cf7d7", "Jedediah Fanuel", "Jl. Kembar Sari Indah 1 No. 5", "L", "if-19023@students.ithb.ac.id", "2001-04-28", 0, 0);
+INSERT INTO member VALUES ("Fedly123", "eaec8de3a25ffaad45461d875060005f", "Fedly Septian", "Jl. Cicadas", "L", "if-19033@students.ithb.ac.id", "1999-09-05", 0, 0);
+INSERT INTO member VALUES ("Timothy123", "fc40bc0ee14780238c5d7dd6e2de5cc0", "Timothy Ray", "Jl. Singapur", "L", "if-19033@students.ithb.ac.id", "2001-02-18", 0, 0);
 
---
--- Indexes for table `seller`
---
-ALTER TABLE `seller`
-  ADD PRIMARY KEY (`storeName`),
-  ADD KEY `username` (`username`);
+INSERT INTO seller VALUES ("Bebas Cinta Fashion", "Fedly123", "FED1", "./media/Store/Bebas Cinta Fashion.jpg");
 
---
--- Indexes for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`transactionID`),
-  ADD KEY `username` (`username`),
-  ADD KEY `productID` (`productID`),
-  ADD KEY `discountID` (`discountID`);
+INSERT INTO products VALUES ("PF001", "Kaos Makaroni", "OriginalFedly", "Kaos", 100, 120000, "L", "Bebas Cinta Fashion", "./media/Product/PF001.jpg");
+INSERT INTO products VALUES ("PF002", "Kaos Makaroni", "OriginalFedly", "Kaos", 90, 120000, "M", "Bebas Cinta Fashion", "./media/Product/PF002.jpg");
+INSERT INTO products VALUES ("PF003", "Kaos Makaroni", "OriginalFedly", "Kaos", 20, 120000, "S", "Bebas Cinta Fashion", "./media/Product/PF003.jpg");
 
---
--- Constraints for dumped tables
---
+INSERT INTO products VALUES ("PF004", "Celana Merah FD", "OriginalFedly", "Celana", 80, 100000, "L", "Bebas Cinta Fashion", "./media/Product/PF004.jpg");
+INSERT INTO products VALUES ("PF005", "Celana Merah FD", "OriginalFedly", "Celana", 76, 100000, "M", "Bebas Cinta Fashion", "./media/Product/PF005.jpg");
+INSERT INTO products VALUES ("PF006", "Celana Merah FD", "OriginalFedly", "Celana", 56, 100000, "S", "Bebas Cinta Fashion", "./media/Product/PF006.jpg");
 
---
--- Constraints for table `admin`
---
-ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`username`) REFERENCES `member` (`username`);
-
---
--- Constraints for table `listproduct`
---
-ALTER TABLE `listproduct`
-  ADD CONSTRAINT `listproduct_ibfk_1` FOREIGN KEY (`transactionID`) REFERENCES `transactions` (`transactionID`),
-  ADD CONSTRAINT `listproduct_ibfk_2` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`);
-
---
--- Constraints for table `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`storeName`) REFERENCES `seller` (`storeName`);
-
---
--- Constraints for table `seller`
---
-ALTER TABLE `seller`
-  ADD CONSTRAINT `seller_ibfk_1` FOREIGN KEY (`username`) REFERENCES `member` (`username`);
-
---
--- Constraints for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`username`) REFERENCES `member` (`username`),
-  ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`),
-  ADD CONSTRAINT `transactions_ibfk_3` FOREIGN KEY (`discountID`) REFERENCES `discount` (`discountID`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO aboutus VALUES ("AUT", "Final Static Fashion is the new branded fashion online store that gather the most known branded outfit creator. We always care for our customer satisfify. Do not wait any longer. Lets go shopping with us, and become our member or seller.");

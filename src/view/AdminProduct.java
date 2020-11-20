@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class ProductMenu implements ActionListener {
+public class AdminProduct implements ActionListener {
 
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Admin --> Products");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -24,10 +24,10 @@ public class ProductMenu implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    JLabel lblTitle = new JLabel("Products");
+    JLabel lblTitle = new JLabel("Admin -- Products");
     JButton backButton = new JButton("<<<");
 
-    public ProductMenu() {
+    public AdminProduct() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -47,6 +47,7 @@ public class ProductMenu implements ActionListener {
             JPanel panelImg = new JPanel();
             JPanel panelDesc = new JPanel(new GridLayout(3, 1));
             JPanel panelDescRight = new JPanel(new GridLayout(3, 1));
+            JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
             // Border Separator
             productContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
@@ -54,8 +55,9 @@ public class ProductMenu implements ActionListener {
             // Set Panel Dimension
             productContainer.setPreferredSize(new Dimension(1200, 200));
             panelImg.setPreferredSize(new Dimension(200, 200));
-            panelDesc.setPreferredSize(new Dimension(590, 120));
-            panelDescRight.setPreferredSize(new Dimension(500, 120));
+            panelDesc.setPreferredSize(new Dimension(580, 120));
+            panelDescRight.setPreferredSize(new Dimension(300, 120));
+            panelButton.setPreferredSize(new Dimension(150, 30));
 
             // Product Image
             JLabel labelImg = new JLabel();
@@ -92,11 +94,24 @@ public class ProductMenu implements ActionListener {
             labelStoreName.setFont(new Font("Arial", Font.PLAIN, 20));
             labelStoreName.setForeground(Color.WHITE);
 
+            // --> Next Button
+            JButton productButton = new JButton("> " + listProduct.get(i).getProductID());
+
+            int finalI = i;
+            productButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new AdminEditProduct(listProduct.get(finalI).getProductID());
+                    frame.dispose();
+                }
+            });
+
             // Transparent background
             productContainer.setBackground(new Color(0,0,0, 0));
             panelImg.setBackground(new Color(0, 0, 0, 0));
             panelDesc.setBackground(new Color(0, 0, 0, 0));
             panelDescRight.setBackground(new Color(0,0,0, 0));
+            panelButton.setBackground(new Color(0,0,0, 0));
 
             // Add to main panel
             panelImg.add(labelImg);
@@ -109,9 +124,12 @@ public class ProductMenu implements ActionListener {
             panelDescRight.add(labelProductSize);
             panelDescRight.add(labelProductPrice);
 
+            panelButton.add(productButton);
+
             productContainer.add(panelImg);
             productContainer.add(panelDesc);
             productContainer.add(panelDescRight);
+            productContainer.add(panelButton);
 
             panelProduct.add(productContainer);
         }
