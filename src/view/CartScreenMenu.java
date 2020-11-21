@@ -1,5 +1,7 @@
 package view;
 
+import model.MemberManager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -27,6 +29,12 @@ public class CartScreenMenu implements ActionListener {
     JButton shoppingMenuButton = new JButton("Back To Shopping Menu");
 
     public CartScreenMenu(){
+        if(MemberManager.getInstance().getMember()!=null){
+            labelTitleWelcome = new JLabel("Welcome "+MemberManager.getInstance().getMember().getUsername()+" to Shopping Menu");
+        }else{
+            new MainMenus();
+            frame.dispose();
+        }
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);

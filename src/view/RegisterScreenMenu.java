@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.ControllerDatabase;
+import model.Admin;
 import model.Member;
 import model.MemberManager;
 
@@ -62,7 +63,9 @@ public class RegisterScreenMenu implements ActionListener {
 
         ControllerDatabase controller = new ControllerDatabase();
         ArrayList<String> listUsername;
+        ArrayList<Admin> listAdmin;
         listUsername = controller.getAllUsernames();
+        listAdmin = controller.getAllAdmins();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -208,12 +211,36 @@ public class RegisterScreenMenu implements ActionListener {
                         memberButton.setEnabled(true);
                     }
                 }
+                for(int i=0;i<listAdmin.size();i++){
+                    if(isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())){
+                        labelUsernameMember.setText("Username has been used");
+                        labelUsernameMember.setForeground(Color.RED);
+                        memberButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelUsernameMember.setText("Username");
+                        labelUsernameMember.setForeground(Color.WHITE);
+                        memberButton.setEnabled(true);
+                    }
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
                     if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
+                        labelUsernameMember.setText("Username has been used");
+                        labelUsernameMember.setForeground(Color.RED);
+                        memberButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelUsernameMember.setText("Username");
+                        labelUsernameMember.setForeground(Color.WHITE);
+                        memberButton.setEnabled(true);
+                    }
+                }
+                for(int i=0;i<listAdmin.size();i++){
+                    if(isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())){
                         labelUsernameMember.setText("Username has been used");
                         labelUsernameMember.setForeground(Color.RED);
                         memberButton.setEnabled(false);
