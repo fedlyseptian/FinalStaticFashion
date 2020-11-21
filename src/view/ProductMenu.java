@@ -22,7 +22,7 @@ public class ProductMenu implements ActionListener {
     JPanel panelProduct = new JPanel();
 
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
-    JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     JLabel lblTitle = new JLabel("Products");
     JButton backButton = new JButton("<<<");
@@ -54,8 +54,8 @@ public class ProductMenu implements ActionListener {
             // Set Panel Dimension
             productContainer.setPreferredSize(new Dimension(1200, 200));
             panelImg.setPreferredSize(new Dimension(200, 200));
-            panelDesc.setPreferredSize(new Dimension(590, 120));
-            panelDescRight.setPreferredSize(new Dimension(500, 120));
+            panelDesc.setPreferredSize(new Dimension(500, 120));
+            panelDescRight.setPreferredSize(new Dimension(480, 120));
 
             // Product Image
             JLabel labelImg = new JLabel();
