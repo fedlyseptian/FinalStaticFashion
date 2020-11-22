@@ -27,7 +27,7 @@ import static view.MainMenus.mindfullyFont;
 
 public class AdminEditProduct implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Products");
+    JFrame frame = new JFrame("Admin --> Edit Product");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -41,7 +41,7 @@ public class AdminEditProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.X_AXIS);
     BoxLayout boxLayoutProductRight = new BoxLayout(panelProductRight, BoxLayout.Y_AXIS);
 
-    JLabel lblTitle = new JLabel("Admin -- Products");
+    JLabel lblTitle = new JLabel("Admin -- Edit Product");
     JButton backButton = new JButton("<<<");
 
     JLabel lblProductID = new JLabel("ID : ");
@@ -294,7 +294,7 @@ public class AdminEditProduct implements ActionListener {
                 }
 
                 if (txtPathFotoProduct.getText().equals("")) {
-                    JOptionPane.showMessageDialog(frame, "Pastikan mencantumkan foto dan tanda tangan", "Pas Foto", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Pastikan mencantumkan foto product", "Foto Product", JOptionPane.INFORMATION_MESSAGE);
                     lanjut = false;
                 }
 
