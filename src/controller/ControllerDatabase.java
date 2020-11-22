@@ -143,6 +143,33 @@ public class ControllerDatabase {
         return (listProducts);
     }
 
+    // Get Products From Seller
+    public static ArrayList<Product> getProductsSeller(String sName) {
+        ArrayList<Product> listProducts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM products WHERE storeName='" + sName + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setProductStock(rs.getInt("productStock"));
+                product.setProductPrice(rs.getDouble("productPrice"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
+                listProducts.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProducts);
+    }
+
     // Get Specific Products
     public static Product getProduct(String pID) {
         Product product = new Product();
@@ -280,6 +307,45 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listSellers);
+    }
+
+    // Get Specific Sellers
+    public static Seller getSpecificSeller(String sName){
+        Seller seller = new Seller();
+        conn.connect();
+        String query = "SELECT * FROM seller WHERE storeName='" + sName + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                seller.setUsername(rs.getString("username"));
+                seller.setStoreName(rs.getString("storeName"));
+                seller.setDiscountID(rs.getString("discountID"));
+                seller.setPathLogo(rs.getString("pathLogo"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (seller);
+    }
+
+    // Update Seller Data
+    public static boolean updateSeller(Seller seller, String stName) {
+        conn.connect();
+        String query = "UPDATE seller SET " +
+                "username='" + seller.getUsername() + "', " +
+                "storeName='" + seller.getStoreName() + "', " +
+                "discountID='" + seller.getDiscountID() + "', " +
+                "pathLogo='" + seller.getPathLogo() + "' " +
+                "WHERE storeName='" + stName + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 
     // Get All Admins
