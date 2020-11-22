@@ -76,6 +76,7 @@ CREATE TABLE aboutus (
 );
 
 INSERT INTO discount VALUES ("FED1", 0.05);
+INSERT INTO discount VALUES ("non", 0);
 
 INSERT INTO taxSeller VALUES (0.01);
 
