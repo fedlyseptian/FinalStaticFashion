@@ -200,19 +200,19 @@ public class RegisterScreenMenu implements ActionListener {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
-                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-                        labelUsernameMember.setText("Username has been used");
-                        labelUsernameMember.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameMember.setText("Username");
-                        labelUsernameMember.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
+                    if(i<listAdmin.size()) {
+                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
+                            labelUsernameMember.setText("Username has been used");
+                            labelUsernameMember.setForeground(Color.RED);
+                            sellerButton.setEnabled(false);
+                            break;
+                        } else {
+                            labelUsernameMember.setText("Username");
+                            labelUsernameMember.setForeground(Color.WHITE);
+                            sellerButton.setEnabled(true);
+                        }
                     }
-                }
-                for(int i=0;i<listAdmin.size();i++){
-                    if(isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())){
+                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
                         labelUsernameMember.setText("Username has been used");
                         labelUsernameMember.setForeground(Color.RED);
                         memberButton.setEnabled(false);
@@ -228,19 +228,19 @@ public class RegisterScreenMenu implements ActionListener {
             @Override
             public void removeUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
-                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-                        labelUsernameMember.setText("Username has been used");
-                        labelUsernameMember.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameMember.setText("Username");
-                        labelUsernameMember.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
+                    if(i<listAdmin.size()) {
+                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
+                            labelUsernameMember.setText("Username has been used");
+                            labelUsernameMember.setForeground(Color.RED);
+                            sellerButton.setEnabled(false);
+                            break;
+                        } else {
+                            labelUsernameMember.setText("Username");
+                            labelUsernameMember.setForeground(Color.WHITE);
+                            sellerButton.setEnabled(true);
+                        }
                     }
-                }
-                for(int i=0;i<listAdmin.size();i++){
-                    if(isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())){
+                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
                         labelUsernameMember.setText("Username has been used");
                         labelUsernameMember.setForeground(Color.RED);
                         memberButton.setEnabled(false);
