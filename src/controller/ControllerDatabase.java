@@ -443,8 +443,6 @@ public class ControllerDatabase {
     }
 
 
-
-    // Get All Discount
     public static Discount getDiscount(String dID){
         Discount discount= new Discount();
         conn.connect();

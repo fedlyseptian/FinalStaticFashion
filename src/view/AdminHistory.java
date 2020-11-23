@@ -200,7 +200,7 @@ public class AdminHistory implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Back":
-                new MainMenus();
+                new AdminMenu();
                 frame.dispose();
                 break;
             default:
