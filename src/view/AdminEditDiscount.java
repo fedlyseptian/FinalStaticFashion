@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerDatabase;
+import model.Discount;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -10,23 +11,29 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminAbout implements ActionListener {
+public class AdminEditDiscount implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> About Us");
+    JFrame frame = new JFrame("Edit Discount");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
-    JPanel panelForm = new JPanel(new FlowLayout());
+    JPanel panelForm = new JPanel(new GridLayout(5, 1, 5, 5));
 
-    JLabel lblTitle = new JLabel("Admin - About Us");
+    JLabel lblTitle = new JLabel("Edit Discount");
 
-    JButton editButton = new JButton("Edit");
+    JLabel lblDiscountID = new JLabel("Discount ID");
+    JTextField txtDiscountID = new JTextField();
+
+    JLabel lblDiscountValue = new JLabel("Discount Value");
+    JSpinner spinnerDiscountValue;
+
     JButton submitButton = new JButton("Save");
     JButton backButton = new JButton("<<<");
 
-    JTextArea aboutTextArea = new JTextArea(20, 70);
-    JScrollPane sp = new JScrollPane(aboutTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    static Discount discount;
 
-    public AdminAbout() {
+//    public AdminEditDiscount() {}
+
+    public AdminEditDiscount(String dID) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -61,21 +68,32 @@ public class AdminAbout implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        // About Text Area
-        aboutTextArea.setText((ControllerDatabase.getAboutUsText()));
-        aboutTextArea.setEditable(false);
-        aboutTextArea.setLineWrap(true);
-        panelForm.add(sp);
+        // Get Discount from Database
+        discount = ControllerDatabase.getDiscount(dID);
 
-        // Edit Button
-        editButton.setActionCommand("Edit");
-        editButton.addActionListener(this);
-        panelForm.add(editButton);
+        // Form
+        lblDiscountID.setFont(new Font("Arial", Font.BOLD, 20));
+        lblDiscountID.setBackground(Color.BLACK);
+        lblDiscountID.setForeground(Color.WHITE);
+        txtDiscountID.setEditable(false);
+        txtDiscountID.setText(discount.getDiscountID());
+
+        lblDiscountValue.setFont(new Font("Arial", Font.BOLD, 20));
+        lblDiscountValue.setBackground(Color.BLACK);
+        lblDiscountValue.setForeground(Color.WHITE);
+        spinnerDiscountValue = new JSpinner(new SpinnerNumberModel(discount.getDiscountValue(), 0, 100 , 0.1));
+
+        panelForm.add(lblDiscountID);
+        panelForm.add(txtDiscountID);
+        panelForm.add(lblDiscountValue);
+        panelForm.add(spinnerDiscountValue);
 
         // Submit Button
+        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
+        submitButton.setBackground(Color.BLACK);
+        submitButton.setForeground(Color.WHITE);
         submitButton.setActionCommand("Submit");
         submitButton.addActionListener(this);
-        submitButton.setVisible(false);
         panelForm.add(submitButton);
 
         // Panel Form
@@ -96,19 +114,17 @@ public class AdminAbout implements ActionListener {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "Edit":
-                aboutTextArea.setEditable(true);
-                submitButton.setVisible(true);
-                break;
             case "Submit":
-                ControllerDatabase.updateAboutUsText(aboutTextArea.getText());
-                new AdminAbout();
+                discount.setDiscountValue((Double) spinnerDiscountValue.getValue());
+                ControllerDatabase.updateDiscount(discount);
+                new AdminDiscount();
                 frame.dispose();
                 break;
             case "Back":

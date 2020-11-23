@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerDatabase;
+import model.PointSystem;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -10,23 +11,25 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminAbout implements ActionListener {
+public class AdminPoint implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> About Us");
+    JFrame frame = new JFrame("Admin --> Point ");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
-    JPanel panelForm = new JPanel(new FlowLayout());
+    JPanel panelForm = new JPanel(new GridLayout(4, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Admin - About Us");
+    JLabel lblTitle = new JLabel("Admin - Point");
+
+    JLabel lblPoint = new JLabel("Point System : ");
+    JTextField txtPoint = new JTextField();
 
     JButton editButton = new JButton("Edit");
-    JButton submitButton = new JButton("Save");
+    JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
 
-    JTextArea aboutTextArea = new JTextArea(20, 70);
-    JScrollPane sp = new JScrollPane(aboutTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    static double tempPointValue;
 
-    public AdminAbout() {
+    public AdminPoint() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -36,6 +39,7 @@ public class AdminAbout implements ActionListener {
 
         // Title
         lblTitle.setFont(mindfullyFont);
+        lblTitle.setFont(lblTitle.getFont().deriveFont(50f));
         lblTitle.setForeground(new Color(255, 145, 0));
         panelAdminTitle.add(lblTitle);
         panelAdminTitle.setBackground(new Color(0, 0, 0, 0));
@@ -61,11 +65,18 @@ public class AdminAbout implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        // About Text Area
-        aboutTextArea.setText((ControllerDatabase.getAboutUsText()));
-        aboutTextArea.setEditable(false);
-        aboutTextArea.setLineWrap(true);
-        panelForm.add(sp);
+        // Point Label
+        lblPoint.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPoint.setForeground(Color.WHITE);
+
+        // Point Text Field
+        txtPoint.setEditable(false);
+        PointSystem point = ControllerDatabase.getPoint();
+        txtPoint.setText(String.valueOf(point.getPointValue()));
+
+        // Form Point Value
+        panelForm.add(lblPoint);
+        panelForm.add(txtPoint);
 
         // Edit Button
         editButton.setActionCommand("Edit");
@@ -92,7 +103,7 @@ public class AdminAbout implements ActionListener {
         frame.add(backButton);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(panel);
-        frame.setSize(700, 800);
+        frame.setSize(400, 500);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -103,13 +114,19 @@ public class AdminAbout implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Edit":
-                aboutTextArea.setEditable(true);
+                tempPointValue = Double.parseDouble(txtPoint.getText());
+                txtPoint.setEditable(true);
                 submitButton.setVisible(true);
                 break;
             case "Submit":
-                ControllerDatabase.updateAboutUsText(aboutTextArea.getText());
-                new AdminAbout();
-                frame.dispose();
+                if (Double.parseDouble(txtPoint.getText()) >= 0.0) {
+                    if (ControllerDatabase.updatePoint(tempPointValue, Double.parseDouble(txtPoint.getText()))) {
+                        new AdminPoint();
+                        frame.dispose();
+                    }
+                } else {
+                    lblPoint.setText("Point Value : (ERROR)");
+                }
                 break;
             case "Back":
                 new AdminMenu();

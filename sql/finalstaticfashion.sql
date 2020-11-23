@@ -73,6 +73,12 @@ CREATE TABLE aboutus (
   `aboutUsText` varchar(255) DEFAULT NULL
 );
 
+CREATE TABLE pointSystem (
+  `pointValue` double DEFAULT NULL
+);
+
+INSERT INTO pointSystem VALUES (0.05);
+
 INSERT INTO discount VALUES ("FED1", 0.05);
 INSERT INTO discount VALUES ("non", 0);
 

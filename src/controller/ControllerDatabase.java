@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.*;
 import java.nio.channels.Selector;
 import java.sql.*;
 import java.util.ArrayList;
@@ -387,6 +388,39 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
+
+    // Get All Discount
+    public static Discount getDiscount(String dID){
+        Discount discount= new Discount();
+        conn.connect();
+        String query = "SELECT * FROM discount WHERE discountID='" + dID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (discount);
+    }
+
+    // Update About Us Text
+    public static boolean updateDiscount(Discount discount) {
+        conn.connect();
+        String query = "UPDATE discount SET discountValue='" + discount.getDiscountValue() + "'"
+                + " WHERE discountID='" + discount.getDiscountID() + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
   
     // Get Tax Seller
     public static TaxSeller getTaxSeller() {
@@ -410,6 +444,38 @@ public class ControllerDatabase {
         conn.connect();
         String query = "UPDATE taxseller SET taxValue='" + newValue + "' "
                 + " WHERE taxValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Get Point
+    public static PointSystem getPoint() {
+        PointSystem point = new PointSystem();
+        conn.connect();
+        String query = "SELECT * FROM pointSystem";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                point.setPointValue(rs.getDouble("pointValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (point);
+    }
+
+    // Update Tax Seller
+    public static boolean updatePoint(double lastValue, double newValue) {
+        conn.connect();
+        String query = "UPDATE pointSystem SET pointValue='" + newValue + "' "
+                + " WHERE pointValue='" + lastValue + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
