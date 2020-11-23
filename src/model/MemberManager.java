@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MemberManager {
     private static MemberManager instance;
     private Member member;
-    private ArrayList<Transactions> listTransaction;
+    private String password;
 
     private MemberManager(){
 
@@ -24,5 +24,13 @@ public class MemberManager {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
