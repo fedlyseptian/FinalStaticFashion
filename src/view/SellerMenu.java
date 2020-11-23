@@ -274,11 +274,11 @@ public class SellerMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "EditProfile":
-                // new EditProfile();
+                new MemberEditMember();
                 frame.dispose();
                 break;
             case "TopUp":
-                // new TopUp();
+                new MemberTopUp();
                 frame.dispose();
                 break;
             case "History":

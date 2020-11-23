@@ -2,7 +2,7 @@ package view;
 
 import controller.ControllerDatabase;
 import model.MemberManager;
-import model.TaxSeller;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -14,12 +14,12 @@ import static view.MainMenus.mindfullyFont;
 
 public class MemberTopUp implements ActionListener {
 
-    JFrame frame = new JFrame("Member --> Top Up");
+    JFrame frame = new JFrame(" --> Top Up");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelMemberTitle = new JPanel();
     JPanel panelForm = new JPanel(new GridLayout(4, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Member - Top Up");
+    JLabel lblTitle = new JLabel("- Top Up");
 
     JLabel lblBalanceMember = new JLabel();
     JTextField txtBalanceMember = new JTextField();
@@ -31,7 +31,9 @@ public class MemberTopUp implements ActionListener {
     static double tempBalanceValue;
 
     public MemberTopUp() {
+        // label Balance
         lblBalanceMember.setText("Your Balance: "+MemberManager.getInstance().getMember().getMoney());
+
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -132,7 +134,11 @@ public class MemberTopUp implements ActionListener {
                 }
                 break;
             case "Back":
-                new MemberMenu();
+                if (SellerManager.getInstance().getSeller() != null) {
+                    new SellerMenu();
+                } else if (MemberManager.getInstance().getMember() != null){
+                    new MemberMenu();
+                }
                 frame.dispose();
                 break;
             default:
