@@ -80,7 +80,7 @@ public class AdminStore implements ActionListener {
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new AdminEditSeller(listSeller.get(finalI).getStoreName());
+                    new EditSeller(listSeller.get(finalI).getStoreName());
                     frame.dispose();
                 }
             });
