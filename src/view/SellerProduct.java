@@ -2,6 +2,8 @@ package view;
 
 import controller.ControllerDatabase;
 import model.Product;
+import model.Seller;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -13,9 +15,10 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminProduct implements ActionListener {
+public class SellerProduct implements ActionListener {
+    Seller userSeller = SellerManager.getInstance().getSeller();
 
-    JFrame frame = new JFrame("Admin --> Products");
+    JFrame frame = new JFrame("Seller --> Products");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -24,10 +27,10 @@ public class AdminProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-    JLabel lblTitle = new JLabel("Admin -- Products");
+    JLabel lblTitle = new JLabel("Seller -- Products");
     JButton backButton = new JButton("<<<");
 
-    public AdminProduct() {
+    public SellerProduct() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -39,7 +42,7 @@ public class AdminProduct implements ActionListener {
         lblTitle.setForeground(new Color(255, 145, 0));
 
         // Loop through product list
-        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
+        ArrayList<Product> listProduct = ControllerDatabase.getProductsSeller(userSeller.getStoreName());
         for (int i = 0; i < listProduct.size(); i++) {
 
             // Panel Declaration
