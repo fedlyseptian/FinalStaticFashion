@@ -33,6 +33,8 @@ public class ShoppingScreenMenu implements ActionListener {
     public ShoppingScreenMenu(){
         if(MemberManager.getInstance().getMember()!=null){
             labelTitleWelcome = new JLabel("Welcome "+MemberManager.getInstance().getMember().getUsername()+" to Shopping Menu");
+        }else if(SellerManager.getInstance().getSeller()!=null) {
+            labelTitleWelcome = new JLabel("Welcome "+SellerManager.getInstance().getSeller().getUsername()+" to Shopping Menu");
         }else{
             new MainMenus();
             frame.dispose();
