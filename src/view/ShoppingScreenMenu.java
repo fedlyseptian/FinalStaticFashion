@@ -1,35 +1,41 @@
 package view;
 
-import controller.Controller;
-import model.*;
+import controller.ControllerDatabase;
+import model.MemberManager;
+import model.Product;
+import model.SellerManager;
+import model.Cart;
+import view.CartScreenMenu;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.MemoryManagerMXBean;
+import java.util.ArrayList;
+
+import static view.MainMenus.mindfullyFont;
 
 public class ShoppingScreenMenu implements ActionListener {
-    //Deklarasi
-    JFrame frame = new JFrame("Final Static Fashion");
-    JPanel panelTop = new JPanel();
-    JPanel panelLeft = new JPanel();
-    JPanel panelRight = new JPanel();
-    JPanel panelBottom = new JPanel();
-    JPanel panelCenter = new JPanel();
-    JPanel panelTitle = new JPanel(new GridLayout(2,1));
+    JFrame frame = new JFrame("Shopping Menu");
+    JPanel panel = new JPanel(new BorderLayout());
 
-    //Title
+    JPanel panelTitle = new JPanel();
+    JPanel panelProduct = new JPanel();
+
+    BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
+    JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
     JLabel labelTitleWelcome = new JLabel();
-    JLabel labelTitle = new JLabel("Final Static Fashion");
+    JButton backButton = new JButton("<<<");
 
     //Button
     JButton logoutButton = new JButton("Logout");
     JButton cartButton = new JButton("Cart");
 
+    public static ArrayList<Cart> listProductCart = new ArrayList<>();
     public ShoppingScreenMenu(){
         if(MemberManager.getInstance().getMember()!=null){
             labelTitleWelcome = new JLabel("Welcome "+MemberManager.getInstance().getMember().getUsername()+" to Shopping Menu");
@@ -43,80 +49,192 @@ public class ShoppingScreenMenu implements ActionListener {
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
 
-        frame.setSize(1280,720);
-        frame.setLayout(new BorderLayout());
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        panel.setBorder(new LineBorder(Color.BLACK, 20));
+        panelProduct.setLayout(boxLayout);
 
-        // Set Panel Size
-        panelTop.setPreferredSize(new Dimension(1280,40));
-        panelLeft.setPreferredSize(new Dimension(20, 600));
-        panelCenter.setPreferredSize(new Dimension(1240, 600));
-        panelRight.setPreferredSize(new Dimension(20, 600));
-        panelBottom.setPreferredSize(new Dimension(1280, 80));
-        panelTitle.setPreferredSize(new Dimension(1280, 130));
+        labelTitleWelcome.setFont(mindfullyFont);
+        labelTitleWelcome.setForeground(new Color(255, 145, 0));
 
-        // Set Panel Background Color
-        panelTop.setBackground(Color.BLACK);
-        panelLeft.setBackground(Color.BLACK);
-        panelCenter.setBackground(Color.BLACK);
-        panelRight.setBackground(Color.BLACK);
-        panelBottom.setBackground(Color.BLACK);
-        panelTitle.setBackground(Color.BLACK);
+        // Loop through product list
+        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
 
-        // ADD FONT : Cramer Regular
-        try {
-            //create the font to use. Specify the size!
-            MainMenus.crafterFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Crafter Regular.otf")).deriveFont(15f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
-            ge.registerFont(MainMenus.crafterFont);
-        } catch (IOException | FontFormatException ignored) {}
+        for (int i = 0; i < listProduct.size(); i++) {
 
-        // ADD FONT : Mindfully Alternate Italic
-        try {
-            //create the font to use. Specify the size!
-            MainMenus.mindfullyFont = Font.createFont(Font.TRUETYPE_FONT, new File("media/Mindfully Alternate Italic.ttf")).deriveFont(80f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
-            ge.registerFont(MainMenus.mindfullyFont);
-        } catch (IOException | FontFormatException ignored) {}
+            // Panel Declaration
+            JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel panelImg = new JPanel();
+            JPanel panelDesc = new JPanel(new GridLayout(3, 1));
+            JPanel panelDescRight = new JPanel(new GridLayout(3, 1));
+            JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
-        //Logout Button
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 15));
-        logoutButton.setActionCommand("Logout");
-        logoutButton.addActionListener(this);
+            // Border Separator
+            productContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
+
+            // Set Panel Dimension
+            productContainer.setPreferredSize(new Dimension(1200, 200));
+            panelImg.setPreferredSize(new Dimension(200, 200));
+            panelDesc.setPreferredSize(new Dimension(500, 120));
+            panelDescRight.setPreferredSize(new Dimension(300, 120));
+            panelButton.setPreferredSize(new Dimension(120, 30));
+
+            // Product Image
+            JLabel labelImg = new JLabel();
+            labelImg.setIcon(new ImageIcon(new ImageIcon(listProduct.get(i).getProductPath()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+
+            // Product Data
+            // --> Name
+            JLabel labelProductName = new JLabel(listProduct.get(i).getProductName());
+            labelProductName.setFont(new Font("Arial", Font.BOLD, 25));
+            labelProductName.setForeground(Color.WHITE);
+
+            // --> Brand
+            JLabel labelProductBrand = new JLabel("Brand : " + listProduct.get(i).getProductBrand());
+            labelProductBrand.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelProductBrand.setForeground(Color.WHITE);
+
+            // --> Category
+            JLabel labelProductCategory = new JLabel("( " + listProduct.get(i).getProductCategory() + " )");
+            labelProductCategory.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelProductCategory.setForeground(Color.WHITE);
+
+            // --> Price
+            JLabel labelProductPrice = new JLabel("Price : " + listProduct.get(i).getProductPrice());
+            labelProductPrice.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelProductPrice.setForeground(Color.WHITE);
+
+            // --> Size
+            JLabel labelProductSize = new JLabel("Size : " + listProduct.get(i).getProductSize());
+            labelProductSize.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelProductSize.setForeground(Color.WHITE);
+
+            // --> Store Name
+            JLabel labelStoreName = new JLabel("Store Name : " + listProduct.get(i).getStoreName());
+            labelStoreName.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelStoreName.setForeground(Color.WHITE);
+
+            // --> Next Button
+            JButton addToCartButton = new JButton("Add To Cart");
+
+            int finalI = i;
+            addToCartButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (listProductCart.isEmpty()) {
+                        Cart cart = new Cart(listProduct.get(finalI).getProductID(),listProduct.get(finalI).getProductName(),listProduct.get(finalI).getProductBrand(),listProduct.get(finalI).getProductCategory(),listProduct.get(finalI).getStoreName(),listProduct.get(finalI).getProductSize(),listProduct.get(finalI).getProductPath(),1,listProduct.get(finalI).getProductPrice());
+                        listProductCart.add(cart);
+                        JOptionPane.showMessageDialog(frame, "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
+                    } else{
+                        boolean isIdBelumDitemukan = true;
+                        boolean bikinBaru = true;
+                        int k = 0;
+                        do{
+                            if(listProduct.get(finalI).getProductID().equals(listProductCart.get(k).getProductID())){
+                                int temp = listProductCart.get(k).getQuantity() + 1;
+                                listProductCart.get(k).setQuantity(temp);
+                                JOptionPane.showMessageDialog(frame, "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
+                                isIdBelumDitemukan = false;
+                                bikinBaru = false;
+                            }else {
+                                k++;
+                            }
+                        }while(isIdBelumDitemukan == true && k < listProductCart.size());
+
+                        if(bikinBaru){
+                            Cart cart2 = new Cart(listProduct.get(finalI).getProductID(),listProduct.get(finalI).getProductName(),listProduct.get(finalI).getProductBrand(),listProduct.get(finalI).getProductCategory(),listProduct.get(finalI).getStoreName(),listProduct.get(finalI).getProductSize(),listProduct.get(finalI).getProductPath(),1,listProduct.get(finalI).getProductPrice());
+                            listProductCart.add(cart2);
+                            JOptionPane.showMessageDialog(frame,  "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                    }
+
+                }
+            });
+
+            // Transparent background
+            productContainer.setBackground(new Color(0,0,0, 0));
+            panelImg.setBackground(new Color(0, 0, 0, 0));
+            panelDesc.setBackground(new Color(0, 0, 0, 0));
+            panelDescRight.setBackground(new Color(0,0,0, 0));
+            panelButton.setBackground(new Color(0,0,0, 0));
+
+            // Add to main panel
+            panelImg.add(labelImg);
+
+            panelDesc.add(labelProductName);
+            panelDesc.add(labelProductBrand);
+            panelDesc.add(labelStoreName);
+
+            panelDescRight.add(labelProductCategory);
+            panelDescRight.add(labelProductSize);
+            panelDescRight.add(labelProductPrice);
+
+            panelButton.add(addToCartButton);
+
+            productContainer.add(panelImg);
+            productContainer.add(panelDesc);
+            productContainer.add(panelDescRight);
+            productContainer.add(panelButton);
+
+            panelProduct.add(productContainer);
+        }
+
+        panelTitle.add(labelTitleWelcome);
 
         //Cart Button
         cartButton.setFont(new Font("Arial", Font.BOLD, 15));
         cartButton.setActionCommand("Cart");
         cartButton.addActionListener(this);
+        cartButton.setBounds(1050, 10, 90, 30);
 
-        panelTop.setBorder(new EmptyBorder(0, 1000, 0, 0));
-        panelTop.add(cartButton);
-        panelTop.add(logoutButton);
+        frame.add(cartButton);
 
-        //Title Welcome
-        labelTitleWelcome.setFont(MainMenus.crafterFont);
-        labelTitleWelcome.setForeground(new Color(255,145,0));
-        labelTitleWelcome.setHorizontalAlignment(JLabel.CENTER);
-        panelTitle.add(labelTitleWelcome);
+        //Logout Button
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 15));
+        logoutButton.setActionCommand("Logout");
+        logoutButton.addActionListener(this);
+        logoutButton.setBounds(1150, 10, 90, 30);
 
-        //Title Final Static Fashion
-        labelTitle.setFont(MainMenus.mindfullyFont);
-        labelTitle.setForeground(new Color(255,145,0));
-        labelTitle.setHorizontalAlignment(JLabel.CENTER);
-        panelTitle.add(labelTitle);
+        frame.add(logoutButton);
 
-        panelCenter.add(panelTitle);
+        // Transaparent Child Background
+        panelTitle.setBackground(new Color(0,0,0,0));
+        panelProduct.setBackground(new Color(0,0,0,0));
 
-        frame.add(panelTop,BorderLayout.NORTH);
-        frame.add(panelLeft,BorderLayout.WEST);
-        frame.add(panelCenter,BorderLayout.CENTER);
-        frame.add(panelRight,BorderLayout.EAST);
-        frame.add(panelBottom,BorderLayout.SOUTH);
+        // Coloring Panel
+        panel.setBackground(Color.BLACK);
 
-        frame.setVisible(true);
+        // Back Button
+        backButton.setBounds(5, 25, 100, 50);
+        backButton.setFont(backButton.getFont().deriveFont(30f));
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(null);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(new Color(255, 145, 0));
+                backButton.setBackground(new Color(15, 15, 10));
+                backButton.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.WHITE);
+                backButton.setBackground(Color.BLACK);
+                backButton.setBorder(null);
+            }
+        });
+
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
+
+        frame.add(backButton);
+
+        panel.add(panelTitle, BorderLayout.NORTH);
+        panel.add(panelProduct, BorderLayout.CENTER);
+        frame.add(scrollPane);
+
+        frame.setSize(1280, 720);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
     }
 
     @Override
@@ -131,6 +249,11 @@ public class ShoppingScreenMenu implements ActionListener {
                 // Logout account
                 MemberManager.getInstance().setMember(null);
                 SellerManager.getInstance().setSeller(null);
+                listProductCart = null;
+                new MainMenus();
+                frame.dispose();
+                break;
+            case "Back":
                 new MainMenus();
                 frame.dispose();
                 break;
