@@ -147,6 +147,7 @@ public class LoginScreenMenu implements ActionListener {
                     new ShoppingScreenMenu();
                 }else if(isMember){
                     MemberManager.getInstance().setMember(listMember.get(i));
+                    MemberManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
                     new MemberMenu();
                 }else if(isAdmin){
                     AdminManager.getInstance().setAdmin(listAdmin.get(k));
