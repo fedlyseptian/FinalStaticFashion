@@ -285,7 +285,6 @@ public class MemberMenu implements ActionListener {
         switch (command) {
             case "Shopping":
                 new ShoppingScreenMenu();
-                System.out.println("A");
                 frame.dispose();
                 break;
             case "TopUp":
@@ -293,7 +292,7 @@ public class MemberMenu implements ActionListener {
 //                frame.dispose();
                 break;
             case "EditMember":
-                System.out.println("C");
+                new MemberEditMember();
                 frame.dispose();
                 break;
             case "History":
