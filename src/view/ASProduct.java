@@ -43,8 +43,7 @@ public class ASProduct implements ActionListener {
         lblTitle.setFont(mindfullyFont);
         lblTitle.setForeground(new Color(255, 145, 0));
 
-        // Loop through product list
-
+        // Loop through product list, and check who is login
         if(AdminManager.getInstance().getAdmin()!=null){
             listProduct = ControllerDatabase.getAllProducts();
         } else if (SellerManager.getInstance().getSeller()!=null) {

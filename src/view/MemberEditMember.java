@@ -5,6 +5,7 @@ import controller.ControllerDatabase;
 import model.Admin;
 import model.Member;
 import model.MemberManager;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -305,7 +306,11 @@ public class MemberEditMember implements ActionListener {
                 }
                 break;
             case "Back":
-                new MemberMenu();
+                if (SellerManager.getInstance().getSeller() != null) {
+                    new SellerMenu();
+                } else if (MemberManager.getInstance().getMember() != null){
+                    new MemberMenu();
+                }
                 frame.dispose();
                 break;
             default:
