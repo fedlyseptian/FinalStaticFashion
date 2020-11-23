@@ -56,16 +56,12 @@ public class MemberEditMember implements ActionListener {
     JButton updateButton = new JButton("Update");
 
     public MemberEditMember(){
+
+        System.out.println(MemberManager.getInstance().getMember().getMoney());
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
 
-        ControllerDatabase controller = new ControllerDatabase();
-        ArrayList<String> listUsername;
-        ArrayList<Admin> listAdmin;
-        ArrayList<Member> listMember;
-//        listUsername = controller.getAllUsernames();
-//        listAdmin = controller.getAllAdmins();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -244,69 +240,6 @@ public class MemberEditMember implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-//        ArrayList<String> finalListUsername = listUsername;
-//        isiUsernameMember.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                for(int i = 0; i< finalListUsername.size(); i++){
-//                    if(i<listAdmin.size()) {
-//                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
-//                            labelUsernameMember.setText("Username has been used");
-//                            labelUsernameMember.setForeground(Color.RED);
-//                            updateButton.setEnabled(false);
-//                            break;
-//                        } else {
-//                            labelUsernameMember.setText("Username");
-//                            labelUsernameMember.setForeground(Color.WHITE);
-//                            updateButton.setEnabled(true);
-//                        }
-//                    }
-//                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-//                        labelUsernameMember.setText("Username has been used");
-//                        labelUsernameMember.setForeground(Color.RED);
-//                        updateButton.setEnabled(false);
-//                        break;
-//                    }else{
-//                        labelUsernameMember.setText("Username");
-//                        labelUsernameMember.setForeground(Color.WHITE);
-//                        updateButton.setEnabled(true);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                for(int i = 0; i< finalListUsername.size(); i++){
-//                    if(i<listAdmin.size()) {
-//                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
-//                            labelUsernameMember.setText("Username has been used");
-//                            labelUsernameMember.setForeground(Color.RED);
-//                            updateButton.setEnabled(false);
-//                            break;
-//                        } else {
-//                            labelUsernameMember.setText("Username");
-//                            labelUsernameMember.setForeground(Color.WHITE);
-//                            updateButton.setEnabled(true);
-//                        }
-//                    }
-//                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-//                        labelUsernameMember.setText("Username has been used");
-//                        labelUsernameMember.setForeground(Color.RED);
-//                        updateButton.setEnabled(false);
-//                        break;
-//                    }else{
-//                        labelUsernameMember.setText("Username");
-//                        labelUsernameMember.setForeground(Color.WHITE);
-//                        updateButton.setEnabled(true);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//
-//            }
-//        });
     }
 
     @Override

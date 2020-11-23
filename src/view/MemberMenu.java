@@ -288,8 +288,8 @@ public class MemberMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "TopUp":
-                System.out.println("B");
-//                frame.dispose();
+                new MemberTopUp();
+                frame.dispose();
                 break;
             case "EditMember":
                 new MemberEditMember();
