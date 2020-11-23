@@ -285,7 +285,7 @@ public class AdminMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Product":
-                new AdminProduct();
+                new ASProduct();
                 frame.dispose();
                 break;
             case "Store":
