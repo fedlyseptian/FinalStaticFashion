@@ -143,12 +143,13 @@ public class LoginScreenMenu implements ActionListener {
                     }
                 }
                 if(isSeller){
-                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getPathLogo(),listSeller.get(j).getDiscountID()));
-                    new ShoppingScreenMenu();
+                    MemberManager.getInstance().setMember(listMember.get(i));
+                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getDiscountID(),listSeller.get(j).getPathLogo()));
+                    SellerManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
+                    new SellerMenu();
                 }else if(isMember){
                     MemberManager.getInstance().setMember(listMember.get(i));
-                    MemberManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
-                    new MemberMenu();
+                    new ShoppingScreenMenu();
                 }else if(isAdmin){
                     AdminManager.getInstance().setAdmin(listAdmin.get(k));
                     AdminManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));

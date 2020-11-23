@@ -1,7 +1,9 @@
 package view;
 
 import controller.ControllerDatabase;
+import model.AdminManager;
 import model.Discount;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -11,7 +13,7 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminEditDiscount implements ActionListener {
+public class EditDiscount implements ActionListener {
 
     JFrame frame = new JFrame("Edit Discount");
     JPanel panel = new JPanel(new BorderLayout());
@@ -31,9 +33,9 @@ public class AdminEditDiscount implements ActionListener {
 
     static Discount discount;
 
-//    public AdminEditDiscount() {}
+//    public EditDiscount() {}
 
-    public AdminEditDiscount(String dID) {
+    public EditDiscount(String dID) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -128,7 +130,13 @@ public class AdminEditDiscount implements ActionListener {
                 frame.dispose();
                 break;
             case "Back":
-                new AdminMenu();
+                if(AdminManager.getInstance().getAdmin()!=null){
+                    new AdminDiscount();
+                } else if (SellerManager.getInstance().getSeller()!=null) {
+                    new SellerMenu();
+                } else {
+                    new MainMenus();
+                }
                 frame.dispose();
                 break;
             default:

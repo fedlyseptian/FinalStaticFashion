@@ -1,7 +1,10 @@
 package view;
 
 import controller.ControllerDatabase;
+import model.AdminManager;
+import model.MemberManager;
 import model.Seller;
+import model.SellerManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -220,7 +223,7 @@ public class EditSeller implements ActionListener {
                 btnSubmit.setVisible(true);
                 break;
             case "EditDiscount":
-                // new frame AdminEditDiscount, kirim seller.DiscountID
+                // new frame EditDiscount, kirim seller.DiscountID
                 frame.dispose();
                 break;
             case "EditFoto":
@@ -275,7 +278,13 @@ public class EditSeller implements ActionListener {
                 }
                 break;
             case "Back":
-                new AdminStore();
+                if(AdminManager.getInstance().getAdmin()!=null){
+                    new AdminStore();
+                } else if (SellerManager.getInstance().getSeller()!=null) {
+                    new SellerMenu();
+                } else {
+                    new MainMenus();
+                }
                 frame.dispose();
                 break;
             default:

@@ -93,7 +93,7 @@ public class ControllerDatabase {
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1,seller.getStoreName());
-            stmt.setString(2, seller.getUsername());
+            stmt.setString(2,seller.getUsername());
             stmt.setString(3,seller.getDiscountID());
             stmt.setString(4,seller.getPathLogo());
             stmt.executeUpdate();

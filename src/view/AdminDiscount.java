@@ -2,8 +2,6 @@ package view;
 
 import controller.ControllerDatabase;
 import model.Discount;
-import model.Product;
-import model.Seller;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -75,7 +73,7 @@ public class AdminDiscount implements ActionListener {
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new AdminEditDiscount(listDiscount.get(finalI).getDiscountID());
+                    new EditDiscount(listDiscount.get(finalI).getDiscountID());
                     frame.dispose();
                 }
             });

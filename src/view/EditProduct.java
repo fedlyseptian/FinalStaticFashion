@@ -326,7 +326,7 @@ public class EditProduct implements ActionListener {
 
                     if (isUpdated) {
                         JOptionPane.showMessageDialog(frame, "Product Data UPDATE Successfully", "Success Update", JOptionPane.INFORMATION_MESSAGE);
-                        new AdminProduct();
+                        new ASProduct();
                         frame.dispose();
                     } else {
                         JOptionPane.showMessageDialog(frame, "Failed to UPDATE Product Data", "ERROR", JOptionPane.WARNING_MESSAGE);
@@ -334,7 +334,8 @@ public class EditProduct implements ActionListener {
                 }
                 break;
             case "Back":
-                new AdminProduct();
+                // Baik seller maupun admin kesini
+                new ASProduct();
                 frame.dispose();
                 break;
             default:
