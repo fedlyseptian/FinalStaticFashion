@@ -1,7 +1,9 @@
 package controller;
 
 import main.Main;
+import model.Cart;
 import model.Member;
+import view.ShoppingScreenMenu;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -56,4 +58,12 @@ public class Controller {
         return pass;
     }
 
+    //Hitung Total Biaya Product
+    public static double hitungTotalBiayaBelanjaan(ArrayList<Cart> listProductCart){
+        double total = 0;
+        for(int i = 0 ; i < listProductCart.size() ; i++){
+            total += listProductCart.get(i).getTotal() * listProductCart.get(i).getQuantity();
+        }
+        return total;
+    }
 }
