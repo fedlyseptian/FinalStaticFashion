@@ -584,6 +584,19 @@ public class ControllerDatabase {
             return (false);
         }
     }
+    // Delete member
+    public static boolean deleteMember(Member member) {
+        conn.connect();
+        String query = "DELETE FROM member WHERE username='"+member.getUsername()+"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
 
     public static DefaultTableModel buildTableModel(ResultSet rs)
             throws SQLException {
