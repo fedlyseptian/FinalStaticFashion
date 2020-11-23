@@ -317,7 +317,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "History":
-                // New FRAME
+                new AdminHistory();
                 frame.dispose();
                 break;
             case "Logout":

@@ -19,9 +19,11 @@ public class Transactions {
     private int paymentOption;
     private double taxSeller;
     private String username;
-    private ArrayList<Product> listProduct = new ArrayList<>();
+    private ArrayList<DetailTransaction> listProduct = new ArrayList<>();
+    private String discountID;
+    private double subTotal;
 
-    public Transactions(String transactionID, int d, int m, int y, int paymentOption, double taxSeller, String username) {
+    public Transactions(String transactionID, int d, int m, int y, int paymentOption, double taxSeller, String username, String discountID,double subTotal) {
         this.transactionID = transactionID;
         this.d = d;
         this.m = m;
@@ -29,6 +31,8 @@ public class Transactions {
         this.paymentOption = paymentOption;
         this.taxSeller = taxSeller;
         this.username = username;
+        this.discountID = discountID;
+        this.subTotal = subTotal;
     }
 
     public void setTransactionID(String transactionID) {
@@ -63,7 +67,7 @@ public class Transactions {
         this.username = username;
     }
 
-    public void setListProduct(ArrayList<Product> listProduct) {
+    public void setListProduct(ArrayList<DetailTransaction> listProduct) {
         this.listProduct = listProduct;
     }
 
@@ -91,9 +95,26 @@ public class Transactions {
         return username;
     }
 
-    public ArrayList<Product> getListProduct() {
+    public ArrayList<DetailTransaction> getListProduct() {
         return listProduct;
     }
-    
-    
+
+    public String getDiscountID() {
+        return discountID;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setDiscountID(String discountID) {
+        this.discountID = discountID;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public Transactions() {
+    }
 }

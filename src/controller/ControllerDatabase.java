@@ -9,9 +9,12 @@ import java.awt.*;
 import java.nio.channels.Selector;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import main.Main;
 import model.*;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -388,8 +391,58 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
+    public static ArrayList<Transactions> getAllTransaction(){
+        ArrayList<Transactions> listTransactions = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM transactions";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Transactions transaction = new Transactions();
+                transaction.setTransactionID(rs.getString("transactionID"));
+                transaction.setUsername(rs.getString("username"));
+                transaction.setDiscountID(rs.getString("discountID"));
+                Date date = rs.getDate("transactionDate");
+                transaction.setPaymentOption(rs.getInt("paymentOption"));
+                transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
+                transaction.setTaxSeller(rs.getDouble("taxSeller"));
+                transaction.setD((int) date.getDate());
+                transaction.setM((int) date.getMonth()+1);
+                transaction.setY((int) date.getYear()+1900);
+                listTransactions.add(transaction);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listTransactions);
+    }
 
-    // Get All Discount
+    //get per transaction
+    public static ArrayList<DetailTransaction> getListProduct(String transactionID){
+        ArrayList<DetailTransaction> listProduct = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM listProduct";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                DetailTransaction detail = new DetailTransaction();
+                if(rs.getString("transactionID").equals(transactionID)){
+                    detail.setTransactionID(rs.getString("transactionID"));
+                    detail.setProductID(rs.getString("productID"));
+                    detail.setQuantity(rs.getInt("quantity"));
+                    detail.setTotal(rs.getDouble("total"));
+                    listProduct.add(detail);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProduct);
+    }
+
+
     public static Discount getDiscount(String dID){
         Discount discount= new Discount();
         conn.connect();
@@ -421,7 +474,7 @@ public class ControllerDatabase {
             return (false);
         }
     }
-  
+
     // Get Tax Seller
     public static TaxSeller getTaxSeller() {
         TaxSeller taxSeller = new TaxSeller();
@@ -530,5 +583,33 @@ public class ControllerDatabase {
             e.printStackTrace();
             return (false);
         }
+    }
+
+    public static DefaultTableModel buildTableModel(ResultSet rs)
+            throws SQLException {
+        conn.connect();
+        ResultSetMetaData metaData = rs.getMetaData();
+
+
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        int columnCount = metaData.getColumnCount();
+        for (int column = 1; column <= columnCount; column++) {
+            columnNames.add(metaData.getColumnName(column));
+        }
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                vector.add(rs.getObject(columnIndex));
+            }
+            data.add(vector);
+        }
+        conn.disconnect();
+
+        return new DefaultTableModel(data, columnNames);
+
     }
 }

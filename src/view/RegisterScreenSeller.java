@@ -328,7 +328,7 @@ public class RegisterScreenSeller implements ActionListener {
                     new RegisterScreenSeller();
                 }else {
                     controller.insertMember(member);
-                    Seller seller = new Seller(member, isiStoreName.getText(), null,"","non");
+                    Seller seller = new Seller(member, isiStoreName.getText(), null,"non","");
                     SellerManager.getInstance().setSeller(seller);
                     controller.insertSeller(seller);
                     new ShoppingScreenMenu();
