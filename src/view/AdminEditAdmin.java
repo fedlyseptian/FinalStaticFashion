@@ -14,12 +14,12 @@ import java.awt.event.ActionListener;
 import static view.MainMenus.mindfullyFont;
 
 public class AdminEditAdmin implements ActionListener {
-    JFrame frame = new JFrame("Admin --> Edit Admin");
+    JFrame frame = new JFrame("Edit Admin");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
     JPanel panelForm = new JPanel(new GridLayout(5, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Admin - Edit Admin");
+    JLabel lblTitle = new JLabel("Edit Admin");
 
     JLabel lblUsername = new JLabel("Username : ");
     JTextField txtUsername = new JTextField(AdminManager.getInstance().getAdmin().getUsername());

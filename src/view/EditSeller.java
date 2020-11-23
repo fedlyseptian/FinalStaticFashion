@@ -23,8 +23,8 @@ import java.nio.file.StandardCopyOption;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminEditSeller implements ActionListener {
-    JFrame frame = new JFrame("Admin --> Edit Seller");
+public class EditSeller implements ActionListener {
+    JFrame frame = new JFrame("Edit Seller");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -38,7 +38,7 @@ public class AdminEditSeller implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelStore, BoxLayout.X_AXIS);
     BoxLayout boxLayoutProductRight = new BoxLayout(panelStoreRight, BoxLayout.Y_AXIS);
 
-    JLabel lblTitle = new JLabel("Admin -- Edit Seller");
+    JLabel lblTitle = new JLabel("Edit Seller");
     JButton backButton = new JButton("<<<");
 
     JLabel lblUsername = new JLabel("Owner : ");
@@ -66,9 +66,9 @@ public class AdminEditSeller implements ActionListener {
     static Seller seller;
     static String stName;
 
-//    public AdminEditSeller() {}
+//    public EditSeller() {}
 
-    public AdminEditSeller(String sName) {
+    public EditSeller(String sName) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);

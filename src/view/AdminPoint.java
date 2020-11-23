@@ -1,8 +1,7 @@
 package view;
 
-import controller.Controller;
 import controller.ControllerDatabase;
-import model.Admin;
+import model.PointSystem;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -12,25 +11,25 @@ import java.awt.event.ActionListener;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminAddAdmin implements ActionListener {
+public class AdminPoint implements ActionListener {
 
-    JFrame frame = new JFrame("Add Admin");
+    JFrame frame = new JFrame("Admin --> Point ");
     JPanel panel = new JPanel(new BorderLayout());
     JPanel panelAdminTitle = new JPanel();
-    JPanel panelForm = new JPanel(new GridLayout(5, 1, 10, 20));
+    JPanel panelForm = new JPanel(new GridLayout(4, 1, 10, 20));
 
-    JLabel lblTitle = new JLabel("Add Admin");
+    JLabel lblTitle = new JLabel("Admin - Point");
 
-    JLabel lblUsername = new JLabel("Username : ");
-    JTextField txtUsername = new JTextField();
+    JLabel lblPoint = new JLabel("Point System : ");
+    JTextField txtPoint = new JTextField();
 
-    JLabel lblPassword = new JLabel("Password : ");
-    JPasswordField adminPassword = new JPasswordField();
-
+    JButton editButton = new JButton("Edit");
     JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
 
-    public AdminAddAdmin() {
+    static double tempPointValue;
+
+    public AdminPoint() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -40,6 +39,7 @@ public class AdminAddAdmin implements ActionListener {
 
         // Title
         lblTitle.setFont(mindfullyFont);
+        lblTitle.setFont(lblTitle.getFont().deriveFont(50f));
         lblTitle.setForeground(new Color(255, 145, 0));
         panelAdminTitle.add(lblTitle);
         panelAdminTitle.setBackground(new Color(0, 0, 0, 0));
@@ -65,25 +65,31 @@ public class AdminAddAdmin implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        // Form Username
-        lblUsername.setFont(new Font("Arial", Font.BOLD, 20));
-        lblUsername.setBackground(Color.BLACK);
-        lblUsername.setForeground(Color.WHITE);
-        panelForm.add(lblUsername);
-        panelForm.add(txtUsername);
+        // Point Label
+        lblPoint.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPoint.setForeground(Color.WHITE);
 
-        // Form Password
-        lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
-        lblPassword.setBackground(Color.BLACK);
-        lblPassword.setForeground(Color.WHITE);
-        panelForm.add(lblPassword);
-        panelForm.add(adminPassword);
+        // Point Text Field
+        txtPoint.setEditable(false);
+        PointSystem point = ControllerDatabase.getPoint();
+        txtPoint.setText(String.valueOf(point.getPointValue()));
+
+        // Form Point Value
+        panelForm.add(lblPoint);
+        panelForm.add(txtPoint);
+
+        // Edit Button
+        editButton.setActionCommand("Edit");
+        editButton.addActionListener(this);
+        panelForm.add(editButton);
 
         // Submit Button
         submitButton.setActionCommand("Submit");
         submitButton.addActionListener(this);
+        submitButton.setVisible(false);
         panelForm.add(submitButton);
 
+        // Panel Form
         panelForm.setBorder(BorderFactory.createLineBorder(Color.BLACK, 40));
         panelForm.setPreferredSize(new Dimension(450, 550));
         panelForm.setBackground(new Color(0, 0, 0, 0));
@@ -97,7 +103,7 @@ public class AdminAddAdmin implements ActionListener {
         frame.add(backButton);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.add(panel);
-        frame.setSize(600, 700);
+        frame.setSize(400, 500);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
@@ -107,12 +113,20 @@ public class AdminAddAdmin implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
+            case "Edit":
+                tempPointValue = Double.parseDouble(txtPoint.getText());
+                txtPoint.setEditable(true);
+                submitButton.setVisible(true);
+                break;
             case "Submit":
-                String adminPass = Controller.md5Java(Controller.toStringPass(adminPassword.getPassword()));
-                Admin admin = new Admin(txtUsername.getText(), adminPass);
-                ControllerDatabase.insertAdmin(admin);
-                new AdminMenu();
-                frame.dispose();
+                if (Double.parseDouble(txtPoint.getText()) >= 0.0) {
+                    if (ControllerDatabase.updatePoint(tempPointValue, Double.parseDouble(txtPoint.getText()))) {
+                        new AdminPoint();
+                        frame.dispose();
+                    }
+                } else {
+                    lblPoint.setText("Point Value : (ERROR)");
+                }
                 break;
             case "Back":
                 new AdminMenu();

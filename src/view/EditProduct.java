@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminEditProduct implements ActionListener {
+public class EditProduct implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Edit Product");
+    JFrame frame = new JFrame("Edit Product");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -41,7 +41,7 @@ public class AdminEditProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.X_AXIS);
     BoxLayout boxLayoutProductRight = new BoxLayout(panelProductRight, BoxLayout.Y_AXIS);
 
-    JLabel lblTitle = new JLabel("Admin -- Edit Product");
+    JLabel lblTitle = new JLabel("Edit Product");
     JButton backButton = new JButton("<<<");
 
     JLabel lblProductID = new JLabel("ID : ");
@@ -83,11 +83,11 @@ public class AdminEditProduct implements ActionListener {
     static Product product;
     static String pID;
 
-//    public AdminEditProduct() {
+//    public EditProduct() {
 //
 //    }
 
-    public AdminEditProduct(String productID) {
+    public EditProduct(String productID) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);

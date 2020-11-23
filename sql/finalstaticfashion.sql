@@ -49,14 +49,12 @@ CREATE TABLE products (
 CREATE TABLE transactions (
   `transactionID` char(10) NOT NULL PRIMARY KEY,
   `username` varchar(30) DEFAULT NULL,
-  `productID` char(10) DEFAULT NULL,
   `discountID` char(10) DEFAULT NULL,
   `transactionDate` date DEFAULT NULL,
   `paymentOption` int(11) DEFAULT NULL,
   `subTotalTransaction` double DEFAULT NULL,
   `taxSeller` double DEFAULT NULL,
   CONSTRAINT FK_UsernameTr FOREIGN KEY (username) REFERENCES member(username),
-  CONSTRAINT FK_ProductIDTr FOREIGN KEY (productID) REFERENCES products(productID),
   CONSTRAINT FK_DiscountID FOREIGN KEY (discountID) REFERENCES discount(discountID)
 );
 
@@ -74,6 +72,12 @@ CREATE TABLE aboutus (
   `aboutUsID` char(10) NOT NULL PRIMARY KEY,
   `aboutUsText` varchar(255) DEFAULT NULL
 );
+
+CREATE TABLE pointSystem (
+  `pointValue` double DEFAULT NULL
+);
+
+INSERT INTO pointSystem VALUES (0.05);
 
 INSERT INTO discount VALUES ("FED1", 0.05);
 INSERT INTO discount VALUES ("non", 0);
