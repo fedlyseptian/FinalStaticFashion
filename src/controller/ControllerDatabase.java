@@ -283,6 +283,7 @@ public class ControllerDatabase {
                 member.setMonth(date.getMonth()+1);
                 member.setYear(date.getYear()+1900);
                 member.setPoint(rs.getDouble("point"));
+                member.setMoney(rs.getDouble("money"));
                 listMembers.add(member);
             }
         } catch (SQLException e) {
@@ -529,6 +530,19 @@ public class ControllerDatabase {
         conn.connect();
         String query = "UPDATE pointSystem SET pointValue='" + newValue + "' "
                 + " WHERE pointValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean updateMoney(String username, double balance) {
+        conn.connect();
+        String query = "UPDATE member SET money='" + balance + "' "
+                + " WHERE username='" + username + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
