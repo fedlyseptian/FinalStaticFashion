@@ -205,6 +205,18 @@ public class RegisterScreenSeller implements ActionListener {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
+                    if(i<finalListAdmin.size()) {
+                        if (isiUsernameSeller.getText().equals(finalListAdmin.get(i).getUsername())) {
+                            labelUsernameSeller.setText("Username has been used");
+                            labelUsernameSeller.setForeground(Color.RED);
+                            sellerButton.setEnabled(false);
+                            break;
+                        } else {
+                            labelUsernameSeller.setText("Username");
+                            labelUsernameSeller.setForeground(Color.WHITE);
+                            sellerButton.setEnabled(true);
+                        }
+                    }
                     if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
                         labelUsernameSeller.setText("Username has been used");
                         labelUsernameSeller.setForeground(Color.RED);
@@ -214,18 +226,6 @@ public class RegisterScreenSeller implements ActionListener {
                         labelUsernameSeller.setText("Username");
                         labelUsernameSeller.setForeground(Color.WHITE);
                         sellerButton.setEnabled(true);
-                    }
-                }
-                for(int i = 0; i< finalListAdmin.size(); i++){
-                    if(isiUsernameSeller.getText().equals(finalListAdmin.get(i).getUsername())){
-                        labelUsernameSeller.setText("Username has been used");
-                        labelUsernameSeller.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameSeller.setText("Username");
-                        labelUsernameSeller.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
                     }
                 }
             }
@@ -233,6 +233,18 @@ public class RegisterScreenSeller implements ActionListener {
             @Override
             public void removeUpdate(DocumentEvent e) {
                 for(int i = 0; i< finalListUsername.size(); i++){
+                    if(i<finalListAdmin.size()) {
+                        if (isiUsernameSeller.getText().equals(finalListAdmin.get(i).getUsername())) {
+                            labelUsernameSeller.setText("Username has been used");
+                            labelUsernameSeller.setForeground(Color.RED);
+                            sellerButton.setEnabled(false);
+                            break;
+                        } else {
+                            labelUsernameSeller.setText("Username");
+                            labelUsernameSeller.setForeground(Color.WHITE);
+                            sellerButton.setEnabled(true);
+                        }
+                    }
                     if(isiUsernameSeller.getText().equals(finalListUsername.get(i))){
                         labelUsernameSeller.setText("Username has been used");
                         labelUsernameSeller.setForeground(Color.RED);
@@ -242,18 +254,6 @@ public class RegisterScreenSeller implements ActionListener {
                         labelUsernameSeller.setText("Username");
                         labelUsernameSeller.setForeground(Color.WHITE);
                         sellerButton.setEnabled(true);
-                    }
-                }
-                for(int i = 0; i< finalListAdmin.size(); i++){
-                    if(isiUsernameSeller.getText().equals(finalListAdmin.get(i).getUsername())){
-                        labelUsernameSeller.setText("Username has been used");
-                        labelUsernameSeller.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameSeller.setText("Username");
-                        labelUsernameSeller.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
                     }
                 }
             }

@@ -283,6 +283,7 @@ public class ControllerDatabase {
                 member.setMonth(date.getMonth()+1);
                 member.setYear(date.getYear()+1900);
                 member.setPoint(rs.getDouble("point"));
+                member.setMoney(rs.getDouble("money"));
                 listMembers.add(member);
             }
         } catch (SQLException e) {
@@ -538,6 +539,19 @@ public class ControllerDatabase {
             return (false);
         }
     }
+    public static boolean updateMoney(String username, double balance) {
+        conn.connect();
+        String query = "UPDATE member SET money='" + balance + "' "
+                + " WHERE username='" + username + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
 
     // Get About Us Text
     public static String getAboutUsText() {
@@ -575,6 +589,19 @@ public class ControllerDatabase {
     public static boolean deleteAdmin(Admin admin) {
         conn.connect();
         String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    // Delete member
+    public static boolean deleteMember(Member member) {
+        conn.connect();
+        String query = "DELETE FROM member WHERE username='"+member.getUsername()+"'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);

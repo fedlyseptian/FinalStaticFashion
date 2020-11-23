@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RegisterScreenMenu implements ActionListener {
+public class MemberEditMember implements ActionListener {
 
     //Deklarasi
-    JFrame frame = new JFrame("Register");
+    JFrame frame = new JFrame("Edit Data Member");
     JPanel panelTopMember = new JPanel();
     JPanel panelLeftMember = new JPanel();
     JPanel panelRightMember = new JPanel();
@@ -31,7 +31,7 @@ public class RegisterScreenMenu implements ActionListener {
 
     //Username
     JLabel labelUsernameMember = new JLabel("Username");
-    JTextField isiUsernameMember = new JTextField("");
+    JLabel isiUsernameMember = new JLabel("");
     //Password
     JLabel labelPasswordMember = new JLabel("Password");
     JPasswordField isiPasswordMember = new JPasswordField();
@@ -52,20 +52,16 @@ public class RegisterScreenMenu implements ActionListener {
     JLabel labelTanggalLahirMember = new JLabel("Tanggal Lahir");
     JSpinner spinnerTanggal, spinnerBulan, spinnerTahun;
 
-    JButton backButton = new JButton("<<< Back to Main Menu");
-    JButton memberButton = new JButton("Become a Member");
-    JButton sellerButton = new JButton("Become a Seller");
+    JButton backButton = new JButton("<<< Back to Member Menu");
+    JButton updateButton = new JButton("Update");
 
-    public RegisterScreenMenu(){
+    public MemberEditMember(){
+
+        System.out.println(MemberManager.getInstance().getMember().getMoney());
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
 
-        ControllerDatabase controller = new ControllerDatabase();
-        ArrayList<String> listUsername;
-        ArrayList<Admin> listAdmin;
-        listUsername = controller.getAllUsernames();
-        listAdmin = controller.getAllAdmins();
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
@@ -94,6 +90,10 @@ public class RegisterScreenMenu implements ActionListener {
         labelUsernameMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelUsernameMember.setHorizontalAlignment(JLabel.LEFT);
         labelUsernameMember.setForeground(new Color(255,255,255));
+        isiUsernameMember.setText(MemberManager.getInstance().getMember().getUsername());
+        isiUsernameMember.setFont(new Font("Arial", Font.BOLD, 15));
+        isiUsernameMember.setHorizontalAlignment(JLabel.LEFT);
+        isiUsernameMember.setForeground(new Color(255,255,255));
         panelCenterMember.add(labelUsernameMember);
         panelCenterMember.add(isiUsernameMember);
 
@@ -101,6 +101,7 @@ public class RegisterScreenMenu implements ActionListener {
         labelPasswordMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelPasswordMember.setHorizontalAlignment(JLabel.LEFT);
         labelPasswordMember.setForeground(new Color(255,255,255));
+        isiPasswordMember.setText(MemberManager.getInstance().getPassword());
         panelCenterMember.add(labelPasswordMember);
         panelCenterMember.add(isiPasswordMember);
 
@@ -108,6 +109,7 @@ public class RegisterScreenMenu implements ActionListener {
         labelNameMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelNameMember.setHorizontalAlignment(JLabel.LEFT);
         labelNameMember.setForeground(new Color(255,255,255));
+        isiNameMember.setText(MemberManager.getInstance().getMember().getName());
         panelCenterMember.add(labelNameMember);
         panelCenterMember.add(isiNameMember);
 
@@ -115,6 +117,7 @@ public class RegisterScreenMenu implements ActionListener {
         labelAddressMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelAddressMember.setHorizontalAlignment(JLabel.LEFT);
         labelAddressMember.setForeground(new Color(255,255,255));
+        isiAddressMember.setText(MemberManager.getInstance().getMember().getAddress());
         panelCenterMember.add(labelAddressMember);
         panelCenterMember.add(isiAddressMember);
 
@@ -128,6 +131,11 @@ public class RegisterScreenMenu implements ActionListener {
         radioWanita.setActionCommand("P");
         radioPria.setForeground(new Color(255, 255, 255));
         radioWanita.setForeground(new Color(255, 255, 255));
+        if(MemberManager.getInstance().getMember().getGender().equals("L")){
+            radioPria.setSelected(true);
+        }else if(MemberManager.getInstance().getMember().getGender().equals("P")){
+            radioWanita.setSelected(true);
+        }
         radioPria.setBackground(Color.BLACK);
         radioWanita.setBackground(Color.BLACK);
 
@@ -143,6 +151,7 @@ public class RegisterScreenMenu implements ActionListener {
         labelEmailMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelEmailMember.setHorizontalAlignment(JLabel.LEFT);
         labelEmailMember.setForeground(new Color(255,255,255));
+        isiEmailMember.setText(MemberManager.getInstance().getMember().getEmail());
         panelCenterMember.add(labelEmailMember);
         panelCenterMember.add(isiEmailMember);
 
@@ -154,12 +163,54 @@ public class RegisterScreenMenu implements ActionListener {
         labelTanggalLahirMember.setForeground(new Color(255,255,255));
         panelCenterMember.add(labelTanggalLahirMember);
         //Spinner Tanggal
-        spinnerTanggal = new JSpinner(new SpinnerNumberModel(1,1,31,1));
+        spinnerTanggal = new JSpinner(new SpinnerNumberModel(MemberManager.getInstance().getMember().getDay(),1,31,1));
         //Spinner Bulan
+        String birthMonth = "";
+        switch(MemberManager.getInstance().getMember().getMonth()){
+            case 1:
+                birthMonth = "January";
+                break;
+            case 2:
+                birthMonth = "February";
+                break;
+            case 3:
+                birthMonth = "March";
+                break;
+            case 4:
+                birthMonth = "April";
+                break;
+            case 5:
+                birthMonth = "May";
+                break;
+            case 6:
+                birthMonth = "June";
+                break;
+            case 7:
+                birthMonth = "July";
+                break;
+            case 8:
+                birthMonth = "August";
+                break;
+            case 9:
+                birthMonth = "September";
+                break;
+            case 10:
+                birthMonth = "October";
+                break;
+            case 11:
+                birthMonth = "November";
+                break;
+            case 12:
+                birthMonth = "December";
+                break;
+            default:
+        }
+
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         spinnerBulan = new JSpinner(new SpinnerListModel(months));
+        spinnerBulan.setValue(birthMonth);
         //Spinner Tahun
-        spinnerTahun = new JSpinner(new SpinnerNumberModel(1999,1900,new Date().getYear()+1900,1));
+        spinnerTahun = new JSpinner(new SpinnerNumberModel(MemberManager.getInstance().getMember().getYear(),1900,new Date().getYear()+1900,1));
 
         panelTanggalLahir.add(spinnerTanggal);
         panelTanggalLahir.add(spinnerBulan);
@@ -172,19 +223,13 @@ public class RegisterScreenMenu implements ActionListener {
         backButton.setActionCommand("Back");
         backButton.addActionListener(this);
 
-        //Member Button
-        memberButton.setFont(new Font("Arial", Font.BOLD, 15));
-        memberButton.setActionCommand("BeMember");
-        memberButton.addActionListener(this);
-
-        //Seller Button
-        sellerButton.setFont(new Font("Arial", Font.BOLD, 15));
-        sellerButton.setActionCommand("BeSeller");
-        sellerButton.addActionListener(this);
+        //Update Button
+        updateButton.setFont(new Font("Arial", Font.BOLD, 15));
+        updateButton.setActionCommand("update");
+        updateButton.addActionListener(this);
 
         panelBottomMember.add(backButton);
-        panelBottomMember.add(memberButton);
-        panelBottomMember.add(sellerButton);
+        panelBottomMember.add(updateButton);
 
         frame.add(panelTopMember,BorderLayout.NORTH);
         frame.add(panelLeftMember,BorderLayout.WEST);
@@ -195,69 +240,6 @@ public class RegisterScreenMenu implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        ArrayList<String> finalListUsername = listUsername;
-        isiUsernameMember.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                for(int i = 0; i< finalListUsername.size(); i++){
-                    if(i<listAdmin.size()) {
-                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
-                            labelUsernameMember.setText("Username has been used");
-                            labelUsernameMember.setForeground(Color.RED);
-                            sellerButton.setEnabled(false);
-                            break;
-                        } else {
-                            labelUsernameMember.setText("Username");
-                            labelUsernameMember.setForeground(Color.WHITE);
-                            sellerButton.setEnabled(true);
-                        }
-                    }
-                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-                        labelUsernameMember.setText("Username has been used");
-                        labelUsernameMember.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameMember.setText("Username");
-                        labelUsernameMember.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
-                    }
-                }
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                for(int i = 0; i< finalListUsername.size(); i++){
-                    if(i<listAdmin.size()) {
-                        if (isiUsernameMember.getText().equals(listAdmin.get(i).getUsername())) {
-                            labelUsernameMember.setText("Username has been used");
-                            labelUsernameMember.setForeground(Color.RED);
-                            sellerButton.setEnabled(false);
-                            break;
-                        } else {
-                            labelUsernameMember.setText("Username");
-                            labelUsernameMember.setForeground(Color.WHITE);
-                            sellerButton.setEnabled(true);
-                        }
-                    }
-                    if(isiUsernameMember.getText().equals(finalListUsername.get(i))){
-                        labelUsernameMember.setText("Username has been used");
-                        labelUsernameMember.setForeground(Color.RED);
-                        memberButton.setEnabled(false);
-                        break;
-                    }else{
-                        labelUsernameMember.setText("Username");
-                        labelUsernameMember.setForeground(Color.WHITE);
-                        memberButton.setEnabled(true);
-                    }
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-
-            }
-        });
     }
 
     @Override
@@ -304,36 +286,26 @@ public class RegisterScreenMenu implements ActionListener {
                 break;
             default:
         }
-/*
-        String pass="";
-        for(int i=0;i<isiPasswordMember.getPassword().length;i++){
-            pass+=isiPasswordMember.getPassword()[i];
-        }
-*/
 
         String pass = Controller.md5Java(Controller.toStringPass(isiPasswordMember.getPassword()));
         Member member = new Member(isiUsernameMember.getText(), pass,groupJK.getSelection().getActionCommand(),isiEmailMember.getText(),Integer.parseInt(spinnerTanggal.getValue().toString()),month,Integer.parseInt(spinnerTahun.getValue().toString()),isiNameMember.getText(),isiAddressMember.getText(),0,0);
         switch (command) {
-            case "BeMember":
+            case "update":
                 // Add data to database
                 if(isiUsernameMember.getText().equals("") || pass.equals("") || isiEmailMember.getText().equals("") || isiNameMember.getText().equals("") || isiAddressMember.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
                     new RegisterScreenMenu();
                     frame.dispose();
                 }else{
+                    controller.deleteMember(member);
                     controller.insertMember(member);
                     MemberManager.getInstance().setMember(member);
-                    new ShoppingScreenMenu();
+                    new MemberMenu();
                     frame.dispose();
                 }
                 break;
-            case "BeSeller":
-                // Pass data to next frame
-                new RegisterScreenSeller();
-                frame.dispose();
-                break;
             case "Back":
-                new MainMenus();
+                new MemberMenu();
                 frame.dispose();
                 break;
             default:
