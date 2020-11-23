@@ -2,7 +2,6 @@ package view;
 
 import controller.ControllerDatabase;
 import model.AdminManager;
-import model.MemberManager;
 import model.Seller;
 import model.SellerManager;
 
@@ -215,9 +214,6 @@ public class EditSeller implements ActionListener {
         chooser.setFileFilter(imageFilter);
         switch (command) {
             case "EditData":
-                txtUsername.setEditable(true);
-                txtStoreName.setEditable(true);
-                txtStoreName.setEditable(true);
                 btnEditDiscount.setVisible(true);
                 btnEditLogo.setVisible(true);
                 btnSubmit.setVisible(true);
