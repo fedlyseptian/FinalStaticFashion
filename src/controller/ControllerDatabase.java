@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import main.Main;
 import model.*;
+import view.CartScreenMenu;
 
 /**
  *
@@ -116,6 +117,24 @@ public class ControllerDatabase {
         }
     }
 
+    // Insert New Product To Cart
+//    public static boolean insertProductToListProduct(Cart cart) {
+//        conn.connect();
+//        String query = "INSERT INTO listproduct VALUES(?,?,?,?)";
+//        try {
+//            PreparedStatement stmt = conn.con.prepareStatement(query);
+//            stmt.setInt(1,cart.getTransactionID());
+//            stmt.setString(2,cart.getProductID());
+//            stmt.setInt(3,cart.getQuantity());
+//            stmt.setDouble(4,cart.getTotal());
+//            stmt.executeUpdate();
+//            return (true);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return (false);
+//        }
+//    }
+
     // Get All Products
     public static ArrayList<Product> getAllProducts() {
         ArrayList<Product> listProducts = new ArrayList<>();
@@ -166,6 +185,33 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (product);
+    }
+
+    // Get All Products Cart
+    public static ArrayList<Cart> getAllProductsCart() {
+        ArrayList<Cart> listProductsCart = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT listproduct.productID, products.productName, products.productBrand, products.productCategory, products.productPrice, listproduct.quantity, products.productSize, products.storeName, products.pathFotoProduct FROM listproduct, products WHERE listproduct.productID = products.productID";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Cart product = new Cart();
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setTotal(rs.getDouble("total"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
+                listProductsCart.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProductsCart);
     }
 
     // Check Product ID
