@@ -1,10 +1,7 @@
 package view;
 
 import controller.ControllerDatabase;
-import model.MemberManager;
-import model.Product;
-import model.SellerManager;
-import model.Cart;
+import model.*;
 import view.CartScreenMenu;
 
 import javax.swing.*;
@@ -62,8 +59,8 @@ public class ShoppingScreenMenu implements ActionListener {
             // Panel Declaration
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
-            JPanel panelDesc = new JPanel(new GridLayout(3, 1));
-            JPanel panelDescRight = new JPanel(new GridLayout(3, 1));
+            JPanel panelDesc = new JPanel(new GridLayout(4, 1));
+            JPanel panelDescRight = new JPanel(new GridLayout(4, 1));
             JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
             // Border Separator
@@ -111,6 +108,18 @@ public class ShoppingScreenMenu implements ActionListener {
             labelStoreName.setFont(new Font("Arial", Font.PLAIN, 20));
             labelStoreName.setForeground(Color.WHITE);
 
+            // --> Store Discount
+            //Show Discount Product
+            Discount tempDiscount = ControllerDatabase.getDiscountByStoreName(listProduct.get(i).getStoreName());
+            JLabel labelDiscount = new JLabel("Store Discount : " + tempDiscount.getDiscountValue()*100+"%");
+            labelDiscount.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelDiscount.setForeground(Color.WHITE);
+
+            //Stock Product
+            JLabel labelStockProduct = new JLabel("Stock : " + listProduct.get(i).getProductStock());
+            labelStockProduct.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelStockProduct.setForeground(Color.WHITE);
+
             // --> Next Button
             JButton addToCartButton = new JButton("Add To Cart");
 
@@ -118,6 +127,7 @@ public class ShoppingScreenMenu implements ActionListener {
             addToCartButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    //listProduct.get(finalI).setProductStock(listProduct.get(finalI).getProductStock()-1);
                     if (listProductCart.isEmpty()) {
                         Cart cart = new Cart(listProduct.get(finalI).getProductID(),listProduct.get(finalI).getProductName(),listProduct.get(finalI).getProductBrand(),listProduct.get(finalI).getProductCategory(),listProduct.get(finalI).getStoreName(),listProduct.get(finalI).getProductSize(),listProduct.get(finalI).getProductPath(),1,listProduct.get(finalI).getProductPrice());
                         listProductCart.add(cart);
@@ -162,10 +172,13 @@ public class ShoppingScreenMenu implements ActionListener {
             panelDesc.add(labelProductName);
             panelDesc.add(labelProductBrand);
             panelDesc.add(labelStoreName);
+            //Show Discount Product
+            panelDesc.add(labelDiscount);
 
             panelDescRight.add(labelProductCategory);
             panelDescRight.add(labelProductSize);
             panelDescRight.add(labelProductPrice);
+            panelDescRight.add(labelStockProduct);
 
             panelButton.add(addToCartButton);
 
