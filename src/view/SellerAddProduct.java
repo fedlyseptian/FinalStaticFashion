@@ -91,15 +91,6 @@ public class SellerAddProduct implements ActionListener {
         panel.setBorder(new LineBorder(Color.BLACK, 20));
         panelProduct.setLayout(boxLayout);
 
-        // Panel Product Left
-//        panelProductLeft.setBorder(new EmptyBorder(20, 20, 20, 20));
-//        lblProductID.setFont(new Font("Arial", Font.BOLD, 20));
-//        lblProductID.setForeground(Color.WHITE);
-//        txtProductID.setText(Controller.generateNewProductID(sName, ));
-//        txtProductID.setEditable(false);
-//        panelProductLeft.add(lblProductID);
-//        panelProductLeft.add(txtProductID);
-
         lblProductName.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductName.setForeground(Color.WHITE);
         panelProductLeft.add(lblProductName);
@@ -158,7 +149,6 @@ public class SellerAddProduct implements ActionListener {
         // Panel Product Right Bottom
         panelProductRightBottom.setBorder(new EmptyBorder(20, 20, 20, 20));
         String pathFoto = product.getProductPath();
-        lblFotoProduct.setIcon(new ImageIcon(new ImageIcon(pathFoto).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
         panelProductRightBottom.add(lblFotoProduct);
 
         // Panel Product Right

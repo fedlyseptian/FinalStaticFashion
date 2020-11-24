@@ -438,6 +438,7 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
+
     public static ArrayList<Transactions> getAllTransaction(){
         ArrayList<Transactions> listTransactions = new ArrayList<>();
         conn.connect();
@@ -590,7 +591,7 @@ public class ControllerDatabase {
         return (point);
     }
 
-    // Update Tax Seller
+    // Update Point
     public static boolean updatePoint(double lastValue, double newValue) {
         conn.connect();
         String query = "UPDATE pointSystem SET pointValue='" + newValue + "' "
@@ -604,6 +605,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Update Money
     public static boolean updateMoney(String username, double balance) {
         conn.connect();
         String query = "UPDATE member SET money='" + balance + "' "
@@ -650,23 +653,10 @@ public class ControllerDatabase {
         }
     }
 
-    // Delete admin
+    // Delete Admin
     public static boolean deleteAdmin(Admin admin) {
         conn.connect();
-        String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";
-        try {
-            Statement stmt = conn.con.createStatement();
-            stmt.executeUpdate(query);
-            return (true);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return (false);
-        }
-    }
-    // Delete member
-    public static boolean deleteMember(Member member) {
-        conn.connect();
-        String query = "DELETE FROM member WHERE username='"+member.getUsername()+"'";
+        String query = "DELETE FROM admin WHERE username='" + admin.getUsername() + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -677,6 +667,35 @@ public class ControllerDatabase {
         }
     }
 
+    // Delete Member
+    public static boolean deleteMember(Member member) {
+        conn.connect();
+        String query = "DELETE FROM member WHERE username='" + member.getUsername() + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Delete Member
+    public static boolean deleteProduct(String pID) {
+        conn.connect();
+        String query = "DELETE FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Create Table
     public static DefaultTableModel buildTableModel(ResultSet rs)
             throws SQLException {
         conn.connect();
