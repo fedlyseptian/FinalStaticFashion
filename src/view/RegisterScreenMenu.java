@@ -318,8 +318,8 @@ public class RegisterScreenMenu implements ActionListener {
                 // Add data to database
                 if(isiUsernameMember.getText().equals("") || pass.equals("") || isiEmailMember.getText().equals("") || isiNameMember.getText().equals("") || isiAddressMember.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
-                    new RegisterScreenMenu();
-                    frame.dispose();
+//                    new RegisterScreenMenu();
+//                    frame.dispose();
                 }else{
                     controller.insertMember(member);
                     MemberManager.getInstance().setMember(member);
