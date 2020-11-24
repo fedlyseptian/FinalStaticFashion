@@ -128,7 +128,6 @@ public class CartScreenMenu implements ActionListener {
             int hasilGetStockProduct = ControllerDatabase.getStockProductByIdProduct(listProductCart.get(i).getProductID());
             spinnerTotalProduct = new JSpinner(new SpinnerNumberModel(listProductCart.get(i).getQuantity(),1,hasilGetStockProduct,1));
 
-
             int finalI = i;
             // --> Update Product From Cart
             JButton updateProductFromCartButton = new JButton("Update");
@@ -138,7 +137,7 @@ public class CartScreenMenu implements ActionListener {
                     int temp = (int) spinnerTotalProduct.getValue();
                     if(temp > 0 && temp < hasilGetStockProduct){
                         listProductCart.get(finalI).setQuantity(temp);
-                        Controller.updateListProduct(listProduct,listProductCart.get(finalI).getProductID(),temp);
+                        //Controller.updateListProduct(listProduct,listProductCart.get(finalI).getProductID(),temp);
                         JOptionPane.showMessageDialog(frame, "Success Update Data This Product", "Update Quantity", JOptionPane.INFORMATION_MESSAGE);
                         new CartScreenMenu();
                         frame.dispose();
