@@ -527,9 +527,6 @@ public class ControllerDatabase {
                 transaction.setPaymentOption(rs.getInt("paymentOption"));
                 transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
                 transaction.setTaxSeller(rs.getDouble("taxSeller"));
-                transaction.setD((int) date.getDate());
-                transaction.setM((int) date.getMonth()+1);
-                transaction.setY((int) date.getYear()+1900);
                 listTransactions.add(transaction);
             }
         } catch (SQLException e) {
@@ -753,6 +750,21 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Delete Member
+    public static boolean deleteProduct(String pID) {
+        conn.connect();
+        String query = "DELETE FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
     // Delete member
     public static boolean deleteMember(Member member) {
         conn.connect();
