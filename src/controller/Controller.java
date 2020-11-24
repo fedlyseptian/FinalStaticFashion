@@ -67,9 +67,7 @@ public class Controller {
     public static double hitungTotalBiayaBelanjaan(ArrayList<Cart> listProductCart){
         double total = 0;
         for(int i = 0 ; i < listProductCart.size() ; i++){
-            System.out.println(listProductCart.get(i).getTotal());
             total += listProductCart.get(i).getTotal() * listProductCart.get(i).getQuantity();
-            System.out.println(listProductCart.get(i).getQuantity());
         }
         return total;
     }

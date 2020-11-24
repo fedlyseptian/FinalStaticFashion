@@ -772,7 +772,7 @@ public class ControllerDatabase {
 
     // Delete Member
 
-    // Delete Member
+    // Delete Product
     public static boolean deleteProduct(String pID) {
         conn.connect();
         String query = "DELETE FROM products WHERE productID='" + pID + "'";
