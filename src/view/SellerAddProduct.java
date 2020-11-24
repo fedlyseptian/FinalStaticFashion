@@ -1,8 +1,8 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
 import model.Product;
-import model.Seller;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
@@ -44,8 +43,8 @@ public class SellerAddProduct implements ActionListener {
     JLabel lblTitle = new JLabel("Edit Product");
     JButton backButton = new JButton("<<<");
 
-    JLabel lblProductID = new JLabel("ID : ");
-    JTextField txtProductID = new JTextField();
+//    JLabel lblProductID = new JLabel("ID : ");
+//    JTextField txtProductID = new JTextField();
 
     JLabel lblProductName = new JLabel("Name : ");
     JTextField txtProductName = new JTextField();
@@ -70,14 +69,14 @@ public class SellerAddProduct implements ActionListener {
 
     JLabel lblPathFotoProduct = new JLabel("Path Foto Product");
     JTextField txtPathFotoProduct = new JTextField();
-    JButton btnEditFoto = new JButton("Edit Foto");
+    JButton btnEditFoto = new JButton("Attach Foto");
 
     JLabel lblFotoProduct = new JLabel();
     JFileChooser chooser = new JFileChooser();
     File f;
     String filename;
 
-    JButton btnSaveData = new JButton("Edit Data");
+    JButton btnSaveData = new JButton("Save Data");
 
     static Product product = new Product();
 
@@ -93,11 +92,13 @@ public class SellerAddProduct implements ActionListener {
         panelProduct.setLayout(boxLayout);
 
         // Panel Product Left
-        panelProductLeft.setBorder(new EmptyBorder(20, 20, 20, 20));
-        lblProductID.setFont(new Font("Arial", Font.BOLD, 20));
-        lblProductID.setForeground(Color.WHITE);
-        panelProductLeft.add(lblProductID);
-        panelProductLeft.add(txtProductID);
+//        panelProductLeft.setBorder(new EmptyBorder(20, 20, 20, 20));
+//        lblProductID.setFont(new Font("Arial", Font.BOLD, 20));
+//        lblProductID.setForeground(Color.WHITE);
+//        txtProductID.setText(Controller.generateNewProductID(sName, ));
+//        txtProductID.setEditable(false);
+//        panelProductLeft.add(lblProductID);
+//        panelProductLeft.add(txtProductID);
 
         lblProductName.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductName.setForeground(Color.WHITE);
@@ -243,8 +244,9 @@ public class SellerAddProduct implements ActionListener {
                 break;
             case "SaveData":
                 boolean lanjut = true;
+                String txtProductID = Controller.generateNewProductID(txtStoreName.getText(), txtProductName.getText());
 
-                if (txtProductID.getText().equals("") || txtProductName.getText().equals("") || txtProductBrand.getText().equals("")
+                if (txtProductID.equals("") || txtProductName.getText().equals("") || txtProductBrand.getText().equals("")
                         || txtProductCategory.getText().equals("") || txtStoreName.getText().equals("")) {
                     JOptionPane.showMessageDialog(frame, "Pastikan semua field terisi", "Perhatian", JOptionPane.WARNING_MESSAGE);
                     lanjut = false;
@@ -257,7 +259,7 @@ public class SellerAddProduct implements ActionListener {
 
                 if (lanjut) {
 
-                    product.setProductID(txtProductID.getText());
+                    product.setProductID(txtProductID);
                     product.setProductName(txtProductName.getText());
                     product.setProductBrand(txtProductBrand.getText());
                     product.setProductCategory(txtProductCategory.getText());
@@ -267,7 +269,7 @@ public class SellerAddProduct implements ActionListener {
                     product.setProductSize((String) txtProductSize.getSelectedItem());
 
                     // Get Filename
-                    String filenameFotoProduct = txtProductID.getText() + ".jpg";
+                    String filenameFotoProduct = txtProductID + ".jpg";
 
                     // Copy file
                     String desFilePath = null;
