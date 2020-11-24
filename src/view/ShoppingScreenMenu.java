@@ -250,7 +250,11 @@ public class ShoppingScreenMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Back":
-                new MemberMenu();
+                if (SellerManager.getInstance().getSeller() != null) {
+                    new SellerMenu();
+                } else if (MemberManager.getInstance().getMember() != null){
+                    new MemberMenu();
+                }
                 frame.dispose();
                 break;
             default:

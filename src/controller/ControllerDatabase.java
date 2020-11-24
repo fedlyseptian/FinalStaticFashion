@@ -47,6 +47,26 @@ public class ControllerDatabase {
             return (false);
         }
     }
+//insertTransaction
+    public static boolean insertTransaction(Transactions transaction) {
+        conn.connect();
+        String query = "INSERT INTO transactions VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+             stmt.setString(1,transaction.getTransactionID());
+             stmt.setString(2,transaction.getUsername());
+             Date date = new Date(transaction.getTransactionDate().getYear(), transaction.getTransactionDate().getMonth(),transaction.getTransactionDate().getDate());
+             stmt.setDate(3, date);
+             stmt.setString(4,transaction.getPaymentOption());
+             stmt.setDouble(5,transaction.getSubTotal());
+             stmt.setDouble(6,transaction.getTaxSeller());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
 
     // Insert New Product
     public static boolean insertProduct(Product product) {
@@ -122,22 +142,22 @@ public class ControllerDatabase {
     }
 
     // Insert New Product To Cart
-    public static boolean insertProductToListProduct(String transID, Cart cart) {
-        conn.connect();
-        String query = "INSERT INTO listproduct VALUES(?,?,?,?)";
-        try {
-            PreparedStatement stmt = conn.con.prepareStatement(query);
-            stmt.setString(1,transID);
-            stmt.setString(2,cart.getProductID());
-            stmt.setInt(3,cart.getQuantity());
-            stmt.setDouble(4,cart.getTotal());
-            stmt.executeUpdate();
-            return (true);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return (false);
-        }
-    }
+//    public static boolean insertProductToListProduct(Cart cart) {
+//        conn.connect();
+//        String query = "INSERT INTO listproduct VALUES(?,?,?,?)";
+//        try {
+//            PreparedStatement stmt = conn.con.prepareStatement(query);
+//            stmt.setInt(1,cart.getTransactionID());
+//            stmt.setString(2,cart.getProductID());
+//            stmt.setInt(3,cart.getQuantity());
+//            stmt.setDouble(4,cart.getTotal());
+//            stmt.executeUpdate();
+//            return (true);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return (false);
+//        }
+//    }
 
     // Get All Products
     public static ArrayList<Product> getAllProducts() {
@@ -293,7 +313,7 @@ public class ControllerDatabase {
     public static boolean updateProductStock(String idProd, int sisaStock) {
         conn.connect();
         String query = "UPDATE products SET " +
-                "productStock='" + sisaStock + "', " +
+                "productStock='" + sisaStock + "' " +
                 "WHERE productID='" + idProd + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -304,7 +324,7 @@ public class ControllerDatabase {
             return (false);
         }
     }
-    
+
     //dibuat biar hemat waktu get, soalnya cuma butuh username
     // Get All Username
     public static ArrayList<String> getAllUsernames() {
@@ -522,9 +542,8 @@ public class ControllerDatabase {
                 Transactions transaction = new Transactions();
                 transaction.setTransactionID(rs.getString("transactionID"));
                 transaction.setUsername(rs.getString("username"));
-                transaction.setDiscountID(rs.getString("discountID"));
                 Date date = rs.getDate("transactionDate");
-                transaction.setPaymentOption(rs.getInt("paymentOption"));
+                transaction.setPaymentOption(rs.getString("paymentOption"));
                 transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
                 transaction.setTaxSeller(rs.getDouble("taxSeller"));
                 listTransactions.add(transaction);
@@ -660,7 +679,7 @@ public class ControllerDatabase {
         return (point);
     }
 
-    // Update Tax Seller
+    // Update Point
     public static boolean updatePoint(double lastValue, double newValue) {
         conn.connect();
         String query = "UPDATE pointSystem SET pointValue='" + newValue + "' "
@@ -737,10 +756,10 @@ public class ControllerDatabase {
         }
     }
 
-    // Delete admin
+    // Delete Admin
     public static boolean deleteAdmin(Admin admin) {
         conn.connect();
-        String query = "DELETE FROM admin WHERE username='"+admin.getUsername()+"'";
+        String query = "DELETE FROM admin WHERE username='" + admin.getUsername() + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -750,6 +769,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
+
+    // Delete Member
 
     // Delete Member
     public static boolean deleteProduct(String pID) {
@@ -768,7 +789,7 @@ public class ControllerDatabase {
     // Delete member
     public static boolean deleteMember(Member member) {
         conn.connect();
-        String query = "DELETE FROM member WHERE username='"+member.getUsername()+"'";
+        String query = "DELETE FROM member WHERE username='" + member.getUsername() + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -795,7 +816,39 @@ public class ControllerDatabase {
         }
         return (stockProduct);
     }
+    // Delete Member
+//    public static boolean deleteProduct(String pID) {
+//        conn.connect();
+//        String query = "DELETE FROM products WHERE productID='" + pID + "'";
+//        try {
+//            Statement stmt = conn.con.createStatement();
+//            stmt.executeUpdate(query);
+//            return (true);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return (false);
+//        }
+//    }
 
+    // Insert New Product To Cart
+    public static boolean insertProductToListProduct(String transID, Cart cart) {
+        conn.connect();
+        String query = "INSERT INTO listproduct VALUES(?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setString(1,transID);
+            stmt.setString(2,cart.getProductID());
+            stmt.setInt(3,cart.getQuantity());
+            stmt.setDouble(4,cart.getTotal()*cart.getQuantity());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Create Table
     public static DefaultTableModel buildTableModel(ResultSet rs)
             throws SQLException {
         conn.connect();

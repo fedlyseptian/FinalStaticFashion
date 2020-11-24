@@ -140,8 +140,8 @@ public class CartScreenMenu implements ActionListener {
                         listProductCart.get(finalI).setQuantity(temp);
                         Controller.updateListProduct(listProduct,listProductCart.get(finalI).getProductID(),temp);
                         JOptionPane.showMessageDialog(frame, "Success Update Data This Product", "Update Quantity", JOptionPane.INFORMATION_MESSAGE);
-                        frame.dispose();
                         new CartScreenMenu();
+                        frame.dispose();
                     }else{
                         JOptionPane.showMessageDialog(frame, "Failed To Update Data This Product, because the quantity is not valid", "Failed Update", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -295,7 +295,11 @@ public class CartScreenMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Back":
-                new MemberMenu();
+                if (SellerManager.getInstance().getSeller() != null) {
+                    new SellerMenu();
+                } else if (MemberManager.getInstance().getMember() != null){
+                    new MemberMenu();
+                }
                 frame.dispose();
                 break;
             default:

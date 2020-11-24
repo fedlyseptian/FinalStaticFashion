@@ -15,20 +15,18 @@ import java.util.ArrayList;
 public class Transactions {
     private String transactionID;
     private Date transactionDate;
-    private int paymentOption;
+    private String paymentOption;
     private double taxSeller;
     private String username;
     private ArrayList<DetailTransaction> listProduct = new ArrayList<>();
-    private String discountID;
     private double subTotal;
 
-    public Transactions(String transactionID, Date date, int paymentOption, double taxSeller, String username, String discountID,double subTotal) {
+    public Transactions(String transactionID, Date date, String paymentOption, double taxSeller, String username, double subTotal) {
         this.transactionID = transactionID;
         this.transactionDate=date;
         this.paymentOption = paymentOption;
         this.taxSeller = taxSeller;
         this.username = username;
-        this.discountID = discountID;
         this.subTotal = subTotal;
     }
 
@@ -44,7 +42,7 @@ public class Transactions {
         return taxSeller;
     }
 
-    public void setPaymentOption(int paymentOption) {
+    public void setPaymentOption(String paymentOption) {
         this.paymentOption = paymentOption;
     }
 
@@ -60,7 +58,7 @@ public class Transactions {
         return transactionID;
     }
 
-    public int getPaymentOption() {
+    public String getPaymentOption() {
         return paymentOption;
     }
 
@@ -72,16 +70,8 @@ public class Transactions {
         return listProduct;
     }
 
-    public String getDiscountID() {
-        return discountID;
-    }
-
     public double getSubTotal() {
         return subTotal;
-    }
-
-    public void setDiscountID(String discountID) {
-        this.discountID = discountID;
     }
 
     public void setSubTotal(double subTotal) {

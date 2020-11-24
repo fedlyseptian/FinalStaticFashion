@@ -307,6 +307,7 @@ public class MemberMenu implements ActionListener {
                 // Clear Session
                 MemberManager.getInstance().setMember(null);
                 MemberManager.getInstance().setMember(null);
+                ShoppingScreenMenu.listProductCart.clear();
                 new MainMenus();
                 frame.dispose();
                 break;
