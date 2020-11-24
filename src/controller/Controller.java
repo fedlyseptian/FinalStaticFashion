@@ -3,6 +3,7 @@ package controller;
 import main.Main;
 import model.Cart;
 import model.Member;
+import model.Transactions;
 import view.ShoppingScreenMenu;
 
 import java.io.UnsupportedEncodingException;
@@ -65,5 +66,13 @@ public class Controller {
             total += listProductCart.get(i).getTotal() * listProductCart.get(i).getQuantity();
         }
         return total;
+    }
+
+    public static String generateNewTransactionID(){
+        ArrayList<Transactions>listTransaction= new ArrayList<>();
+        listTransaction = ControllerDatabase.getAllTransaction();
+        int countTransaction = listTransaction.size();
+        String newID = "T"+String.format("%09d", countTransaction+1);
+        return newID;
     }
 }
