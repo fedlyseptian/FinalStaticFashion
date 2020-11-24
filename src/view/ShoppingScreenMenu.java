@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.channels.Selector;
 import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
@@ -248,7 +249,9 @@ public class ShoppingScreenMenu implements ActionListener {
             case "Logout":
                 // Logout account
                 MemberManager.getInstance().setMember(null);
+                MemberManager.getInstance().setPassword(null);
                 SellerManager.getInstance().setSeller(null);
+                SellerManager.getInstance().setPassword(null);
                 listProductCart = null;
                 new MainMenus();
                 frame.dispose();
