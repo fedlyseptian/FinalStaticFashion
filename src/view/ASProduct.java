@@ -1,7 +1,9 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
 import model.AdminManager;
+import model.Discount;
 import model.Product;
 import model.SellerManager;
 
@@ -54,7 +56,7 @@ public class ASProduct implements ActionListener {
             // Panel Declaration
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
-            JPanel panelDesc = new JPanel(new GridLayout(3, 1));
+            JPanel panelDesc = new JPanel(new GridLayout(4, 1));
             JPanel panelDescRight = new JPanel(new GridLayout(3, 1));
             JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
@@ -64,8 +66,8 @@ public class ASProduct implements ActionListener {
             // Set Panel Dimension
             productContainer.setPreferredSize(new Dimension(1200, 200));
             panelImg.setPreferredSize(new Dimension(200, 200));
-            panelDesc.setPreferredSize(new Dimension(500, 120));
-            panelDescRight.setPreferredSize(new Dimension(300, 120));
+            panelDesc.setPreferredSize(new Dimension(500, 180));
+            panelDescRight.setPreferredSize(new Dimension(300, 180));
             panelButton.setPreferredSize(new Dimension(120, 30));
 
             // Product Image
@@ -103,6 +105,13 @@ public class ASProduct implements ActionListener {
             labelStoreName.setFont(new Font("Arial", Font.PLAIN, 20));
             labelStoreName.setForeground(Color.WHITE);
 
+            // --> Store Discount
+            // Buat Nampilin Discount Product
+            Discount tempDiscount = ControllerDatabase.getDiscountByStoreName(listProduct.get(i).getStoreName());
+            JLabel labelDiscount = new JLabel("Store Discount : " + tempDiscount.getDiscountValue());
+            labelDiscount.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelDiscount.setForeground(Color.WHITE);
+
             // --> Next Button
             JButton productButton = new JButton("> " + listProduct.get(i).getProductID());
 
@@ -128,6 +137,8 @@ public class ASProduct implements ActionListener {
             panelDesc.add(labelProductName);
             panelDesc.add(labelProductBrand);
             panelDesc.add(labelStoreName);
+            // Buat Nampilin Discount Product
+            panelDesc.add(labelDiscount);
 
             panelDescRight.add(labelProductCategory);
             panelDescRight.add(labelProductSize);

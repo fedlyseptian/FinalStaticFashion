@@ -489,11 +489,30 @@ public class ControllerDatabase {
         return (listProduct);
     }
 
-
+    // Get Discount by DiscountID
     public static Discount getDiscount(String dID){
         Discount discount= new Discount();
         conn.connect();
         String query = "SELECT * FROM discount WHERE discountID='" + dID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (discount);
+    }
+
+    // Get Discount by StoreName
+    public static Discount getDiscountByStoreName(String sName){
+        Discount discount= new Discount();
+        conn.connect();
+        String query = "SELECT Discount.* FROM discount, seller WHERE seller.discountID=discount.discountID AND " +
+                "seller.storeName='" + sName + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
