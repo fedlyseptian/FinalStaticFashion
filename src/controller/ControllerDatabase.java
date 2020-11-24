@@ -48,6 +48,27 @@ public class ControllerDatabase {
         }
     }
 
+    public static boolean insertTransaction(Transactions transaction) {
+        conn.connect();
+        String query = "INSERT INTO transactions VALUES(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+             stmt.setString(1,transaction.getTransactionID());
+             stmt.setString(2,transaction.getUsername());
+             stmt.setString(3,transaction.getDiscountID());
+             Date date = new Date(transaction.getTransactionDate().getYear(), transaction.getTransactionDate().getMonth(),transaction.getTransactionDate().getDate());
+             stmt.setDate(4, date);
+             stmt.setInt(5,transaction.getPaymentOption());
+             stmt.setDouble(6,transaction.getSubTotal());
+             stmt.setDouble(7,transaction.getTaxSeller());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
     // Insert New Product
     public static boolean insertProduct(Product product) {
         conn.connect();
@@ -454,9 +475,6 @@ public class ControllerDatabase {
                 transaction.setPaymentOption(rs.getInt("paymentOption"));
                 transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
                 transaction.setTaxSeller(rs.getDouble("taxSeller"));
-                transaction.setD((int) date.getDate());
-                transaction.setM((int) date.getMonth()+1);
-                transaction.setY((int) date.getYear()+1900);
                 listTransactions.add(transaction);
             }
         } catch (SQLException e) {
