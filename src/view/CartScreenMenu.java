@@ -6,6 +6,7 @@ import model.Cart;
 import model.MemberManager;
 import model.Product;
 import model.SellerManager;
+import view.ShoppingScreenMenu;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -25,7 +26,9 @@ public class CartScreenMenu implements ActionListener {
 
     JPanel panelTitle = new JPanel();
     JPanel panelProduct = new JPanel();
-    JPanel panelRincianBelanjaan = new JPanel(new GridLayout(1, 1));
+    JPanel panelRincianBelanjaan = new JPanel(new GridLayout(4, 1));
+
+
 
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -37,6 +40,14 @@ public class CartScreenMenu implements ActionListener {
     JButton shoppingMenuButton = new JButton("Back To Shop");
 
     protected static JSpinner spinnerTotalProduct = new JSpinner();
+
+    //Buat ambil stock product
+    ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
+
+    //Deklarasi Rincian Biaya
+    double totalBiaya = 0;
+    double diskon = 0;
+    double grandTotal = 0;
 
     public CartScreenMenu(){
         if(MemberManager.getInstance().getMember()!=null){
@@ -114,7 +125,8 @@ public class CartScreenMenu implements ActionListener {
             JLabel labelTotalProduct = new JLabel("Quantity : ");
             labelTotalProduct.setFont(new Font("Arial", Font.PLAIN, 20));
             labelTotalProduct.setForeground(Color.WHITE);
-            spinnerTotalProduct = new JSpinner(new SpinnerNumberModel(listProductCart.get(i).getQuantity(),1,100,1));
+            int hasilGetStockProduct = ControllerDatabase.getStockProductByIdProduct(listProductCart.get(i).getProductID());
+            spinnerTotalProduct = new JSpinner(new SpinnerNumberModel(listProductCart.get(i).getQuantity(),1,hasilGetStockProduct,1));
 
 
             int finalI = i;
@@ -124,10 +136,15 @@ public class CartScreenMenu implements ActionListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int temp = (int) spinnerTotalProduct.getValue();
-                    listProductCart.get(finalI).setQuantity(temp);
-                    JOptionPane.showMessageDialog(frame, "Success Update Data This Product", "Update Quantity", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
-                    new CartScreenMenu();
+                    if(temp > 0 && temp < hasilGetStockProduct){
+                        listProductCart.get(finalI).setQuantity(temp);
+                        Controller.updateListProduct(listProduct,listProductCart.get(finalI).getProductID(),temp);
+                        JOptionPane.showMessageDialog(frame, "Success Update Data This Product", "Update Quantity", JOptionPane.INFORMATION_MESSAGE);
+                        frame.dispose();
+                        new CartScreenMenu();
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Failed To Update Data This Product, because the quantity is not valid", "Failed Update", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             });
 
@@ -138,6 +155,7 @@ public class CartScreenMenu implements ActionListener {
             deleteProductFromCartButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    int temp = (int) spinnerTotalProduct.getValue();
                     listProductCart.remove(finalI);
                     JOptionPane.showMessageDialog(frame, "Success Delete This Product From Cart", "Delete From Cart", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
@@ -187,11 +205,37 @@ public class CartScreenMenu implements ActionListener {
         frame.add(shoppingMenuButton);
 
         //Panel Rincian Belanjaan di Cart
-        JLabel jumlahTotalBiaya = new JLabel("Total Biaya : Rp." + Controller.hitungTotalBiayaBelanjaan(listProductCart));
-        jumlahTotalBiaya.setFont(new Font("Calibri", Font.BOLD, 30));
-        jumlahTotalBiaya.setHorizontalAlignment(JLabel.CENTER);
-        jumlahTotalBiaya.setForeground(new Color(255, 145, 0));
-        panelRincianBelanjaan.add(jumlahTotalBiaya);
+        panelRincianBelanjaan.setPreferredSize(new Dimension(500, 200));
+        //Total Biaya Sebelum Diskon
+        totalBiaya = Controller.hitungTotalBiayaBelanjaan(listProductCart);
+        JLabel totalBiayaSebelumDiskon = new JLabel("Total Biaya : Rp." + totalBiaya);
+        totalBiayaSebelumDiskon.setFont(new Font("Calibri", Font.BOLD, 30));
+        totalBiayaSebelumDiskon.setHorizontalAlignment(JLabel.CENTER);
+        totalBiayaSebelumDiskon.setForeground(new Color(255, 145, 0));
+        panelRincianBelanjaan.add(totalBiayaSebelumDiskon);
+
+        //Besar Diskon
+        diskon = Controller.hitungTotalDiscount(listProductCart);
+        JLabel totalDiskon = new JLabel("Total Discount : Rp." + diskon);
+        totalDiskon.setFont(new Font("Calibri", Font.BOLD, 30));
+        totalDiskon.setHorizontalAlignment(JLabel.CENTER);
+        totalDiskon.setForeground(new Color(255, 145, 0));
+        panelRincianBelanjaan.add(totalDiskon);
+
+        //Total Biaya Setelah Diskon
+        grandTotal = Controller.hitungTotalBiayaBelanjaanSetelahDiscount(listProductCart);
+        JLabel totalBiayaSetelahDiskon = new JLabel("Grand Total Biaya : Rp." + grandTotal);
+        totalBiayaSetelahDiskon.setFont(new Font("Calibri", Font.BOLD, 30));
+        totalBiayaSetelahDiskon.setHorizontalAlignment(JLabel.CENTER);
+        totalBiayaSetelahDiskon.setForeground(new Color(255, 145, 0));
+        panelRincianBelanjaan.add(totalBiayaSetelahDiskon);
+
+        //Button Buy Product
+        JButton buyNowButton = new JButton("Buy Now");
+        buyNowButton.setFont(new Font("Arial", Font.BOLD, 20));
+        buyNowButton.setActionCommand("Buy");
+        buyNowButton.addActionListener(this);
+        panelRincianBelanjaan.add(buyNowButton);
 
         // Transaparent Child Background
         panelTitle.setBackground(new Color(0,0,0,0));
@@ -244,6 +288,10 @@ public class CartScreenMenu implements ActionListener {
         switch (command) {
             case "Shopping Menu":
                 new ShoppingScreenMenu();
+                frame.dispose();
+                break;
+            case "Buy":
+                new PaymentScreenMenu(totalBiaya,diskon,grandTotal,listProductCart);
                 frame.dispose();
                 break;
             case "Back":
