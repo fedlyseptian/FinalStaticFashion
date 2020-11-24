@@ -57,7 +57,7 @@ public class ASProduct implements ActionListener {
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();
             JPanel panelDesc = new JPanel(new GridLayout(4, 1));
-            JPanel panelDescRight = new JPanel(new GridLayout(3, 1));
+            JPanel panelDescRight = new JPanel(new GridLayout(4, 1));
             JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
             // Border Separator
@@ -108,9 +108,14 @@ public class ASProduct implements ActionListener {
             // --> Store Discount
             // Buat Nampilin Discount Product
             Discount tempDiscount = ControllerDatabase.getDiscountByStoreName(listProduct.get(i).getStoreName());
-            JLabel labelDiscount = new JLabel("Store Discount : " + tempDiscount.getDiscountValue());
+            JLabel labelDiscount = new JLabel("Store Discount : " + tempDiscount.getDiscountValue()*100+"%");
             labelDiscount.setFont(new Font("Arial", Font.PLAIN, 20));
             labelDiscount.setForeground(Color.WHITE);
+
+            //Stock Product
+            JLabel labelStockProduct = new JLabel("Stock : " + listProduct.get(i).getProductStock());
+            labelStockProduct.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelStockProduct.setForeground(Color.WHITE);
 
             // --> Next Button
             JButton productButton = new JButton("> " + listProduct.get(i).getProductID());
@@ -143,6 +148,7 @@ public class ASProduct implements ActionListener {
             panelDescRight.add(labelProductCategory);
             panelDescRight.add(labelProductSize);
             panelDescRight.add(labelProductPrice);
+            panelDescRight.add(labelStockProduct);
 
             panelButton.add(productButton);
 
