@@ -367,7 +367,6 @@ public class RegisterScreenSeller implements ActionListener {
                 // Add data to database
                 if(isiUsernameSeller.getText().equals("") || pass.equals("") || isiEmailSeller.getText().equals("") || isiNameSeller.getText().equals("") || isiAddressSeller.getText().equals("") || isiStoreName.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
-//                    new RegisterScreenSeller();
                 }else {
                     controller.insertMember(member);
                     Seller seller = new Seller(member, isiStoreName.getText(), null,"non","");
