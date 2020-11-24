@@ -309,7 +309,23 @@ public class ControllerDatabase {
             return (false);
         }
     }
-    
+
+    // Update Product Stock
+    public static boolean updateProductStock(String idProd, int sisaStock) {
+        conn.connect();
+        String query = "UPDATE products SET " +
+                "productStock='" + sisaStock + "', " +
+                "WHERE productID='" + idProd + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
     //dibuat biar hemat waktu get, soalnya cuma butuh username
     // Get All Username
     public static ArrayList<String> getAllUsernames() {
@@ -359,6 +375,34 @@ public class ControllerDatabase {
         return (listMembers);
     }
 
+    // Get Specific Member
+    public static Member getMember(String user) {
+        Member member = new Member();
+        conn.connect();
+        String query = "SELECT * FROM member WHERE username='" + user + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                member.setUsername(rs.getString("username"));
+                member.setPassword(rs.getString("password"));
+                member.setName(rs.getString("name"));
+                member.setAddress(rs.getString("address"));
+                member.setGender(rs.getString("gender"));
+                member.setEmail(rs.getString("email"));
+                Date date = rs.getDate("birthDate");
+                member.setDay(date.getDate());
+                member.setMonth(date.getMonth()+1);
+                member.setYear(date.getYear()+1900);
+                member.setPoint(rs.getDouble("point"));
+                member.setMoney(rs.getDouble("money"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (member);
+    }
+
     // Get All Sellers
     public static ArrayList<Seller> getAllSellers(){
         ArrayList<Seller> listSellers = new ArrayList<>();
@@ -399,6 +443,35 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (seller);
+    }
+
+    // Get Member by Product (Store)
+    public static Member getMemberByProduct(String sName){
+        Seller sellerTemp = getSpecificSeller(sName);
+        Member member = new Member();
+        conn.connect();
+        String query = "SELECT * FROM member, seller WHERE member.username=seller.username AND member.username='" + sellerTemp.getUsername() + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                member.setUsername(rs.getString("username"));
+                member.setPassword(rs.getString("password"));
+                member.setName(rs.getString("name"));
+                member.setAddress(rs.getString("address"));
+                member.setGender(rs.getString("gender"));
+                member.setEmail(rs.getString("email"));
+                Date date = rs.getDate("birthDate");
+                member.setDay(date.getDate());
+                member.setMonth(date.getMonth()+1);
+                member.setYear(date.getYear()+1900);
+                member.setPoint(rs.getDouble("point"));
+                member.setMoney(rs.getDouble("money"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (member);
     }
 
     // Update Seller Data
@@ -459,7 +532,6 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
-
     public static ArrayList<Transactions> getAllTransaction(){
         ArrayList<Transactions> listTransactions = new ArrayList<>();
         conn.connect();
@@ -624,10 +696,25 @@ public class ControllerDatabase {
         }
     }
 
-    // Update Money
+    // Update Member Money
     public static boolean updateMoney(String username, double balance) {
         conn.connect();
         String query = "UPDATE member SET money='" + balance + "' "
+                + " WHERE username='" + username + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Update Member Money
+    public static boolean updatePointValue(String username, double balance) {
+        conn.connect();
+        String query = "UPDATE member SET point='" + balance + "' "
                 + " WHERE username='" + username + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -699,6 +786,22 @@ public class ControllerDatabase {
         }
     }
 
+    //Get Stock Product
+    public static int getStockProductByIdProduct(String idProduct){
+        int stockProduct = 0;
+        conn.connect();
+        String query = "SELECT productStock FROM products WHERE productID='" + idProduct + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                stockProduct = rs.getInt("productStock");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (stockProduct);
+    }
     // Delete Member
     public static boolean deleteProduct(String pID) {
         conn.connect();
