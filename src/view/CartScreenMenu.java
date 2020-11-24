@@ -247,7 +247,7 @@ public class CartScreenMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Back":
-                new MainMenus();
+                new MemberMenu();
                 frame.dispose();
                 break;
             default:
