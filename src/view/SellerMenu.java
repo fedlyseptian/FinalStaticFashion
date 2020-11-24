@@ -29,6 +29,7 @@ public class SellerMenu implements ActionListener {
     JButton btnTopUp = new JButton("Top Up");
     JButton btnHistory = new JButton("History");
 
+    JButton btnAddProduct = new JButton("Add Product");
     JButton btnProduct = new JButton("Edit Product");
     JButton btnStore = new JButton("Edit Store");
     JButton btnDiscount = new JButton("Edit Discount");
@@ -160,6 +161,28 @@ public class SellerMenu implements ActionListener {
         btnHistory.addActionListener(this);
         panelAdminMenu.add(btnHistory);
 
+        // Add Product
+        btnAddProduct.setFont(new Font("Arial", Font.BOLD, 30));
+        btnAddProduct.setBackground(Color.BLACK);
+        btnAddProduct.setForeground(Color.WHITE);
+        btnAddProduct.setBorder(null);
+        btnAddProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddProduct.setForeground(new Color(255, 145, 0));
+                btnAddProduct.setBackground(new Color(15, 15, 10));
+                btnAddProduct.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddProduct.setForeground(Color.WHITE);
+                btnAddProduct.setBackground(Color.BLACK);
+                btnAddProduct.setBorder(null);
+            }
+        });
+
+        btnAddProduct.setActionCommand("AddProduct");
+        btnAddProduct.addActionListener(this);
+        panelAdminMenu.add(btnAddProduct);
+
         // Edit Product
         btnProduct.setFont(new Font("Arial", Font.BOLD, 30));
         btnProduct.setBackground(Color.BLACK);
@@ -282,7 +305,11 @@ public class SellerMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "History":
-                // new History();
+                new MemberHistory();
+                frame.dispose();
+                break;
+            case "AddProduct":
+                new SellerAddProduct(seller.getStoreName());
                 frame.dispose();
                 break;
             case "EditProduct":
