@@ -58,7 +58,7 @@ public class AboutUsMenu implements ActionListener {
 
         aboutUsText = ControllerDatabase.getAboutUsText();
         JLabel storyArticle = new JLabel("<html><div WIDTH=1100>" + aboutUsText + "</div></html>");
-        storyArticle.setFont(storyArticle.getFont().deriveFont(14f));
+        storyArticle.setFont(storyArticle.getFont().deriveFont(20f));
         storyArticle.setForeground(Color.WHITE);
         storyPanel.add(storyArticle);
 
