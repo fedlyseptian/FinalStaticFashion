@@ -10,5 +10,5 @@ package model;
  * @author TimothyRay
  */
 public enum EnumPaymentMethod {
-    OVO,GOPAY,DANA,SHOPEEPAY,CREDIT,POINTPAY,VA;
+    POINT,CASH;
 }

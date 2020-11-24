@@ -1,16 +1,16 @@
 package view;
 
-import model.Cart;
-import model.MemberManager;
+import controller.Controller;
+import model.*;
 import controller.ControllerDatabase;
-import model.Product;
-import model.Member;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static view.ShoppingScreenMenu.listProductCart;
 import static view.MainMenus.mindfullyFont;
@@ -29,6 +29,7 @@ public class PaymentScreenMenu implements ActionListener {
 
     //Get All Products from Database
     ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
+    JButton backButton = new JButton("<<<");
 
     public PaymentScreenMenu(double totalBiayaSebelumDiskon, double diskon, double totalBiayaSetelahDiskon, ArrayList<Cart> listProductCart){
         if(MemberManager.getInstance().getMember()!=null){
@@ -60,6 +61,30 @@ public class PaymentScreenMenu implements ActionListener {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
+
+        // Back Button
+        backButton.setBounds(5, 25, 100, 50);
+        backButton.setFont(backButton.getFont().deriveFont(30f));
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(null);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(new Color(255, 145, 0));
+                backButton.setBackground(new Color(15, 15, 10));
+                backButton.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setForeground(Color.WHITE);
+                backButton.setBackground(Color.BLACK);
+                backButton.setBorder(null);
+            }
+        });
+
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
+
+        frame.add(backButton);
 
         //Panel Center
         JPanel panelDescLeft = new JPanel(new GridLayout(2,1));
@@ -126,14 +151,17 @@ public class PaymentScreenMenu implements ActionListener {
                         double uangTerbaru = owner.getMoney() + uangDiterima;
                         ControllerDatabase.updateMoney(owner.getUsername(), uangTerbaru);
                     }
+                    String transID = Controller.generateNewTransactionID();
+                    ControllerDatabase.insertTransaction(new Transactions(transID,new Date(),String.valueOf(EnumPaymentMethod.CASH),ControllerDatabase.getTaxSeller().getTaxValue(),MemberManager.getInstance().getMember().getUsername(),totalBiayaSetelahDiskon));
                     for (int i = 0; i < listProductCart.size(); i++) {
                         // insert data to listproduct
                         Cart c = listProductCart.get(i);
-                        String transID = "";
                         ControllerDatabase.insertProductToListProduct(transID, c);
                     }
                     //ControllerDatabase.insertProductToListProduct();
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
+                    ControllerDatabase.updatePointValue(MemberManager.getInstance().getMember().getUsername(),MemberManager.getInstance().getMember().getPoint()+totalBiayaSetelahDiskon*ControllerDatabase.getPoint().getPointValue());
+                    listProductCart.clear();
                 }else{
                     JOptionPane.showMessageDialog(frame, "Insufficient Money, Please Top Up", "Failed Buy", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -164,13 +192,15 @@ public class PaymentScreenMenu implements ActionListener {
                         double uangTerbaru = owner.getMoney() + uangDiterima;
                         ControllerDatabase.updateMoney(owner.getUsername(), uangTerbaru);
                     }
+                    String transID = Controller.generateNewTransactionID();
+                    ControllerDatabase.insertTransaction(new Transactions(transID,new Date(),String.valueOf(EnumPaymentMethod.CASH),ControllerDatabase.getTaxSeller().getTaxValue(),MemberManager.getInstance().getMember().getUsername(),totalBiayaSetelahDiskon));
                     for (int i = 0; i < listProductCart.size(); i++) {
                         // insert data to listproduct
                         Cart c = listProductCart.get(i);
-                        String transID = "";
                         ControllerDatabase.insertProductToListProduct(transID, c);
                     }
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
+                    listProductCart.clear();
                 }else{
                     JOptionPane.showMessageDialog(frame, "Insufficient Money, Please Top Up", "Failed Buy", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -210,7 +240,11 @@ public class PaymentScreenMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Back":
-                new MemberMenu();
+                if (SellerManager.getInstance().getSeller() != null) {
+                    new SellerMenu();
+                } else if (MemberManager.getInstance().getMember() != null){
+                    new MemberMenu();
+                }
                 frame.dispose();
                 break;
             default:

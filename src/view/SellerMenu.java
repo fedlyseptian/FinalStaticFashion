@@ -328,6 +328,7 @@ public class SellerMenu implements ActionListener {
                 // Clear Session
                 SellerManager.getInstance().setSeller(null);
                 SellerManager.getInstance().setPassword(null);
+                ShoppingScreenMenu.listProductCart.clear();
                 new MainMenus();
                 frame.dispose();
                 break;

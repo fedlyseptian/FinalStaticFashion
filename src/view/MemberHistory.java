@@ -71,11 +71,11 @@ public class MemberHistory implements ActionListener {
                 JLabel labelUsername = new JLabel(listTransaction.get(i).getUsername());
                 labelUsername.setFont(new Font("Arial", Font.BOLD, 25));
                 labelUsername.setForeground(Color.WHITE);
-
-                // --> DiscountID
-                JLabel labelDiscountID = new JLabel("DiscountID: " + listTransaction.get(i).getDiscountID());
-                labelDiscountID.setFont(new Font("Arial", Font.BOLD, 25));
-                labelDiscountID.setForeground(Color.WHITE);
+//
+//                // --> DiscountID
+//                JLabel labelDiscountID = new JLabel("DiscountID: " + listTransaction.get(i).getDiscountID());
+//                labelDiscountID.setFont(new Font("Arial", Font.BOLD, 25));
+//                labelDiscountID.setForeground(Color.WHITE);
 
                 // --> TransactionDate
                 JLabel labelTransactionDate = new JLabel("Date: " + (listTransaction.get(i).getTransactionDate()));
@@ -116,7 +116,7 @@ public class MemberHistory implements ActionListener {
 
                 panelDesc.add(labelTransactionID);
                 panelDesc.add(labelUsername);
-                panelDesc.add(labelDiscountID);
+//                panelDesc.add(labelDiscountID);
                 panelDesc.add(labelTransactionDate);
                 panelDesc.add(labelPaymentOption);
                 panelDesc.add(labelSubTotal);
