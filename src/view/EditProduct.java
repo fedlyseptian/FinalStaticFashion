@@ -1,8 +1,11 @@
 package view;
 
+import controller.Controller;
 import controller.ControllerDatabase;
+import model.AdminManager;
 import model.Product;
 import model.Seller;
+import model.SellerManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -78,6 +81,7 @@ public class EditProduct implements ActionListener {
     String filename;
 
     JButton btnEditData = new JButton("Edit Data");
+    JButton btnDelete = new JButton("Delete This Product");
     JButton btnSubmit = new JButton("Save");
 
     static Product product;
@@ -198,6 +202,12 @@ public class EditProduct implements ActionListener {
         btnEditData.addActionListener(this);
         panelButton.add(btnEditData);
 
+        btnDelete.setFont(new Font("Arial", Font.BOLD, 20));
+        btnDelete.setActionCommand("Delete");
+        btnDelete.addActionListener(this);
+        btnDelete.setVisible(false);
+        panelButton.add(btnDelete);
+
         btnSubmit.setFont(new Font("Arial", Font.BOLD, 20));
         btnSubmit.setActionCommand("Submit");
         btnSubmit.addActionListener(this);
@@ -275,6 +285,7 @@ public class EditProduct implements ActionListener {
                 txtProductSize.setEditable(true);
                 txtStoreName.setEnabled(true);
                 btnEditFoto.setVisible(true);
+                btnDelete.setVisible(true);
                 btnSubmit.setVisible(true);
                 break;
             case "EditFoto":
@@ -283,6 +294,32 @@ public class EditProduct implements ActionListener {
                 filename = f.getAbsolutePath();
                 txtPathFotoProduct.setText(filename);
                 lblFotoProduct.setIcon(new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+                break;
+            case "Delete":
+                boolean isDelete = false;
+
+                String ans = JOptionPane.showInputDialog(frame, "Are your sure to delete this product ?" +
+                        "\n yes / no", "Delete Product 🥼", JOptionPane.WARNING_MESSAGE);
+
+                if (ans.equals("yes") || ans.equals("Yes") || ans.equals("YES")) {
+                    isDelete = true;
+                }
+
+                if (isDelete) {
+                    if (ControllerDatabase.deleteProduct(product.getProductID())) {
+                        JOptionPane.showMessageDialog(frame, "Successfully DELETE Product", "Delete Product", JOptionPane.INFORMATION_MESSAGE);
+                        File fileToBeDeleted = new File(txtPathFotoProduct.getText());
+                        if (fileToBeDeleted.delete()) {
+                            System.out.println("Deleted the file: " + fileToBeDeleted.getName());
+                        } else {
+                            System.out.println("Failed to delete the product.");
+                        }
+                        new ASProduct();
+                        frame.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Failed to DELETE Product", "Delete Product", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
                 break;
             case "Submit":
                 boolean lanjut = true;
