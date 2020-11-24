@@ -2,9 +2,12 @@ package controller;
 
 import main.Main;
 import model.Cart;
+import model.Discount;
 import model.Member;
+import model.Product;
 import view.ShoppingScreenMenu;
 
+import javax.swing.*;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -58,12 +61,41 @@ public class Controller {
         return pass;
     }
 
-    //Hitung Total Biaya Product
+    //Hitung Total Biaya Product Sebelum Diskon
     public static double hitungTotalBiayaBelanjaan(ArrayList<Cart> listProductCart){
         double total = 0;
         for(int i = 0 ; i < listProductCart.size() ; i++){
             total += listProductCart.get(i).getTotal() * listProductCart.get(i).getQuantity();
         }
         return total;
+    }
+
+    //Hitung Total Diskon
+    public static double hitungTotalDiscount(ArrayList<Cart> listProductCart){
+        double total = 0;
+        double totalDiskon = 0;
+        for(int i = 0 ; i < listProductCart.size() ; i++){
+            //Get Discount Product
+            Discount tempDiscount = ControllerDatabase.getDiscountByStoreName(listProductCart.get(i).getStoreName());
+            total = (listProductCart.get(i).getTotal() * listProductCart.get(i).getQuantity());
+            totalDiskon += total * tempDiscount.getDiscountValue();
+        }
+        return totalDiskon;
+    }
+
+    //Hitung Total Biaya Product Setelah Diskon
+    public static double hitungTotalBiayaBelanjaanSetelahDiscount(ArrayList<Cart> listProductCart){
+        double grandTotal = 0;
+        grandTotal = hitungTotalBiayaBelanjaan(listProductCart) - hitungTotalDiscount(listProductCart);
+        return grandTotal;
+    }
+
+    //Update Stock Because Cart
+    public static void updateListProduct(ArrayList<Product> listProduct, String idProduct, int jumlahBarang){
+        for(int i = 0 ; i < listProduct.size() ; i++){
+            if(idProduct.equals(listProduct.get(i).getProductID())){
+                listProduct.get(i).setProductStock(jumlahBarang);
+            }
+        }
     }
 }
