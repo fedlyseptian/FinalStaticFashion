@@ -265,7 +265,9 @@ public class CartScreenMenu implements ActionListener {
             case "Logout":
                 // Logout account
                 MemberManager.getInstance().setMember(null);
+                MemberManager.getInstance().setPassword(null);
                 SellerManager.getInstance().setSeller(null);
+                SellerManager.getInstance().setPassword(null);
                 listProductCart = null;
                 new MainMenus();
                 frame.dispose();
