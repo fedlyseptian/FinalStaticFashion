@@ -144,21 +144,22 @@ public class LoginScreenMenu implements ActionListener {
                 }
                 if(isSeller){
                     MemberManager.getInstance().setMember(listMember.get(i));
-                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getPathLogo(),listSeller.get(j).getDiscountID()));
-                    new ShoppingScreenMenu();
+                    SellerManager.getInstance().setSeller(new Seller(listMember.get(i),listSeller.get(j).getStoreName(),null,listSeller.get(j).getDiscountID(),listSeller.get(j).getPathLogo()));
+                    SellerManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
+                    new SellerMenu();
+                    frame.dispose();
                 }else if(isMember){
                     MemberManager.getInstance().setMember(listMember.get(i));
-                    new ShoppingScreenMenu();
+                    new MemberMenu();
+                    frame.dispose();
                 }else if(isAdmin){
                     AdminManager.getInstance().setAdmin(listAdmin.get(k));
                     AdminManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
+                    frame.dispose();
                     new AdminMenu();
                 }else{
                     JOptionPane.showMessageDialog(null,"Username or Password is incorect");
-                    new LoginScreenMenu();
                 }
-                // New FRAME
-                frame.dispose();
                 break;
             case "Back":
                 new MainMenus();

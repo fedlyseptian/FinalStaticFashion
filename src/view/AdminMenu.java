@@ -1,11 +1,9 @@
 package view;
 
-import model.Admin;
 import model.AdminManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -287,7 +285,7 @@ public class AdminMenu implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Product":
-                new AdminProduct();
+                new ASProduct();
                 frame.dispose();
                 break;
             case "Store":
@@ -295,7 +293,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Discount":
-                // New FRAME
+                new AdminDiscount();
                 frame.dispose();
                 break;
             case "AddAdmin":
@@ -311,7 +309,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "Point":
-                // New FRAME
+                new AdminPoint();
                 frame.dispose();
                 break;
             case "Tax":
@@ -319,7 +317,7 @@ public class AdminMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "History":
-                // New FRAME
+                new AdminHistory();
                 frame.dispose();
                 break;
             case "Logout":

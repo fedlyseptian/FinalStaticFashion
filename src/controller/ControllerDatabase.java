@@ -5,13 +5,17 @@
  */
 package controller;
 
+import java.awt.*;
 import java.nio.channels.Selector;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import main.Main;
 import model.*;
 import view.CartScreenMenu;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -90,7 +94,7 @@ public class ControllerDatabase {
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
             stmt.setString(1,seller.getStoreName());
-            stmt.setString(2, seller.getUsername());
+            stmt.setString(2,seller.getUsername());
             stmt.setString(3,seller.getDiscountID());
             stmt.setString(4,seller.getPathLogo());
             stmt.executeUpdate();
@@ -140,6 +144,33 @@ public class ControllerDatabase {
         ArrayList<Product> listProducts = new ArrayList<>();
         conn.connect();
         String query = "SELECT * FROM products";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getString("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setProductBrand(rs.getString("productBrand"));
+                product.setProductCategory(rs.getString("productCategory"));
+                product.setProductStock(rs.getInt("productStock"));
+                product.setProductPrice(rs.getDouble("productPrice"));
+                product.setProductSize(rs.getString("productSize"));
+                product.setStoreName(rs.getString("storeName"));
+                product.setProductPath(rs.getString("pathFotoProduct"));
+                listProducts.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProducts);
+    }
+
+    // Get Products From Seller
+    public static ArrayList<Product> getProductsSeller(String sName) {
+        ArrayList<Product> listProducts = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM products WHERE storeName='" + sName + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -298,6 +329,7 @@ public class ControllerDatabase {
                 member.setMonth(date.getMonth()+1);
                 member.setYear(date.getYear()+1900);
                 member.setPoint(rs.getDouble("point"));
+                member.setMoney(rs.getDouble("money"));
                 listMembers.add(member);
             }
         } catch (SQLException e) {
@@ -326,6 +358,45 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listSellers);
+    }
+
+    // Get Specific Sellers
+    public static Seller getSpecificSeller(String sName){
+        Seller seller = new Seller();
+        conn.connect();
+        String query = "SELECT * FROM seller WHERE storeName='" + sName + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                seller.setUsername(rs.getString("username"));
+                seller.setStoreName(rs.getString("storeName"));
+                seller.setDiscountID(rs.getString("discountID"));
+                seller.setPathLogo(rs.getString("pathLogo"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (seller);
+    }
+
+    // Update Seller Data
+    public static boolean updateSeller(Seller seller, String stName) {
+        conn.connect();
+        String query = "UPDATE seller SET " +
+                "username='" + seller.getUsername() + "', " +
+                "storeName='" + seller.getStoreName() + "', " +
+                "discountID='" + seller.getDiscountID() + "', " +
+                "pathLogo='" + seller.getPathLogo() + "' " +
+                "WHERE storeName='" + stName + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 
     // Get All Admins
@@ -367,7 +438,90 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
-  
+    public static ArrayList<Transactions> getAllTransaction(){
+        ArrayList<Transactions> listTransactions = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM transactions";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Transactions transaction = new Transactions();
+                transaction.setTransactionID(rs.getString("transactionID"));
+                transaction.setUsername(rs.getString("username"));
+                transaction.setDiscountID(rs.getString("discountID"));
+                Date date = rs.getDate("transactionDate");
+                transaction.setPaymentOption(rs.getInt("paymentOption"));
+                transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
+                transaction.setTaxSeller(rs.getDouble("taxSeller"));
+                transaction.setD((int) date.getDate());
+                transaction.setM((int) date.getMonth()+1);
+                transaction.setY((int) date.getYear()+1900);
+                listTransactions.add(transaction);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listTransactions);
+    }
+
+    //get per transaction
+    public static ArrayList<DetailTransaction> getListProduct(String transactionID){
+        ArrayList<DetailTransaction> listProduct = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT * FROM listProduct";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                DetailTransaction detail = new DetailTransaction();
+                if(rs.getString("transactionID").equals(transactionID)){
+                    detail.setTransactionID(rs.getString("transactionID"));
+                    detail.setProductID(rs.getString("productID"));
+                    detail.setQuantity(rs.getInt("quantity"));
+                    detail.setTotal(rs.getDouble("total"));
+                    listProduct.add(detail);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listProduct);
+    }
+
+
+    public static Discount getDiscount(String dID){
+        Discount discount= new Discount();
+        conn.connect();
+        String query = "SELECT * FROM discount WHERE discountID='" + dID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                discount.setDiscountID(rs.getString("discountID"));
+                discount.setDiscountValue(rs.getDouble("discountValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (discount);
+    }
+
+    // Update About Us Text
+    public static boolean updateDiscount(Discount discount) {
+        conn.connect();
+        String query = "UPDATE discount SET discountValue='" + discount.getDiscountValue() + "'"
+                + " WHERE discountID='" + discount.getDiscountID() + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
     // Get Tax Seller
     public static TaxSeller getTaxSeller() {
         TaxSeller taxSeller = new TaxSeller();
@@ -390,6 +544,51 @@ public class ControllerDatabase {
         conn.connect();
         String query = "UPDATE taxseller SET taxValue='" + newValue + "' "
                 + " WHERE taxValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Get Point
+    public static PointSystem getPoint() {
+        PointSystem point = new PointSystem();
+        conn.connect();
+        String query = "SELECT * FROM pointSystem";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                point.setPointValue(rs.getDouble("pointValue"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (point);
+    }
+
+    // Update Tax Seller
+    public static boolean updatePoint(double lastValue, double newValue) {
+        conn.connect();
+        String query = "UPDATE pointSystem SET pointValue='" + newValue + "' "
+                + " WHERE pointValue='" + lastValue + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    public static boolean updateMoney(String username, double balance) {
+        conn.connect();
+        String query = "UPDATE member SET money='" + balance + "' "
+                + " WHERE username='" + username + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -444,5 +643,46 @@ public class ControllerDatabase {
             e.printStackTrace();
             return (false);
         }
+    }
+    // Delete member
+    public static boolean deleteMember(Member member) {
+        conn.connect();
+        String query = "DELETE FROM member WHERE username='"+member.getUsername()+"'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    public static DefaultTableModel buildTableModel(ResultSet rs)
+            throws SQLException {
+        conn.connect();
+        ResultSetMetaData metaData = rs.getMetaData();
+
+
+        // names of columns
+        Vector<String> columnNames = new Vector<String>();
+        int columnCount = metaData.getColumnCount();
+        for (int column = 1; column <= columnCount; column++) {
+            columnNames.add(metaData.getColumnName(column));
+        }
+
+        // data of the table
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                vector.add(rs.getObject(columnIndex));
+            }
+            data.add(vector);
+        }
+        conn.disconnect();
+
+        return new DefaultTableModel(data, columnNames);
+
     }
 }

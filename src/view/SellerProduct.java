@@ -1,15 +1,12 @@
 package view;
 
 import controller.ControllerDatabase;
-import model.MemberManager;
 import model.Product;
+import model.Seller;
 import model.SellerManager;
-import model.Cart;
-import view.CartScreenMenu;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +15,10 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class ShoppingScreenMenu implements ActionListener {
-    JFrame frame = new JFrame("Shopping Menu");
+public class SellerProduct implements ActionListener {
+    Seller userSeller = SellerManager.getInstance().getSeller();
+
+    JFrame frame = new JFrame("Seller --> Products");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -28,22 +27,10 @@ public class ShoppingScreenMenu implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-    JLabel labelTitleWelcome = new JLabel();
+    JLabel lblTitle = new JLabel("Seller -- Products");
     JButton backButton = new JButton("<<<");
 
-    //Button
-    JButton cartButton = new JButton("Cart");
-
-    public static ArrayList<Cart> listProductCart = new ArrayList<>();
-    public ShoppingScreenMenu(){
-        if(MemberManager.getInstance().getMember()!=null){
-            labelTitleWelcome = new JLabel("Welcome "+MemberManager.getInstance().getMember().getUsername()+" to Shopping Menu");
-        }else if(SellerManager.getInstance().getSeller()!=null) {
-            labelTitleWelcome = new JLabel("Welcome "+SellerManager.getInstance().getSeller().getUsername()+" to Shopping Menu");
-        }else{
-            new MainMenus();
-            frame.dispose();
-        }
+    public SellerProduct() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -51,12 +38,11 @@ public class ShoppingScreenMenu implements ActionListener {
         panel.setBorder(new LineBorder(Color.BLACK, 20));
         panelProduct.setLayout(boxLayout);
 
-        labelTitleWelcome.setFont(mindfullyFont);
-        labelTitleWelcome.setForeground(new Color(255, 145, 0));
+        lblTitle.setFont(mindfullyFont);
+        lblTitle.setForeground(new Color(255, 145, 0));
 
         // Loop through product list
-        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
-
+        ArrayList<Product> listProduct = ControllerDatabase.getProductsSeller(userSeller.getStoreName());
         for (int i = 0; i < listProduct.size(); i++) {
 
             // Panel Declaration
@@ -112,40 +98,14 @@ public class ShoppingScreenMenu implements ActionListener {
             labelStoreName.setForeground(Color.WHITE);
 
             // --> Next Button
-            JButton addToCartButton = new JButton("Add To Cart");
+            JButton productButton = new JButton("> " + listProduct.get(i).getProductID());
 
             int finalI = i;
-            addToCartButton.addActionListener(new ActionListener() {
+            productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (listProductCart.isEmpty()) {
-                        Cart cart = new Cart(listProduct.get(finalI).getProductID(),listProduct.get(finalI).getProductName(),listProduct.get(finalI).getProductBrand(),listProduct.get(finalI).getProductCategory(),listProduct.get(finalI).getStoreName(),listProduct.get(finalI).getProductSize(),listProduct.get(finalI).getProductPath(),1,listProduct.get(finalI).getProductPrice());
-                        listProductCart.add(cart);
-                        JOptionPane.showMessageDialog(frame, "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
-                    } else{
-                        boolean isIdBelumDitemukan = true;
-                        boolean bikinBaru = true;
-                        int k = 0;
-                        do{
-                            if(listProduct.get(finalI).getProductID().equals(listProductCart.get(k).getProductID())){
-                                int temp = listProductCart.get(k).getQuantity() + 1;
-                                listProductCart.get(k).setQuantity(temp);
-                                JOptionPane.showMessageDialog(frame, "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
-                                isIdBelumDitemukan = false;
-                                bikinBaru = false;
-                            }else {
-                                k++;
-                            }
-                        }while(isIdBelumDitemukan == true && k < listProductCart.size());
-
-                        if(bikinBaru){
-                            Cart cart2 = new Cart(listProduct.get(finalI).getProductID(),listProduct.get(finalI).getProductName(),listProduct.get(finalI).getProductBrand(),listProduct.get(finalI).getProductCategory(),listProduct.get(finalI).getStoreName(),listProduct.get(finalI).getProductSize(),listProduct.get(finalI).getProductPath(),1,listProduct.get(finalI).getProductPrice());
-                            listProductCart.add(cart2);
-                            JOptionPane.showMessageDialog(frame,  "Success Add This Product To Cart", "Add To Cart", JOptionPane.INFORMATION_MESSAGE);
-                        }
-
-                    }
-
+                    new EditProduct(listProduct.get(finalI).getProductID());
+                    frame.dispose();
                 }
             });
 
@@ -167,7 +127,7 @@ public class ShoppingScreenMenu implements ActionListener {
             panelDescRight.add(labelProductSize);
             panelDescRight.add(labelProductPrice);
 
-            panelButton.add(addToCartButton);
+            panelButton.add(productButton);
 
             productContainer.add(panelImg);
             productContainer.add(panelDesc);
@@ -177,15 +137,7 @@ public class ShoppingScreenMenu implements ActionListener {
             panelProduct.add(productContainer);
         }
 
-        panelTitle.add(labelTitleWelcome);
-
-        //Cart Button
-        cartButton.setFont(new Font("Arial", Font.BOLD, 15));
-        cartButton.setActionCommand("Cart");
-        cartButton.addActionListener(this);
-        cartButton.setBounds(1050, 10, 90, 30);
-
-        frame.add(cartButton);
+        panelTitle.add(lblTitle);
 
         // Transaparent Child Background
         panelTitle.setBackground(new Color(0,0,0,0));
@@ -232,10 +184,6 @@ public class ShoppingScreenMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "Cart":
-                new CartScreenMenu();
-                frame.dispose();
-                break;
             case "Back":
                 new MainMenus();
                 frame.dispose();

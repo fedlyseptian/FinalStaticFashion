@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminEditProduct implements ActionListener {
+public class EditProduct implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Products");
+    JFrame frame = new JFrame("Edit Product");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -41,7 +41,7 @@ public class AdminEditProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.X_AXIS);
     BoxLayout boxLayoutProductRight = new BoxLayout(panelProductRight, BoxLayout.Y_AXIS);
 
-    JLabel lblTitle = new JLabel("Admin -- Products");
+    JLabel lblTitle = new JLabel("Edit Product");
     JButton backButton = new JButton("<<<");
 
     JLabel lblProductID = new JLabel("ID : ");
@@ -83,11 +83,11 @@ public class AdminEditProduct implements ActionListener {
     static Product product;
     static String pID;
 
-//    public AdminEditProduct() {
+//    public EditProduct() {
 //
 //    }
 
-    public AdminEditProduct(String productID) {
+    public EditProduct(String productID) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -294,7 +294,7 @@ public class AdminEditProduct implements ActionListener {
                 }
 
                 if (txtPathFotoProduct.getText().equals("")) {
-                    JOptionPane.showMessageDialog(frame, "Pastikan mencantumkan foto dan tanda tangan", "Pas Foto", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Pastikan mencantumkan foto product", "Foto Product", JOptionPane.INFORMATION_MESSAGE);
                     lanjut = false;
                 }
 
@@ -326,7 +326,7 @@ public class AdminEditProduct implements ActionListener {
 
                     if (isUpdated) {
                         JOptionPane.showMessageDialog(frame, "Product Data UPDATE Successfully", "Success Update", JOptionPane.INFORMATION_MESSAGE);
-                        new AdminProduct();
+                        new ASProduct();
                         frame.dispose();
                     } else {
                         JOptionPane.showMessageDialog(frame, "Failed to UPDATE Product Data", "ERROR", JOptionPane.WARNING_MESSAGE);
@@ -334,7 +334,8 @@ public class AdminEditProduct implements ActionListener {
                 }
                 break;
             case "Back":
-                new AdminProduct();
+                // Baik seller maupun admin kesini
+                new ASProduct();
                 frame.dispose();
                 break;
             default:

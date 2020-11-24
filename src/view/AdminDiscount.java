@@ -1,8 +1,7 @@
 package view;
 
 import controller.ControllerDatabase;
-import model.Product;
-import model.Seller;
+import model.Discount;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class AdminStore implements ActionListener {
+public class AdminDiscount implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Store");
+    JFrame frame = new JFrame("Discount Menu");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -25,11 +24,11 @@ public class AdminStore implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelStore, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    JLabel lblTitle = new JLabel("Admin - Store");
+    JLabel lblTitle = new JLabel("Discount Menu");
 
     JButton backButton = new JButton("<<<");
 
-    public AdminStore() {
+    public AdminDiscount() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -40,70 +39,59 @@ public class AdminStore implements ActionListener {
         lblTitle.setFont(mindfullyFont);
         lblTitle.setForeground(new Color(255, 145, 0));
 
-        // Loop through seller list
-        ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
-        for (int i = 0; i < listSeller.size(); i++) {
+        // Loop through discount list
+        ArrayList<Discount> listDiscount = ControllerDatabase.getAllDiscount();
+        for (int i = 0; i < listDiscount.size(); i++) {
             // Panel Declaration
-            JPanel storeContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            JPanel panelImg = new JPanel();
+            JPanel discountContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelDesc = new JPanel(new GridLayout(2, 1));
             JPanel panelButton = new JPanel(new GridLayout(1, 1));
 
             // Border Separator
-            storeContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
+            discountContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
 
             // Set Panel Dimension
-            storeContainer.setPreferredSize(new Dimension(1200, 200));
-            panelImg.setPreferredSize(new Dimension(200, 200));
-            panelDesc.setPreferredSize(new Dimension(780, 120));
+            discountContainer.setPreferredSize(new Dimension(1200, 100));
+            panelDesc.setPreferredSize(new Dimension(970, 100));
             panelButton.setPreferredSize(new Dimension(250, 30));
 
-            // Store Logo
-            JLabel labelImg = new JLabel();
-            labelImg.setIcon(new ImageIcon(new ImageIcon(listSeller.get(i).getPathLogo()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+            // Discounts Data
+            // --> Discount ID
+            JLabel labelDiscountID = new JLabel("Discount ID : " + listDiscount.get(i).getDiscountID());
+            labelDiscountID.setFont(new Font("Arial", Font.BOLD, 25));
+            labelDiscountID.setForeground(Color.WHITE);
 
-            // Seller Data
-            // --> Name
-            JLabel labelStoreName = new JLabel(listSeller.get(i).getStoreName());
-            labelStoreName.setFont(new Font("Arial", Font.BOLD, 25));
-            labelStoreName.setForeground(Color.WHITE);
-
-            // --> Brand
-            JLabel labelOwner = new JLabel(("Owner : " + listSeller.get(i).getUsername()));
-            labelOwner.setFont(new Font("Arial", Font.PLAIN, 20));
-            labelOwner.setForeground(Color.WHITE);
+            // --> Discount Value
+            JLabel labelValue = new JLabel(("Value : " + listDiscount.get(i).getDiscountValue()));
+            labelValue.setFont(new Font("Arial", Font.PLAIN, 20));
+            labelValue.setForeground(Color.WHITE);
 
             // --> Next Button
-            JButton productButton = new JButton("> " + listSeller.get(i).getStoreName());
+            JButton productButton = new JButton("> " + listDiscount.get(i).getDiscountID());
 
             int finalI = i;
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new EditSeller(listSeller.get(finalI).getStoreName());
+                    new EditDiscount(listDiscount.get(finalI).getDiscountID());
                     frame.dispose();
                 }
             });
 
             // Transparent background
-            storeContainer.setBackground(new Color(0,0,0, 0));
-            panelImg.setBackground(new Color(0, 0, 0, 0));
+            discountContainer.setBackground(new Color(0,0,0, 0));
             panelDesc.setBackground(new Color(0, 0, 0, 0));
             panelButton.setBackground(new Color(0,0,0, 0));
 
-            // Add to main panel
-            panelImg.add(labelImg);
-
-            panelDesc.add(labelStoreName);
-            panelDesc.add(labelOwner);
+            panelDesc.add(labelDiscountID);
+            panelDesc.add(labelValue);
 
             panelButton.add(productButton);
 
-            storeContainer.add(panelImg);
-            storeContainer.add(panelDesc);
-            storeContainer.add(panelButton);
+            discountContainer.add(panelDesc);
+            discountContainer.add(panelButton);
 
-            panelStore.add(storeContainer);
+            panelStore.add(discountContainer);
         }
 
         panelTitle.add(lblTitle);

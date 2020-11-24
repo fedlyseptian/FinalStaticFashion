@@ -1,7 +1,9 @@
 package view;
 
 import controller.ControllerDatabase;
+import model.AdminManager;
 import model.Product;
+import model.SellerManager;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -11,11 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static view.SellerMenu.seller;
 import static view.MainMenus.mindfullyFont;
 
-public class AdminProduct implements ActionListener {
+public class ASProduct implements ActionListener {
 
-    JFrame frame = new JFrame("Admin --> Products");
+    JFrame frame = new JFrame(" --> Products");
     JPanel panel = new JPanel(new BorderLayout());
 
     JPanel panelTitle = new JPanel();
@@ -24,10 +27,12 @@ public class AdminProduct implements ActionListener {
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-    JLabel lblTitle = new JLabel("Admin -- Products");
+    JLabel lblTitle = new JLabel("-- Products");
     JButton backButton = new JButton("<<<");
 
-    public AdminProduct() {
+    static ArrayList<Product> listProduct;
+
+    public ASProduct() {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -38,8 +43,12 @@ public class AdminProduct implements ActionListener {
         lblTitle.setFont(mindfullyFont);
         lblTitle.setForeground(new Color(255, 145, 0));
 
-        // Loop through product list
-        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
+        // Loop through product list, and check who is login
+        if(AdminManager.getInstance().getAdmin()!=null){
+            listProduct = ControllerDatabase.getAllProducts();
+        } else if (SellerManager.getInstance().getSeller()!=null) {
+            listProduct = ControllerDatabase.getProductsSeller(seller.getStoreName());
+        }
         for (int i = 0; i < listProduct.size(); i++) {
 
             // Panel Declaration
@@ -101,7 +110,7 @@ public class AdminProduct implements ActionListener {
             productButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new AdminEditProduct(listProduct.get(finalI).getProductID());
+                    new EditProduct(listProduct.get(finalI).getProductID());
                     frame.dispose();
                 }
             });
@@ -182,7 +191,11 @@ public class AdminProduct implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Back":
-                new MainMenus();
+                if(AdminManager.getInstance().getAdmin()!=null){
+                    new AdminMenu();
+                } else if (SellerManager.getInstance().getSeller()!=null) {
+                    new SellerMenu();
+                }
                 frame.dispose();
                 break;
             default:
