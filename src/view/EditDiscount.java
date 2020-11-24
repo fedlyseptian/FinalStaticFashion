@@ -126,7 +126,13 @@ public class EditDiscount implements ActionListener {
             case "Submit":
                 discount.setDiscountValue((Double) spinnerDiscountValue.getValue());
                 ControllerDatabase.updateDiscount(discount);
-                new AdminDiscount();
+                if(AdminManager.getInstance().getAdmin()!=null){
+                    new AdminDiscount();
+                } else if (SellerManager.getInstance().getSeller()!=null) {
+                    new SellerMenu();
+                } else {
+                    new MainMenus();
+                }
                 frame.dispose();
                 break;
             case "Back":
