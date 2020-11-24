@@ -263,7 +263,49 @@ public class RegisterScreenSeller implements ActionListener {
 
             }
         });
+
+        ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
+        isiStoreName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                for(int i=0;i<listSeller.size();i++){
+                    if(isiStoreName.getText().equals(listSeller.get(i).getStoreName())){
+                        labelStoreName.setText("Store name has been used");
+                        labelStoreName.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelStoreName.setText("Store Name");
+                        labelStoreName.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                for(int i=0;i<listSeller.size();i++){
+                    if(isiStoreName.getText().equals(listSeller.get(i).getStoreName())){
+                        labelStoreName.setText("Store name has been used");
+                        labelStoreName.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelStoreName.setText("Store Name");
+                        labelStoreName.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+
+            }
+        });
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
