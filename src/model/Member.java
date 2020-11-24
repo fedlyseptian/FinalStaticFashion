@@ -66,6 +66,10 @@ public class Member extends Person {
 //        return grandTotal;
 //    }
 
+    public void addMoney(double money) {
+        this.money += money;
+    }
+
     private void getListHistory() {
 
     }
