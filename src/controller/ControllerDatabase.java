@@ -773,6 +773,22 @@ public class ControllerDatabase {
     }
 
     // Delete Member
+
+    // Delete Member
+    public static boolean deleteProduct(String pID) {
+        conn.connect();
+        String query = "DELETE FROM products WHERE productID='" + pID + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+
+    // Delete member
     public static boolean deleteMember(Member member) {
         conn.connect();
         String query = "DELETE FROM member WHERE username='" + member.getUsername() + "'";
