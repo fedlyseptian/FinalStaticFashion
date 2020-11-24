@@ -296,11 +296,11 @@ public class MemberMenu implements ActionListener {
                 frame.dispose();
                 break;
             case "History":
-                System.out.println("D");
+                new MemberHistory();
                 frame.dispose();
                 break;
             case "Cart":
-                System.out.println("E");
+                new CartScreenMenu();
                 frame.dispose();
                 break;
             case "Logout":
