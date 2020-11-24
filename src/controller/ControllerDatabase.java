@@ -47,7 +47,7 @@ public class ControllerDatabase {
             return (false);
         }
     }
-
+//insertTransaction
     public static boolean insertTransaction(Transactions transaction) {
         conn.connect();
         String query = "INSERT INTO transactions VALUES(?,?,?,?,?,?,?)";
