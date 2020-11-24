@@ -2,10 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.ControllerDatabase;
-import model.AdminManager;
 import model.Product;
-import model.Seller;
-import model.SellerManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,11 +21,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 
 import static view.MainMenus.mindfullyFont;
 
-public class EditProduct implements ActionListener {
+public class SellerAddProduct implements ActionListener {
 
     JFrame frame = new JFrame("Edit Product");
     JPanel panel = new JPanel(new BorderLayout());
@@ -47,8 +43,8 @@ public class EditProduct implements ActionListener {
     JLabel lblTitle = new JLabel("Edit Product");
     JButton backButton = new JButton("<<<");
 
-    JLabel lblProductID = new JLabel("ID : ");
-    JTextField txtProductID = new JTextField();
+//    JLabel lblProductID = new JLabel("ID : ");
+//    JTextField txtProductID = new JTextField();
 
     JLabel lblProductName = new JLabel("Name : ");
     JTextField txtProductName = new JTextField();
@@ -60,38 +56,33 @@ public class EditProduct implements ActionListener {
     JTextField txtProductCategory = new JTextField();
 
     JLabel lblProductStock = new JLabel("Stock : ");
-    JSpinner txtProductStock;
+    JSpinner txtProductStock = new JSpinner(new SpinnerNumberModel(1, 0, 1000, 1));
 
     JLabel lblProductPrice = new JLabel("Price : ");
-    JSpinner txtProductPrice;
+    JSpinner txtProductPrice = new JSpinner(new SpinnerNumberModel(50000.0, 0, 10000000, 1000));
 
-    JLabel lblProductSize = new JLabel("Size : ");
-    JTextField txtProductSize = new JTextField();
+    JLabel lblStoreName = new JLabel("Size : ");
+    JTextField txtStoreName = new JTextField();
 
-    JLabel lblStoreName = new JLabel("Store Name : ");
-    JComboBox txtStoreName;
+    JLabel lblProductSize = new JLabel("Store Name : ");
+    JComboBox txtProductSize;
 
     JLabel lblPathFotoProduct = new JLabel("Path Foto Product");
     JTextField txtPathFotoProduct = new JTextField();
-    JButton btnEditFoto = new JButton("Edit Foto");
+    JButton btnEditFoto = new JButton("Attach Foto");
 
     JLabel lblFotoProduct = new JLabel();
     JFileChooser chooser = new JFileChooser();
     File f;
     String filename;
 
-    JButton btnEditData = new JButton("Edit Data");
-    JButton btnDelete = new JButton("Delete This Product");
-    JButton btnSubmit = new JButton("Save");
+    JButton btnSaveData = new JButton("Save Data");
 
-    static Product product;
-    static String pID;
+    static Product product = new Product();
 
-//    public EditProduct() {
-//
-//    }
+//    public EditProduct() {}
 
-    public EditProduct(String productID) {
+    public SellerAddProduct(String sName) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -100,94 +91,64 @@ public class EditProduct implements ActionListener {
         panel.setBorder(new LineBorder(Color.BLACK, 20));
         panelProduct.setLayout(boxLayout);
 
-        // Get Products From Database
-        product = ControllerDatabase.getProduct(productID);
-        pID = productID;
-
-        // Panel Product Left
-        panelProductLeft.setBorder(new EmptyBorder(20, 20, 20, 20));
-        lblProductID.setFont(new Font("Arial", Font.BOLD, 20));
-        lblProductID.setForeground(Color.WHITE);
-        txtProductID.setText(product.getProductID());
-        txtProductID.setEditable(false);
-        panelProductLeft.add(lblProductID);
-        panelProductLeft.add(txtProductID);
-
         lblProductName.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductName.setForeground(Color.WHITE);
-        txtProductName.setText(product.getProductName());
-        txtProductName.setEditable(false);
         panelProductLeft.add(lblProductName);
         panelProductLeft.add(txtProductName);
 
         lblProductBrand.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductBrand.setForeground(Color.WHITE);
-        txtProductBrand.setText(product.getProductBrand());
-        txtProductBrand.setEditable(false);
         panelProductLeft.add(lblProductBrand);
         panelProductLeft.add(txtProductBrand);
 
         lblProductCategory.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductCategory.setForeground(Color.WHITE);
-        txtProductCategory.setText(product.getProductCategory());
-        txtProductCategory.setEditable(false);
         panelProductLeft.add(lblProductCategory);
         panelProductLeft.add(txtProductCategory);
 
         lblProductStock.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductStock.setForeground(Color.WHITE);
-        txtProductStock = new JSpinner(new SpinnerNumberModel(product.getProductStock(), 0, 1000, 1));
-        txtProductStock.setEnabled(false);
         panelProductLeft.add(lblProductStock);
         panelProductLeft.add(txtProductStock);
 
         lblProductPrice.setFont(new Font("Arial", Font.BOLD, 20));
         lblProductPrice.setForeground(Color.WHITE);
-        txtProductPrice = new JSpinner(new SpinnerNumberModel(product.getProductPrice(), 0, 10000000, 1000));
-        txtProductPrice.setEnabled(false);
         panelProductLeft.add(lblProductPrice);
         panelProductLeft.add(txtProductPrice);
 
-        lblProductSize.setFont(new Font("Arial", Font.BOLD, 20));
-        lblProductSize.setForeground(Color.WHITE);
-        txtProductSize.setText(product.getProductSize());
-        txtProductSize.setEditable(false);
-        panelProductLeft.add(lblProductSize);
-        panelProductLeft.add(txtProductSize);
-
         lblStoreName.setFont(new Font("Arial", Font.BOLD, 20));
         lblStoreName.setForeground(Color.WHITE);
-        ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
-        String[] listStoreName = new String[listSeller.size()];
-
-        for (int i = 0; i < listSeller.size(); i++) {
-            listStoreName[i] = listSeller.get(i).getStoreName();
-        }
-        txtStoreName = new JComboBox(listStoreName);
-        txtStoreName.setSelectedItem(product.getStoreName());
-        txtStoreName.setEnabled(false);
+        txtStoreName.setText(sName);
+        txtStoreName.setEditable(false);
         panelProductLeft.add(lblStoreName);
         panelProductLeft.add(txtStoreName);
+
+        lblProductSize.setFont(new Font("Arial", Font.BOLD, 20));
+        lblProductSize.setForeground(Color.WHITE);
+
+        String[] listProductSize = {"XS", "S", "M", "L", "XL"};
+        txtProductSize = new JComboBox(listProductSize);
+        txtProductSize.setSelectedIndex(0);
+
+        panelProductLeft.add(lblProductSize);
+        panelProductLeft.add(txtProductSize);
 
         // Panel Product Right Top
         lblPathFotoProduct.setFont(new Font("Arial", Font.BOLD, 20));
         lblPathFotoProduct.setForeground(Color.WHITE);
-        panelProductRightTop.setBorder(new EmptyBorder(20, 20, 20, 20));
-        txtPathFotoProduct.setText(product.getProductPath());
         txtPathFotoProduct.setEditable(false);
+        panelProductRightTop.setBorder(new EmptyBorder(20, 20, 20, 20));
         panelProductRightTop.add(lblPathFotoProduct);
         panelProductRightTop.add(txtPathFotoProduct);
 
         btnEditFoto.setFont(new Font("Arial", Font.BOLD, 20));
         btnEditFoto.setActionCommand("EditFoto");
         btnEditFoto.addActionListener(this);
-        btnEditFoto.setVisible(false);
         panelProductRightTop.add(btnEditFoto);
 
         // Panel Product Right Bottom
         panelProductRightBottom.setBorder(new EmptyBorder(20, 20, 20, 20));
         String pathFoto = product.getProductPath();
-        lblFotoProduct.setIcon(new ImageIcon(new ImageIcon(pathFoto).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
         panelProductRightBottom.add(lblFotoProduct);
 
         // Panel Product Right
@@ -197,22 +158,10 @@ public class EditProduct implements ActionListener {
 
         // Panel Button
         panelButton.setBorder(new EmptyBorder(0, 75, 0, 75));
-        btnEditData.setFont(new Font("Arial", Font.BOLD, 20));
-        btnEditData.setActionCommand("EditData");
-        btnEditData.addActionListener(this);
-        panelButton.add(btnEditData);
-
-        btnDelete.setFont(new Font("Arial", Font.BOLD, 20));
-        btnDelete.setActionCommand("Delete");
-        btnDelete.addActionListener(this);
-        btnDelete.setVisible(false);
-        panelButton.add(btnDelete);
-
-        btnSubmit.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSubmit.setActionCommand("Submit");
-        btnSubmit.addActionListener(this);
-        btnSubmit.setVisible(false);
-        panelButton.add(btnSubmit);
+        btnSaveData.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSaveData.setActionCommand("SaveData");
+        btnSaveData.addActionListener(this);
+        panelButton.add(btnSaveData);
 
         // Label Title
         lblTitle.setFont(mindfullyFont);
@@ -276,18 +225,6 @@ public class EditProduct implements ActionListener {
                 "Image files", ImageIO.getReaderFileSuffixes());
         chooser.setFileFilter(imageFilter);
         switch (command) {
-            case "EditData":
-                txtProductName.setEditable(true);
-                txtProductBrand.setEditable(true);
-                txtProductCategory.setEditable(true);
-                txtProductStock.setEnabled(true);
-                txtProductPrice.setEnabled(true);
-                txtProductSize.setEditable(true);
-                txtStoreName.setEnabled(true);
-                btnEditFoto.setVisible(true);
-                btnDelete.setVisible(true);
-                btnSubmit.setVisible(true);
-                break;
             case "EditFoto":
                 chooser.showOpenDialog(null);
                 f = chooser.getSelectedFile();
@@ -295,37 +232,12 @@ public class EditProduct implements ActionListener {
                 txtPathFotoProduct.setText(filename);
                 lblFotoProduct.setIcon(new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
                 break;
-            case "Delete":
-                boolean isDelete = false;
-
-                String ans = JOptionPane.showInputDialog(frame, "Are your sure to delete this product ?" +
-                        "\n yes / no", "Delete Product 🥼", JOptionPane.WARNING_MESSAGE);
-
-                if (ans.equals("yes") || ans.equals("Yes") || ans.equals("YES")) {
-                    isDelete = true;
-                }
-
-                if (isDelete) {
-                    if (ControllerDatabase.deleteProduct(product.getProductID())) {
-                        JOptionPane.showMessageDialog(frame, "Successfully DELETE Product", "Delete Product", JOptionPane.INFORMATION_MESSAGE);
-                        File fileToBeDeleted = new File(txtPathFotoProduct.getText());
-                        if (fileToBeDeleted.delete()) {
-                            System.out.println("Deleted the file: " + fileToBeDeleted.getName());
-                        } else {
-                            System.out.println("Failed to delete the product.");
-                        }
-                        new ASProduct();
-                        frame.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Failed to DELETE Product", "Delete Product", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-                break;
-            case "Submit":
+            case "SaveData":
                 boolean lanjut = true;
+                String txtProductID = Controller.generateNewProductID(txtStoreName.getText(), txtProductName.getText());
 
-                if (txtProductID.getText().equals("") || txtProductName.getText().equals("") || txtProductBrand.getText().equals("")
-                || txtProductCategory.getText().equals("") || txtProductSize.getText().equals("")) {
+                if (txtProductID.equals("") || txtProductName.getText().equals("") || txtProductBrand.getText().equals("")
+                        || txtProductCategory.getText().equals("") || txtStoreName.getText().equals("")) {
                     JOptionPane.showMessageDialog(frame, "Pastikan semua field terisi", "Perhatian", JOptionPane.WARNING_MESSAGE);
                     lanjut = false;
                 }
@@ -336,8 +248,18 @@ public class EditProduct implements ActionListener {
                 }
 
                 if (lanjut) {
+
+                    product.setProductID(txtProductID);
+                    product.setProductName(txtProductName.getText());
+                    product.setProductBrand(txtProductBrand.getText());
+                    product.setProductCategory(txtProductCategory.getText());
+                    product.setProductStock((Integer) txtProductStock.getValue());
+                    product.setProductPrice((Double) txtProductPrice.getValue());
+                    product.setStoreName(txtStoreName.getText());
+                    product.setProductSize((String) txtProductSize.getSelectedItem());
+
                     // Get Filename
-                    String filenameFotoProduct = txtProductID.getText() + ".jpg";
+                    String filenameFotoProduct = txtProductID + ".jpg";
 
                     // Copy file
                     String desFilePath = null;
@@ -350,29 +272,21 @@ public class EditProduct implements ActionListener {
                         e1.printStackTrace();
                     }
 
-                    product.setProductName(txtProductName.getText());
-                    product.setProductBrand(txtProductBrand.getText());
-                    product.setProductCategory(txtProductCategory.getText());
-                    product.setProductStock((Integer) txtProductStock.getValue());
-                    product.setProductPrice((Double) txtProductPrice.getValue());
-                    product.setProductSize(txtProductSize.getText());
-                    product.setStoreName((String) txtStoreName.getSelectedItem());
                     product.setProductPath(desFilePath);
 
-                    boolean isUpdated = ControllerDatabase.updateProduct(product, pID);
+                    boolean isAdded = ControllerDatabase.insertProduct(product);
 
-                    if (isUpdated) {
-                        JOptionPane.showMessageDialog(frame, "Product Data UPDATE Successfully", "Success Update", JOptionPane.INFORMATION_MESSAGE);
-                        new ASProduct();
+                    if (isAdded) {
+                        JOptionPane.showMessageDialog(frame, "Product Data ADD Successfully", "Success Update", JOptionPane.INFORMATION_MESSAGE);
+                        new SellerMenu();
                         frame.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(frame, "Failed to UPDATE Product Data", "ERROR", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, "Failed to ADD Product Data", "ERROR", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 break;
             case "Back":
-                // Baik seller maupun admin kesini
-                new ASProduct();
+                new SellerMenu();
                 frame.dispose();
                 break;
             default:

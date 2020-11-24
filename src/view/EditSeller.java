@@ -219,7 +219,7 @@ public class EditSeller implements ActionListener {
                 btnSubmit.setVisible(true);
                 break;
             case "EditDiscount":
-                // new frame EditDiscount, kirim seller.DiscountID
+                new EditDiscount(seller.getDiscountID());
                 frame.dispose();
                 break;
             case "EditFoto":

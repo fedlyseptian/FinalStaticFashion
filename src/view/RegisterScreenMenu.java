@@ -323,7 +323,7 @@ public class RegisterScreenMenu implements ActionListener {
                 }else{
                     controller.insertMember(member);
                     MemberManager.getInstance().setMember(member);
-                    new ShoppingScreenMenu();
+                    new MemberMenu();
                     frame.dispose();
                 }
                 break;

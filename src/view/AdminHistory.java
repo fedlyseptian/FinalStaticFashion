@@ -77,7 +77,7 @@ public class AdminHistory implements ActionListener {
             labelDiscountID.setForeground(Color.WHITE);
 
             // --> TransactionDate
-            JLabel labelTransactionDate= new JLabel("Date: "+(listTransaction.get(i).getY())+"-"+(listTransaction.get(i).getM())+"-"+listTransaction.get(i).getD());
+            JLabel labelTransactionDate= new JLabel("Date: "+(listTransaction.get(i).getTransactionDate()));
             labelTransactionDate.setFont(new Font("Arial", Font.BOLD, 25));
             labelTransactionDate.setForeground(Color.WHITE);
 

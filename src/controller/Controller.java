@@ -5,6 +5,8 @@ import model.Cart;
 import model.Discount;
 import model.Member;
 import model.Product;
+import model.Product;
+import model.Transactions;
 import view.ShoppingScreenMenu;
 
 import javax.swing.*;
@@ -96,6 +98,41 @@ public class Controller {
             if(idProduct.equals(listProduct.get(i).getProductID())){
                 listProduct.get(i).setProductStock(jumlahBarang);
             }
+        }
+    }
+
+    public static String generateNewTransactionID(){
+        ArrayList<Transactions>listTransaction= new ArrayList<>();
+        listTransaction = ControllerDatabase.getAllTransaction();
+        int countTransaction = listTransaction.size();
+        String newID = "T"+String.format("%09d", countTransaction+1);
+        return newID;
+    }
+
+    public static String generateNewProductID(String productName, String storeName){
+        char firstP = productName.charAt(0);
+        char lastP = productName.charAt(productName.length()-1);
+        char middleP = productName.charAt(productName.length()/2);
+        char firstS = storeName.charAt(0);
+        char lastS = storeName.charAt(storeName.length()-1);
+        char middleS = storeName.charAt(storeName.length()/2);
+        String ID1 = (String.valueOf(firstS)+String.valueOf(middleS)+String.valueOf(lastS)+"-"+String.valueOf(firstP)+String.valueOf(middleP)+String.valueOf(lastP)).toUpperCase();
+        int count = 1;
+        String ID2 = "";
+        String newID = ID1+String.format("%03d", count);
+        boolean found = false;
+        ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
+        for(int i=0;i<listProduct.size();i++){
+            if(newID.equals(listProduct.get(i).getProductID())){
+                found=true;
+                count++;
+                ID2 = ID1+String.format("%03d", count);
+            }
+        }
+        if(!found){
+            return newID;
+        }else{
+            return ID2;
         }
     }
 }

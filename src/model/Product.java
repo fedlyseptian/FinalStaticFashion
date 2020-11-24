@@ -15,7 +15,6 @@ public class Product {
     private String productBrand;
     private String productCategory;
     private int productStock;
-//    private String sellerName;
     private String storeName;
     private double productPrice;
     private String productSize;
@@ -60,10 +59,6 @@ public class Product {
         this.productStock = productStock;
     }
 
-//    public void setSellerName(String sellerName) {
-//        this.sellerName = sellerName;
-//    }
-
     public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
@@ -87,10 +82,6 @@ public class Product {
     public int getProductStock() {
         return productStock;
     }
-
-//    public String getSellerName() {
-//        return sellerName;
-//    }
 
     public double getProductPrice() {
         return productPrice;

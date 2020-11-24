@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +14,7 @@ import java.util.ArrayList;
  */
 public class Transactions {
     private String transactionID;
-    private int d;
-    private int m;
-    private int y;
+    private Date transactionDate;
     private int paymentOption;
     private double taxSeller;
     private String username;
@@ -23,11 +22,9 @@ public class Transactions {
     private String discountID;
     private double subTotal;
 
-    public Transactions(String transactionID, int d, int m, int y, int paymentOption, double taxSeller, String username, String discountID,double subTotal) {
+    public Transactions(String transactionID, Date date, int paymentOption, double taxSeller, String username, String discountID,double subTotal) {
         this.transactionID = transactionID;
-        this.d = d;
-        this.m = m;
-        this.y = y;
+        this.transactionDate=date;
         this.paymentOption = paymentOption;
         this.taxSeller = taxSeller;
         this.username = username;
@@ -47,18 +44,6 @@ public class Transactions {
         return taxSeller;
     }
 
-    public void setD(int d) {
-        this.d = d;
-    }
-
-    public void setM(int m) {
-        this.m = m;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public void setPaymentOption(int paymentOption) {
         this.paymentOption = paymentOption;
     }
@@ -73,18 +58,6 @@ public class Transactions {
 
     public String getTransactionID() {
         return transactionID;
-    }
-
-    public int getD() {
-        return d;
-    }
-
-    public int getM() {
-        return m;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public int getPaymentOption() {
@@ -116,5 +89,13 @@ public class Transactions {
     }
 
     public Transactions() {
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

@@ -68,7 +68,6 @@ public class RegisterScreenSeller implements ActionListener {
         frame.setSize(700,600);
         frame.setLayout(new BorderLayout());
 
-
         panelTopSeller.setPreferredSize(new Dimension(700,80));
         panelLeftSeller.setPreferredSize(new Dimension(100, 320));
         panelCenterSeller.setPreferredSize(new Dimension(460, 320));
@@ -263,7 +262,49 @@ public class RegisterScreenSeller implements ActionListener {
 
             }
         });
+
+        ArrayList<Seller> listSeller = ControllerDatabase.getAllSellers();
+        isiStoreName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                for(int i=0;i<listSeller.size();i++){
+                    if(isiStoreName.getText().equals(listSeller.get(i).getStoreName())){
+                        labelStoreName.setText("Store name has been used");
+                        labelStoreName.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelStoreName.setText("Store Name");
+                        labelStoreName.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                for(int i=0;i<listSeller.size();i++){
+                    if(isiStoreName.getText().equals(listSeller.get(i).getStoreName())){
+                        labelStoreName.setText("Store name has been used");
+                        labelStoreName.setForeground(Color.RED);
+                        sellerButton.setEnabled(false);
+                        break;
+                    }else{
+                        labelStoreName.setText("Store Name");
+                        labelStoreName.setForeground(Color.WHITE);
+                        sellerButton.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e){
+
+            }
+        });
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -325,13 +366,14 @@ public class RegisterScreenSeller implements ActionListener {
                 // Add data to database
                 if(isiUsernameSeller.getText().equals("") || pass.equals("") || isiEmailSeller.getText().equals("") || isiNameSeller.getText().equals("") || isiAddressSeller.getText().equals("") || isiStoreName.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
-//                    new RegisterScreenSeller();
                 }else {
                     controller.insertMember(member);
-                    Seller seller = new Seller(member, isiStoreName.getText(), null,"non","");
+                    Discount d = new Discount(Controller.generateNewProductID(isiUsernameSeller.getText(), isiStoreName.getText()), 0.0);
+                    ControllerDatabase.insertDiscount(d);
+                    Seller seller = new Seller(member, isiStoreName.getText(), null,Controller.generateNewProductID(isiUsernameSeller.getText(), isiStoreName.getText()),"");
                     SellerManager.getInstance().setSeller(seller);
                     controller.insertSeller(seller);
-                    new ShoppingScreenMenu();
+                    new SellerMenu();
                     frame.dispose();
                 }
                 break;
