@@ -32,7 +32,6 @@ public class ShoppingScreenMenu implements ActionListener {
     JButton backButton = new JButton("<<<");
 
     //Button
-    JButton logoutButton = new JButton("Logout");
     JButton cartButton = new JButton("Cart");
 
     public static ArrayList<Cart> listProductCart = new ArrayList<>();
@@ -186,14 +185,6 @@ public class ShoppingScreenMenu implements ActionListener {
 
         frame.add(cartButton);
 
-        //Logout Button
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 15));
-        logoutButton.setActionCommand("Logout");
-        logoutButton.addActionListener(this);
-        logoutButton.setBounds(1150, 10, 90, 30);
-
-        frame.add(logoutButton);
-
         // Transaparent Child Background
         panelTitle.setBackground(new Color(0,0,0,0));
         panelProduct.setBackground(new Color(0,0,0,0));
@@ -241,14 +232,6 @@ public class ShoppingScreenMenu implements ActionListener {
         switch (command) {
             case "Cart":
                 new CartScreenMenu();
-                frame.dispose();
-                break;
-            case "Logout":
-                // Logout account
-                MemberManager.getInstance().setMember(null);
-                SellerManager.getInstance().setSeller(null);
-                listProductCart = null;
-                new MainMenus();
                 frame.dispose();
                 break;
             case "Back":

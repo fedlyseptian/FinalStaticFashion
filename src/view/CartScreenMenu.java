@@ -34,7 +34,6 @@ public class CartScreenMenu implements ActionListener {
     JButton backButton = new JButton("<<<");
 
     //Button
-    JButton logoutButton = new JButton("Logout");
     JButton shoppingMenuButton = new JButton("Back To Shop");
 
     protected static JSpinner spinnerTotalProduct = new JSpinner();
@@ -183,17 +182,9 @@ public class CartScreenMenu implements ActionListener {
         shoppingMenuButton.setFont(new Font("Arial", Font.BOLD, 15));
         shoppingMenuButton.setActionCommand("Shopping Menu");
         shoppingMenuButton.addActionListener(this);
-        shoppingMenuButton.setBounds(990, 10, 150, 30);
+        shoppingMenuButton.setBounds(1050, 10, 150, 30);
 
         frame.add(shoppingMenuButton);
-
-        //Logout Button
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 15));
-        logoutButton.setActionCommand("Logout");
-        logoutButton.addActionListener(this);
-        logoutButton.setBounds(1150, 10, 90, 30);
-
-        frame.add(logoutButton);
 
         //Panel Rincian Belanjaan di Cart
         JLabel jumlahTotalBiaya = new JLabel("Total Biaya : Rp." + Controller.hitungTotalBiayaBelanjaan(listProductCart));
@@ -201,13 +192,6 @@ public class CartScreenMenu implements ActionListener {
         jumlahTotalBiaya.setHorizontalAlignment(JLabel.CENTER);
         jumlahTotalBiaya.setForeground(new Color(255, 145, 0));
         panelRincianBelanjaan.add(jumlahTotalBiaya);
-
-//        //panelRincianBelanjaan
-//        panelRincianBelanjaan.setPreferredSize(new Dimension(1080, 50));
-//        //Border Separator For panelRincianBelanjaan
-//        panelRincianBelanjaan.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
-//        //Border Empty For panelRincianBelanjaan
-//        panelRincianBelanjaan.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
 
         // Transaparent Child Background
         panelTitle.setBackground(new Color(0,0,0,0));
@@ -260,14 +244,6 @@ public class CartScreenMenu implements ActionListener {
         switch (command) {
             case "Shopping Menu":
                 new ShoppingScreenMenu();
-                frame.dispose();
-                break;
-            case "Logout":
-                // Logout account
-                MemberManager.getInstance().setMember(null);
-                SellerManager.getInstance().setSeller(null);
-                listProductCart = null;
-                new MainMenus();
                 frame.dispose();
                 break;
             case "Back":
