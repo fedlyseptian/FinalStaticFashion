@@ -7,9 +7,7 @@ import model.Transactions;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,8 +31,6 @@ public class MemberHistory implements ActionListener {
 
     JLabel lblTitle = new JLabel("History");
     JButton backButton = new JButton("<<<");
-
-    String [] column = {"ProductID", "Quantity", "Total"};
 
     public MemberHistory() {
 
@@ -71,11 +67,6 @@ public class MemberHistory implements ActionListener {
                 JLabel labelUsername = new JLabel(listTransaction.get(i).getUsername());
                 labelUsername.setFont(new Font("Arial", Font.BOLD, 25));
                 labelUsername.setForeground(Color.WHITE);
-//
-//                // --> DiscountID
-//                JLabel labelDiscountID = new JLabel("DiscountID: " + listTransaction.get(i).getDiscountID());
-//                labelDiscountID.setFont(new Font("Arial", Font.BOLD, 25));
-//                labelDiscountID.setForeground(Color.WHITE);
 
                 // --> TransactionDate
                 JLabel labelTransactionDate = new JLabel("Date: " + (listTransaction.get(i).getTransactionDate()));
@@ -83,12 +74,12 @@ public class MemberHistory implements ActionListener {
                 labelTransactionDate.setForeground(Color.WHITE);
 
                 // --> PaymentOption
-                JLabel labelPaymentOption = new JLabel("Payment Option: " + String.valueOf(listTransaction.get(i).getPaymentOption()));
+                JLabel labelPaymentOption = new JLabel("Payment Option: " + listTransaction.get(i).getPaymentOption());
                 labelPaymentOption.setFont(new Font("Arial", Font.BOLD, 25));
                 labelPaymentOption.setForeground(Color.WHITE);
 
                 // --> SubTotal
-                JLabel labelSubTotal = new JLabel("Total: " + String.valueOf(listTransaction.get(i).getSubTotal()));
+                JLabel labelSubTotal = new JLabel("Total: " + listTransaction.get(i).getSubTotal());
                 labelSubTotal.setFont(new Font("Arial", Font.BOLD, 25));
                 labelSubTotal.setForeground(Color.WHITE);
 

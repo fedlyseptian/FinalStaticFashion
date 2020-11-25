@@ -8,9 +8,7 @@ public class SellerManager{
     private String password;
     private ArrayList<Transactions> listTransaction;
 
-    private SellerManager(){
-
-    }
+    private SellerManager(){}
 
     public static SellerManager getInstance() {
         if (instance == null) {

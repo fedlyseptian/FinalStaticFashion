@@ -7,9 +7,7 @@ public class AdminManager {
     private Admin admin;
     private String password;
 
-    private AdminManager(){
-
-    }
+    private AdminManager(){}
 
     public static AdminManager getInstance() {
         if (instance == null) {

@@ -1,6 +1,5 @@
 package view;
 
-import model.AdminManager;
 import model.MemberManager;
 
 import javax.swing.*;

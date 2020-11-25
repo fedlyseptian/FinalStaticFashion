@@ -43,9 +43,6 @@ public class SellerAddProduct implements ActionListener {
     JLabel lblTitle = new JLabel("Edit Product");
     JButton backButton = new JButton("<<<");
 
-//    JLabel lblProductID = new JLabel("ID : ");
-//    JTextField txtProductID = new JTextField();
-
     JLabel lblProductName = new JLabel("Name : ");
     JTextField txtProductName = new JTextField();
 

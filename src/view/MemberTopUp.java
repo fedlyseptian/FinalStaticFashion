@@ -30,8 +30,6 @@ public class MemberTopUp implements ActionListener {
     JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
 
-    static double tempBalanceValue;
-
     public MemberTopUp() {
         // label Balance
         lblBalanceMember.setText("Your Balance: "+MemberManager.getInstance().getMember().getMoney());
@@ -123,7 +121,6 @@ public class MemberTopUp implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "TopUp":
-//                tempBalanceValue = Double.parseDouble(txtBalanceMember.getText());
                 txtBalanceMember.setVisible(true);
                 submitButton.setVisible(true);
                 topUpButton.setVisible(false);

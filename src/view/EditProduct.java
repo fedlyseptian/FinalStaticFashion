@@ -1,11 +1,8 @@
 package view;
 
-import controller.Controller;
 import controller.ControllerDatabase;
-import model.AdminManager;
 import model.Product;
 import model.Seller;
-import model.SellerManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -86,10 +83,6 @@ public class EditProduct implements ActionListener {
 
     static Product product;
     static String pID;
-
-//    public EditProduct() {
-//
-//    }
 
     public EditProduct(String productID) {
         // Set Title Icon

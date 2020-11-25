@@ -1,7 +1,6 @@
 package view;
 
 import controller.ControllerDatabase;
-import model.Product;
 import model.Seller;
 
 import javax.swing.*;

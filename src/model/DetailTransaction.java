@@ -13,8 +13,7 @@ public class DetailTransaction {
         this.total = total;
     }
 
-    public DetailTransaction() {
-    }
+    public DetailTransaction() {}
 
     public String getTransactionID() {
         return transactionID;

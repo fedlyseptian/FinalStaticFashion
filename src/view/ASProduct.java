@@ -1,6 +1,5 @@
 package view;
 
-import controller.Controller;
 import controller.ControllerDatabase;
 import model.AdminManager;
 import model.Discount;

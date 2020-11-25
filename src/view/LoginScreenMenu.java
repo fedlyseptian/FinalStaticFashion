@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class LoginScreenMenu implements ActionListener {
 
@@ -107,10 +106,6 @@ public class LoginScreenMenu implements ActionListener {
         switch (command) {
             case "Login":
                 // Cek ke database
-//                String pass="";
-//                for(int i=0;i<isiPassword.getPassword().length;i++){
-//                    pass+=isiPassword.getPassword()[i];
-//                }
                 String pass=Controller.md5Java(Controller.toStringPass(isiPassword.getPassword()));
                 boolean isMember=false;
                 boolean isSeller=false;

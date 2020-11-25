@@ -7,9 +7,7 @@ public class MemberManager {
     private Member member;
     private String password;
 
-    private MemberManager(){
-
-    }
+    private MemberManager(){}
 
     public static MemberManager getInstance() {
         if (instance == null) {

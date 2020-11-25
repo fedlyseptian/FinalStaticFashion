@@ -17,13 +17,4 @@ public class Admin extends Person {
 
     public Admin() {
     }
-
-    private void showMemberSeller() {
-
-    }
-
-    private void showBonusDiscount() {
-
-    }
-
 }
