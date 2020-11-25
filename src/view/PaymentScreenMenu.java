@@ -199,7 +199,7 @@ public class PaymentScreenMenu implements ActionListener {
                         ControllerDatabase.updateMoney(owner.getUsername(), uangTerbaru);
                     }
                     String transID = Controller.generateNewTransactionID();
-                    ControllerDatabase.insertTransaction(new Transactions(transID,new Date(),String.valueOf(EnumPaymentMethod.CASH),ControllerDatabase.getTaxSeller().getTaxValue(),MemberManager.getInstance().getMember().getUsername(),totalBiayaSetelahDiskon));
+                    ControllerDatabase.insertTransaction(new Transactions(transID,new Date(),String.valueOf(EnumPaymentMethod.POINT),ControllerDatabase.getTaxSeller().getTaxValue(),MemberManager.getInstance().getMember().getUsername(),totalBiayaSetelahDiskon));
                     for (int i = 0; i < listProductCart.size(); i++) {
                         // insert data to listproduct
                         Cart c = listProductCart.get(i);
