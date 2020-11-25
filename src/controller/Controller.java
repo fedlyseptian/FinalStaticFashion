@@ -92,7 +92,7 @@ public class Controller {
         return grandTotal;
     }
 
-    //Update Stock Because Cart
+    //Update Stock
     public static void updateListProduct(ArrayList<Product> listProduct, String idProduct, int jumlahBarang){
         for(int i = 0 ; i < listProduct.size() ; i++){
             if(idProduct.equals(listProduct.get(i).getProductID())){
