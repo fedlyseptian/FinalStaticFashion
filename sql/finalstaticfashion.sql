@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 25, 2020 at 03:50 AM
+-- Generation Time: Nov 25, 2020 at 06:33 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.11
 
@@ -37,7 +37,7 @@ CREATE TABLE `aboutus` (
 --
 
 INSERT INTO `aboutus` (`aboutUsID`, `aboutUsText`) VALUES
-('AUT', 'Final Static Fashion is the new branded fashion online store that gather the most known branded outfit creator. We always care for our customer satisfify. Do not wait any longer. Lets go shopping with us, and become our member or seller.');
+('AUT', 'Final Static Fashion is the new branded fashion online store that gather the most known branded outfit creator. We always care for our customer satisfify. Do not wait any longer. Lets go shopping with us, and become our member or seller. hahaha');
 
 -- --------------------------------------------------------
 
@@ -75,6 +75,7 @@ CREATE TABLE `discount` (
 INSERT INTO `discount` (`discountID`, `discountValue`) VALUES
 ('BTN-FY3001', 0.01),
 ('DOS-DOS001', 0.049999999999999996),
+('IHB-LII001', 0.05),
 ('non', 0);
 
 -- --------------------------------------------------------
@@ -100,7 +101,12 @@ INSERT INTO `listproduct` (`transactionID`, `productID`, `quantity`, `total`) VA
 ('T000000001', 'WRS-DOS001', 1, 137000),
 ('T000000002', 'B S-BTN002', 2, 1000000),
 ('T000000003', 'WRS-DOS001', 2, 274000),
-('T000000004', 'BJS-BTN002', 1, 105000);
+('T000000004', 'BJS-BTN002', 1, 105000),
+('T000000005', 'BJS-BTN001', 1, 100000),
+('T000000006', 'B S-BTN001', 1, 500000),
+('T000000007', 'B S-BTN002', 1, 500000),
+('T000000008', 'BJS-BTN001', 2, 200000),
+('T000000009', 'S M-IHB001', 1, 100000);
 
 -- --------------------------------------------------------
 
@@ -126,9 +132,11 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`username`, `password`, `name`, `address`, `gender`, `email`, `birthDate`, `point`, `money`) VALUES
 ('DolorES', '198620d4516fb39bd43d631678aefc58', 'Dolor Septian', 'Jalan Kopo', 'L', 'dolor@yahoo.com', '1984-05-08', 0, 974605.5),
-('Fedly123', 'eaec8de3a25ffaad45461d875060005f', 'Fedly', 'Cicadas', 'L', 'Fedly@gmail.com', '1999-09-05', 0, 2516827.5),
+('Fedly123', 'eaec8de3a25ffaad45461d875060005f', 'Fedly', 'Cicadas', 'L', 'Fedly@gmail.com', '1999-09-05', 0, 3790957.5),
 ('Jeddi123', '360d913221f977222b9028ada63cf7d7', 'Jedediah Fanuel', 'Jl. Kembar Sari Indah 1 No. 5', 'L', 'if-19023@students.ithb.ac.id', '2001-04-28', 13015, 39700),
-('Timothy123', 'fc40bc0ee14780238c5d7dd6e2de5cc0', 'Timothy Ray', 'Jl. Singapur', 'L', 'if-19033@students.ithb.ac.id', '2001-02-18', 107157.5, 1000000);
+('Luigi', '8f58fe78bf209813d552e92f68d24974', 'Pepper Luigi', 'Jalan Mario', 'L', 'Luigi@gmail.com', '2001-01-01', 0, 0),
+('MarioBros', 'c184fe05b7dcb528490ebaaf8d0a717c', 'MarioB', 'Jalan Bandung', 'L', 'Mario@gmail.com', '1999-01-01', 9900, 302000),
+('Timothy123', 'fc40bc0ee14780238c5d7dd6e2de5cc0', 'Timothy Ray', 'Jl. Singapur', 'L', 'if-19033@students.ithb.ac.id', '2001-02-18', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -170,9 +178,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`productID`, `productName`, `productBrand`, `productCategory`, `productStock`, `productPrice`, `productSize`, `storeName`, `pathFotoProduct`) VALUES
-('B S-BTN001', 'Black Shoes', 'Skechers', 'Shoes', 99, 500000, 'M', 'Bebas Cinta Fashion', './media/Product/B S-BTN001.jpg'),
-('B S-BTN002', 'Black Shoes', 'Skechers', 'Shoes', 98, 500000, 'L', 'Bebas Cinta Fashion', './media/Product/B S-BTN002.jpg'),
-('BJS-BTN001', 'Blue Jeans', 'Levis', 'Jeans', 99, 100000, 'XS', 'Bebas Cinta Fashion', './media/Product/BJS-BTN001.jpg'),
+('B S-BTN001', 'Black Shoes', 'Skechers', 'Shoes', 98, 500000, 'M', 'Bebas Cinta Fashion', './media/Product/B S-BTN001.jpg'),
+('B S-BTN002', 'Black Shoes', 'Skechers', 'Shoes', 97, 500000, 'L', 'Bebas Cinta Fashion', './media/Product/B S-BTN002.jpg'),
+('BJS-BTN001', 'Blue Jeans', 'Levis', 'Jeans', 96, 100000, 'XS', 'Bebas Cinta Fashion', './media/Product/BJS-BTN001.jpg'),
 ('BJS-BTN002', 'Blue Jeans', 'Levis', 'Jeans', 149, 105000, 'M', 'Bebas Cinta Fashion', './media/Product/BJS-BTN002.jpg'),
 ('BJS-BTN003', 'Blue Jeans', 'Levis', 'Jeans', 100, 110000, 'L', 'Bebas Cinta Fashion', './media/Product/BJS-BTN003.jpg'),
 ('D S-BTN001', 'Denim Jeans', 'Levis', 'Jeans', 150, 110000, 'L', 'Bebas Cinta Fashion', './media/Product/D S-BTN001.jpg'),
@@ -198,7 +206,8 @@ CREATE TABLE `seller` (
 
 INSERT INTO `seller` (`storeName`, `username`, `discountID`, `pathLogo`) VALUES
 ('Bebas Cinta Fashion', 'Fedly123', 'BTN-FY3001', './media/Store/Bebas Cinta Fashion.jpg'),
-('DolorES', 'DolorES', 'DOS-DOS001', './media/Store/DolorES.jpg');
+('DolorES', 'DolorES', 'DOS-DOS001', './media/Store/DolorES.jpg'),
+('ITHB', 'Luigi', 'IHB-LII001', './media/Store/ITHB.jpg');
 
 -- --------------------------------------------------------
 
@@ -240,7 +249,12 @@ INSERT INTO `transactions` (`transactionID`, `username`, `transactionDate`, `pay
 ('T000000001', 'Timothy123', '2020-11-25', 'CASH', 724150, 0.01),
 ('T000000002', 'Timothy123', '2020-11-25', 'CASH', 990000, 0.01),
 ('T000000003', 'Jeddi123', '2020-11-25', 'CASH', 260300, 0.01),
-('T000000004', 'Timothy123', '2020-11-25', 'CASH', 103950, 0.01);
+('T000000004', 'Timothy123', '2020-11-25', 'CASH', 103950, 0.01),
+('T000000005', 'Timothy123', '2020-11-25', 'POINT', 99000, 0.01),
+('T000000006', 'Timothy123', '2020-11-25', 'CASH', 495000, 0.01),
+('T000000007', 'Timothy123', '2020-11-25', 'CASH', 495000, 0.01),
+('T000000008', 'MarioBros', '2020-11-25', 'CASH', 198000, 0.01),
+('T000000009', 'Timothy123', '2020-11-25', 'CASH', 95000, 0.01);
 
 --
 -- Indexes for dumped tables
@@ -269,7 +283,6 @@ ALTER TABLE `discount`
 --
 ALTER TABLE `listproduct`
   ADD PRIMARY KEY (`transactionID`,`productID`),
-  ADD KEY `FK_ProductID` (`productID`),
   ADD KEY `transactionID` (`transactionID`);
 
 --
@@ -308,7 +321,6 @@ ALTER TABLE `transactions`
 -- Constraints for table `listproduct`
 --
 ALTER TABLE `listproduct`
-  ADD CONSTRAINT `FK_ProductID` FOREIGN KEY (`productID`) REFERENCES `products` (`productID`),
   ADD CONSTRAINT `FK_TransactionID` FOREIGN KEY (`transactionID`) REFERENCES `transactions` (`transactionID`);
 
 --
