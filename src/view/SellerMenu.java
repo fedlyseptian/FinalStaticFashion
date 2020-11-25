@@ -1,5 +1,6 @@
 package view;
 
+import model.MemberManager;
 import model.Seller;
 import model.SellerManager;
 
@@ -34,11 +35,12 @@ public class SellerMenu implements ActionListener {
     JButton btnStore = new JButton("Edit Store");
     JButton btnDiscount = new JButton("Edit Discount");
     JButton btnLogout = new JButton("Logout");
+    public static Seller seller;
 
-    public static Seller seller = SellerManager.getInstance().getSeller();
 
     public SellerMenu() {
         // Set Title Icon
+        seller = SellerManager.getInstance().getSeller();
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
 
@@ -328,6 +330,8 @@ public class SellerMenu implements ActionListener {
                 // Clear Session
                 SellerManager.getInstance().setSeller(null);
                 SellerManager.getInstance().setPassword(null);
+                MemberManager.getInstance().setMember(null);
+                MemberManager.getInstance().setPassword(null);
                 ShoppingScreenMenu.listProductCart.clear();
                 new MainMenus();
                 frame.dispose();
