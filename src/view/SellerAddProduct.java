@@ -61,10 +61,10 @@ public class SellerAddProduct implements ActionListener {
     JLabel lblProductPrice = new JLabel("Price : ");
     JSpinner txtProductPrice = new JSpinner(new SpinnerNumberModel(50000.0, 0, 10000000, 1000));
 
-    JLabel lblStoreName = new JLabel("Size : ");
+    JLabel lblStoreName = new JLabel("Store Name : ");
     JTextField txtStoreName = new JTextField();
 
-    JLabel lblProductSize = new JLabel("Store Name : ");
+    JLabel lblProductSize = new JLabel("Size : ");
     JComboBox txtProductSize;
 
     JLabel lblPathFotoProduct = new JLabel("Path Foto Product");

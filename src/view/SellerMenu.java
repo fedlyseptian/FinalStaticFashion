@@ -39,8 +39,10 @@ public class SellerMenu implements ActionListener {
 
 
     public SellerMenu() {
+        // Set Session
+        seller  = SellerManager.getInstance().getSeller();
+
         // Set Title Icon
-        seller = SellerManager.getInstance().getSeller();
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
 
