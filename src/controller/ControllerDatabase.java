@@ -543,6 +543,7 @@ public class ControllerDatabase {
                 transaction.setTransactionID(rs.getString("transactionID"));
                 transaction.setUsername(rs.getString("username"));
                 Date date = rs.getDate("transactionDate");
+                transaction.setTransactionDate(date);
                 transaction.setPaymentOption(rs.getString("paymentOption"));
                 transaction.setSubTotal(rs.getDouble("subTotalTransaction"));
                 transaction.setTaxSeller(rs.getDouble("taxSeller"));

@@ -162,6 +162,7 @@ public class PaymentScreenMenu implements ActionListener {
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
                     ControllerDatabase.updatePointValue(MemberManager.getInstance().getMember().getUsername(),MemberManager.getInstance().getMember().getPoint()+totalBiayaSetelahDiskon*ControllerDatabase.getPoint().getPointValue());
                     listProductCart.clear();
+                    MemberManager.getInstance().getMember().setPoint(MemberManager.getInstance().getMember().getPoint()+totalBiayaSetelahDiskon*ControllerDatabase.getPoint().getPointValue());
                     if(SellerManager.getInstance().getSeller()!=null){
                         new SellerMenu();
                     }else if(MemberManager.getInstance().getMember()!=null){
@@ -206,6 +207,7 @@ public class PaymentScreenMenu implements ActionListener {
                         ControllerDatabase.insertProductToListProduct(transID, c);
                     }
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
+                    MemberManager.getInstance().getMember().setPoint(MemberManager.getInstance().getMember().getPoint()-totalBiayaSetelahDiskon);
                     listProductCart.clear();
                     if(SellerManager.getInstance().getSeller()!=null){
                         new SellerMenu();
