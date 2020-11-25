@@ -24,7 +24,7 @@ public class MemberEditMember implements ActionListener {
     JPanel panelTanggalLahir = new JPanel(new GridLayout(1, 3));
 
     //Title
-    JLabel labelTitleMember = new JLabel("Register Member");
+    JLabel labelTitleMember = new JLabel();
 
     //Username
     JLabel labelUsernameMember = new JLabel("Username");
@@ -48,11 +48,17 @@ public class MemberEditMember implements ActionListener {
     //Tanggal Lahir
     JLabel labelTanggalLahirMember = new JLabel("Tanggal Lahir");
     JSpinner spinnerTanggal, spinnerBulan, spinnerTahun;
-
-    JButton backButton = new JButton("<<< Back to Member Menu");
+    JButton backButton = new JButton();
     JButton updateButton = new JButton("Update");
 
     public MemberEditMember(){
+        if(SellerManager.getInstance().getSeller()!=null){
+            labelTitleMember.setText("Edit Seller");
+            backButton.setText("<<< Back to Seller Menu");
+        }else if(MemberManager.getInstance().getMember()!=null){
+            backButton.setText("<<< Back to Member Menu");
+            labelTitleMember.setText("Edit Member");
+        }
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
@@ -96,7 +102,11 @@ public class MemberEditMember implements ActionListener {
         labelPasswordMember.setFont(new Font("Arial", Font.BOLD, 15));
         labelPasswordMember.setHorizontalAlignment(JLabel.LEFT);
         labelPasswordMember.setForeground(new Color(255,255,255));
-        isiPasswordMember.setText(MemberManager.getInstance().getPassword());
+        if(SellerManager.getInstance().getSeller()!=null) {
+            isiPasswordMember.setText(SellerManager.getInstance().getPassword());
+        }else if(MemberManager.getInstance().getMember()!=null){
+            isiPasswordMember.setText(MemberManager.getInstance().getPassword());
+        }
         panelCenterMember.add(labelPasswordMember);
         panelCenterMember.add(isiPasswordMember);
 
@@ -292,8 +302,12 @@ public class MemberEditMember implements ActionListener {
                     new RegisterScreenMenu();
                     frame.dispose();
                 }else{
-                    controller.deleteMember(member);
-                    controller.insertMember(member);
+                    ControllerDatabase.updateMember(member);
+                    if(SellerManager.getInstance().getSeller()!=null){
+                        SellerManager.getInstance().setPassword(Controller.toStringPass(isiPasswordMember.getPassword()));
+                    }else if(MemberManager.getInstance().getMember()!=null){
+                        MemberManager.getInstance().setPassword(Controller.toStringPass(isiPasswordMember.getPassword()));
+                    }
                     MemberManager.getInstance().setMember(member);
                     new MemberMenu();
                     frame.dispose();

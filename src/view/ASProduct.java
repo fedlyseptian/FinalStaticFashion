@@ -51,7 +51,6 @@ public class ASProduct implements ActionListener {
             listProduct = ControllerDatabase.getProductsSeller(seller.getStoreName());
         }
         for (int i = 0; i < listProduct.size(); i++) {
-
             // Panel Declaration
             JPanel productContainer = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel panelImg = new JPanel();

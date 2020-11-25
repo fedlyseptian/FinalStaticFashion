@@ -174,6 +174,7 @@ public class MemberMenu implements ActionListener {
         btnLogout.setActionCommand("Logout");
         btnLogout.addActionListener(this);
         panelMemberMenu.add(btnLogout);
+
         panelMemberMenu.setBackground(Color.BLACK);
 
         // Add to main panel and frame
@@ -215,7 +216,7 @@ public class MemberMenu implements ActionListener {
             case "Logout":
                 // Clear Session
                 MemberManager.getInstance().setMember(null);
-                MemberManager.getInstance().setMember(null);
+                MemberManager.getInstance().setPassword(null);
                 ShoppingScreenMenu.listProductCart.clear();
                 new MainMenus();
                 frame.dispose();

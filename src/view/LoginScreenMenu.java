@@ -145,6 +145,7 @@ public class LoginScreenMenu implements ActionListener {
                     frame.dispose();
                 }else if(isMember){
                     MemberManager.getInstance().setMember(listMember.get(i));
+                    MemberManager.getInstance().setPassword(Controller.toStringPass(isiPassword.getPassword()));
                     new MemberMenu();
                     frame.dispose();
                 }else if(isAdmin){

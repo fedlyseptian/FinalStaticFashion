@@ -35,8 +35,8 @@ public class SellerMenu implements ActionListener {
     JButton btnStore = new JButton("Edit Store");
     JButton btnDiscount = new JButton("Edit Discount");
     JButton btnLogout = new JButton("Logout");
-
     public static Seller seller;
+
 
     public SellerMenu() {
         // Set Session
