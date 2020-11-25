@@ -2,15 +2,12 @@ package view;
 
 import controller.ControllerDatabase;
 import controller.Controller;
-import model.Cart;
 import model.MemberManager;
 import model.Product;
 import model.SellerManager;
-import view.ShoppingScreenMenu;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,8 +25,6 @@ public class CartScreenMenu implements ActionListener {
     JPanel panelProduct = new JPanel();
     JPanel panelRincianBelanjaan = new JPanel(new GridLayout(4, 1));
 
-
-
     BoxLayout boxLayout = new BoxLayout(panelProduct, BoxLayout.Y_AXIS);
     JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -40,9 +35,6 @@ public class CartScreenMenu implements ActionListener {
     JButton shoppingMenuButton = new JButton("Back To Shop");
 
     protected static JSpinner spinnerTotalProduct = new JSpinner();
-
-    //Buat ambil stock product
-    ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
 
     //Deklarasi Rincian Biaya
     double totalBiaya = 0;
@@ -84,7 +76,6 @@ public class CartScreenMenu implements ActionListener {
             panelDesc.setPreferredSize(new Dimension(500, 180));
             panelDescRight.setPreferredSize(new Dimension(300, 180));
             panelButton.setPreferredSize(new Dimension(120, 65));
-
 
             // Product Image
             JLabel labelImg = new JLabel();
@@ -149,7 +140,6 @@ public class CartScreenMenu implements ActionListener {
 
             // --> Delete Product From Cart
             JButton deleteProductFromCartButton = new JButton("Delete");
-
 
             deleteProductFromCartButton.addActionListener(new ActionListener() {
                 @Override

@@ -56,10 +56,8 @@ public class AdminHistory implements ActionListener {
             transactionContainer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.ORANGE));
 
             // Set Panel Dimension
-
             panelDesc.setPreferredSize(new Dimension(1200, 180));
             panelTableHeader.setPreferredSize(new Dimension(1200, 60));
-
 
             // --> TransactionID
             JLabel labelTransactionID = new JLabel(listTransaction.get(i).getTransactionID());
@@ -70,11 +68,6 @@ public class AdminHistory implements ActionListener {
             JLabel labelUsername = new JLabel(listTransaction.get(i).getUsername());
             labelUsername.setFont(new Font("Arial", Font.BOLD, 25));
             labelUsername.setForeground(Color.WHITE);
-
-//            // --> DiscountID
-//            JLabel labelDiscountID = new JLabel("DiscountID: "+listTransaction.get(i).getDiscountID());
-//            labelDiscountID.setFont(new Font("Arial", Font.BOLD, 25));
-//            labelDiscountID.setForeground(Color.WHITE);
 
             // --> TransactionDate
             JLabel labelTransactionDate= new JLabel("Date: "+(listTransaction.get(i).getTransactionDate()));
@@ -115,7 +108,6 @@ public class AdminHistory implements ActionListener {
 
             panelDesc.add(labelTransactionID);
             panelDesc.add(labelUsername);
-//            panelDesc.add(labelDiscountID);
             panelDesc.add(labelTransactionDate);
             panelDesc.add(labelPaymentOption);
             panelDesc.add(labelSubTotal);
@@ -147,7 +139,6 @@ public class AdminHistory implements ActionListener {
             transactionContainer.add(panelDesc);
             transactionContainer.add(panelTableHeader);
             transactionContainer.add(panelTable);
-//            transactionContainer.add(panelTable);
 
             panelTransaction.add(transactionContainer);
         }

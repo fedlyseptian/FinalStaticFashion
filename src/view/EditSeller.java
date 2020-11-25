@@ -68,8 +68,6 @@ public class EditSeller implements ActionListener {
     static Seller seller;
     static String stName;
 
-//    public EditSeller() {}
-
     public EditSeller(String sName) {
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");

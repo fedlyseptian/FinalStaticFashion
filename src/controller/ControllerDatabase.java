@@ -47,7 +47,8 @@ public class ControllerDatabase {
             return (false);
         }
     }
-//insertTransaction
+
+    //insertTransaction
     public static boolean insertTransaction(Transactions transaction) {
         conn.connect();
         String query = "INSERT INTO transactions VALUES(?,?,?,?,?,?)";
@@ -140,24 +141,6 @@ public class ControllerDatabase {
             return (false);
         }
     }
-
-    // Insert New Product To Cart
-//    public static boolean insertProductToListProduct(Cart cart) {
-//        conn.connect();
-//        String query = "INSERT INTO listproduct VALUES(?,?,?,?)";
-//        try {
-//            PreparedStatement stmt = conn.con.prepareStatement(query);
-//            stmt.setInt(1,cart.getTransactionID());
-//            stmt.setString(2,cart.getProductID());
-//            stmt.setInt(3,cart.getQuantity());
-//            stmt.setDouble(4,cart.getTotal());
-//            stmt.executeUpdate();
-//            return (true);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return (false);
-//        }
-//    }
 
     // Get All Products
     public static ArrayList<Product> getAllProducts() {
@@ -263,26 +246,6 @@ public class ControllerDatabase {
             e.printStackTrace();
         }
         return (listProductsCart);
-    }
-
-    // Check Product ID
-    public static boolean checkProductIDAvailability(String pID) {
-        boolean isAvailable = true;
-        conn.connect();
-        String query = "SELECT productID FROM products WHERE productID='" + pID + "'";
-        try {
-            Statement stmt = conn.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                if (pID.equals(rs.getString("productID"))) {
-                    isAvailable = false;
-                }
-            }
-        } catch (SQLException e) {
-            isAvailable = true;
-            e.printStackTrace();
-        }
-        return (isAvailable);
     }
 
     // Update Product Data
@@ -531,6 +494,8 @@ public class ControllerDatabase {
         }
         return (listDiscounts);
     }
+
+    // Get All Transaction
     public static ArrayList<Transactions> getAllTransaction(){
         ArrayList<Transactions> listTransactions = new ArrayList<>();
         conn.connect();
@@ -555,7 +520,7 @@ public class ControllerDatabase {
         return (listTransactions);
     }
 
-    //get per transaction
+    // Get per Transaction
     public static ArrayList<DetailTransaction> getListProduct(String transactionID){
         ArrayList<DetailTransaction> listProduct = new ArrayList<>();
         conn.connect();
@@ -817,19 +782,6 @@ public class ControllerDatabase {
         }
         return (stockProduct);
     }
-    // Delete Member
-//    public static boolean deleteProduct(String pID) {
-//        conn.connect();
-//        String query = "DELETE FROM products WHERE productID='" + pID + "'";
-//        try {
-//            Statement stmt = conn.con.createStatement();
-//            stmt.executeUpdate(query);
-//            return (true);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return (false);
-//        }
-//    }
 
     // Insert New Product To Cart
     public static boolean insertProductToListProduct(String transID, Cart cart) {

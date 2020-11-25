@@ -28,14 +28,6 @@ public class Member extends Person {
     public Member() {
     }
 
-    //Pake listTransaction
-//    public Member(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point, ArrayList<Transactions> listTransaction) {
-//        super(username, password, gender, email, day, month, year);
-//        this.name = name;
-//        this.address = address;
-//        this.point = point;
-//        this.listTransaction = listTransaction;
-//    }
     //Tanpa listTransaction
     public Member(String username, String password, String gender, String email, int day, int month, int year, String name, String address, double point,double money) {
         super(username, password);
@@ -48,30 +40,6 @@ public class Member extends Person {
         this.day=day;
         this.month=month;
         this.year=year;
-    }
-
-    private boolean buyProduct() {
-        boolean result = false;
-        return result;
-    }
-
-    private boolean addToShopCart() {
-        boolean result = false;
-        return result;
-    }
-
-//    kayaknya ga butuh, udh make fungsi yang di class transaction
-//    private double generateShopPayment() {
-//        double grandTotal = 0;
-//        return grandTotal;
-//    }
-
-    public void addMoney(double money) {
-        this.money += money;
-    }
-
-    private void getListHistory() {
-
     }
 
     public String getName() {

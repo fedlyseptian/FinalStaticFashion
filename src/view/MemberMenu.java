@@ -1,6 +1,5 @@
 package view;
 
-import model.AdminManager;
 import model.MemberManager;
 
 import javax.swing.*;
@@ -175,96 +174,6 @@ public class MemberMenu implements ActionListener {
         btnLogout.setActionCommand("Logout");
         btnLogout.addActionListener(this);
         panelMemberMenu.add(btnLogout);
-
-//        // Discount
-//        btnDiscount.setFont(new Font("Arial", Font.BOLD, 30));
-//        btnDiscount.setBackground(Color.BLACK);
-//        btnDiscount.setForeground(Color.WHITE);
-//        btnDiscount.setBorder(null);
-//        btnDiscount.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                btnDiscount.setForeground(new Color(255, 145, 0));
-//                btnDiscount.setBackground(new Color(15, 15, 10));
-//                btnDiscount.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                btnDiscount.setForeground(Color.WHITE);
-//                btnDiscount.setBackground(Color.BLACK);
-//                btnDiscount.setBorder(null);
-//            }
-//        });
-//
-//        btnDiscount.setActionCommand("Discount");
-//        btnDiscount.addActionListener(this);
-//        panelAdminMenu.add(btnDiscount);
-//
-//        // Tax Seller
-//        btnTax.setFont(new Font("Arial", Font.BOLD, 30));
-//        btnTax.setBackground(Color.BLACK);
-//        btnTax.setForeground(Color.WHITE);
-//        btnTax.setBorder(null);
-//        btnTax.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                btnTax.setForeground(new Color(255, 145, 0));
-//                btnTax.setBackground(new Color(15, 15, 10));
-//                btnTax.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                btnTax.setForeground(Color.WHITE);
-//                btnTax.setBackground(Color.BLACK);
-//                btnTax.setBorder(null);
-//            }
-//        });
-//
-//        btnTax.setActionCommand("Tax");
-//        btnTax.addActionListener(this);
-//        panelAdminMenu.add(btnTax);
-//
-//        // Point
-//        btnPoint.setFont(new Font("Arial", Font.BOLD, 30));
-//        btnPoint.setBackground(Color.BLACK);
-//        btnPoint.setForeground(Color.WHITE);
-//        btnPoint.setBorder(null);
-//        btnPoint.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                btnPoint.setForeground(new Color(255, 145, 0));
-//                btnPoint.setBackground(new Color(15, 15, 10));
-//                btnPoint.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                btnPoint.setForeground(Color.WHITE);
-//                btnPoint.setBackground(Color.BLACK);
-//                btnPoint.setBorder(null);
-//            }
-//        });
-//
-//        btnPoint.setActionCommand("Point");
-//        btnPoint.addActionListener(this);
-//        panelAdminMenu.add(btnPoint);
-//
-//        // About Us
-//        btnAboutUs.setFont(new Font("Arial", Font.BOLD, 30));
-//        btnAboutUs.setBackground(Color.BLACK);
-//        btnAboutUs.setForeground(Color.WHITE);
-//        btnAboutUs.setBorder(null);
-//        btnAboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//                btnAboutUs.setForeground(new Color(255, 145, 0));
-//                btnAboutUs.setBackground(new Color(15, 15, 10));
-//                btnAboutUs.setBorder(new BevelBorder(0, Color.BLACK, new Color(20, 20, 20)));
-//            }
-//            public void mouseExited(java.awt.event.MouseEvent evt) {
-//                btnAboutUs.setForeground(Color.WHITE);
-//                btnAboutUs.setBackground(Color.BLACK);
-//                btnAboutUs.setBorder(null);
-//            }
-//        });
-//
-//        btnAboutUs.setActionCommand("AboutUs");
-//        btnAboutUs.addActionListener(this);
-//        panelAdminMenu.add(btnAboutUs);
-
-
         panelMemberMenu.setBackground(Color.BLACK);
 
         // Add to main panel and frame

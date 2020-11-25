@@ -18,8 +18,7 @@ public class Discount {
         this.discountValue = discountValue;
     }
 
-    public Discount() {
-    }
+    public Discount() {}
 
     public String getDiscountID() {
         return discountID;

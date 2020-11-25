@@ -2,11 +2,9 @@ package view;
 
 import controller.ControllerDatabase;
 import model.*;
-import view.CartScreenMenu;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;

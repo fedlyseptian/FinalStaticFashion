@@ -78,8 +78,7 @@ public class Transactions {
         this.subTotal = subTotal;
     }
 
-    public Transactions() {
-    }
+    public Transactions() {}
 
     public Date getTransactionDate() {
         return transactionDate;

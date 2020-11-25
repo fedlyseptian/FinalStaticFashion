@@ -3,8 +3,7 @@ package model;
 public class PointSystem {
     Double pointValue;
 
-    public PointSystem() {
-    }
+    public PointSystem() {}
 
     public PointSystem(Double pointValue) {
         this.pointValue = pointValue;

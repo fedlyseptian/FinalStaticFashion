@@ -13,9 +13,7 @@ public class Cart {
     private int quantity;
     private double total;
 
-    public Cart() {
-
-    }
+    public Cart() {}
 
     public Cart(String productID, String productName, String productBrand, String productCategory, String storeName, String productSize, String productPath, int quantity, double total) {
         this.productID = productID;

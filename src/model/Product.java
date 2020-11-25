@@ -20,8 +20,7 @@ public class Product {
     private String productSize;
     private String productPath;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(String productID, String productName, String productBrand, String productCategory, int productStock, String storeName, double productPrice, String productSize, String productPath) {
         this.productID = productID;

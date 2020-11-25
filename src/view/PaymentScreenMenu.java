@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static view.ShoppingScreenMenu.listProductCart;
 import static view.MainMenus.mindfullyFont;
 
 public class PaymentScreenMenu implements ActionListener {
@@ -27,8 +26,6 @@ public class PaymentScreenMenu implements ActionListener {
     //Title
     JLabel labelTitle = new JLabel();
 
-    //Get All Products from Database
-    ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
     JButton backButton = new JButton("<<<");
 
     public PaymentScreenMenu(double totalBiayaSebelumDiskon, double diskon, double totalBiayaSetelahDiskon, ArrayList<Cart> listProductCart){

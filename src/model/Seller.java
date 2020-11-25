@@ -26,7 +26,7 @@ public class Seller extends Member{
 
     public Seller() {
     }
-//TODO MemberEditProfile,MemberMenu,MenuTopUp,Shopping
+
     public Seller(Member member,String storeName,ArrayList<Product> listProducts,String discountID, String pathLogo){
         super(member.getUsername(), member.getPassword(), member.getGender(), member.getEmail(), member.getDay(), member.getMonth(), member.getYear(), member.getName(), member.getAddress(), member.getPoint(), member.getMoney());
         this.storeName = storeName;
