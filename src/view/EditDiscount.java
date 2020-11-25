@@ -83,7 +83,7 @@ public class EditDiscount implements ActionListener {
         lblDiscountValue.setFont(new Font("Arial", Font.BOLD, 20));
         lblDiscountValue.setBackground(Color.BLACK);
         lblDiscountValue.setForeground(Color.WHITE);
-        spinnerDiscountValue = new JSpinner(new SpinnerNumberModel(discount.getDiscountValue(), 0, 100 , 0.1));
+        spinnerDiscountValue = new JSpinner(new SpinnerNumberModel(discount.getDiscountValue(), 0, 100 , 0.01));
 
         panelForm.add(lblDiscountID);
         panelForm.add(txtDiscountID);
@@ -92,8 +92,6 @@ public class EditDiscount implements ActionListener {
 
         // Submit Button
         submitButton.setFont(new Font("Arial", Font.BOLD, 20));
-        submitButton.setBackground(Color.BLACK);
-        submitButton.setForeground(Color.WHITE);
         submitButton.setActionCommand("Submit");
         submitButton.addActionListener(this);
         panelForm.add(submitButton);

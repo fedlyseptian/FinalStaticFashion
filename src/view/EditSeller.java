@@ -266,7 +266,11 @@ public class EditSeller implements ActionListener {
 
                     if (isUpdated) {
                         JOptionPane.showMessageDialog(frame, "Seller (Store) Data UPDATE Successfully", "Success Update", JOptionPane.INFORMATION_MESSAGE);
-                        new AdminStore();
+                        if(SellerManager.getInstance().getSeller()!=null){
+                            new SellerMenu();
+                        }else if(AdminManager.getInstance().getAdmin()!=null){
+                            new AdminStore();
+                        }
                         frame.dispose();
                     } else {
                         JOptionPane.showMessageDialog(frame, "Failed to UPDATE Seller (Store0", "ERROR", JOptionPane.WARNING_MESSAGE);

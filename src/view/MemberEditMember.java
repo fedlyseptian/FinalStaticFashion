@@ -57,8 +57,6 @@ public class MemberEditMember implements ActionListener {
     JButton updateButton = new JButton("Update");
 
     public MemberEditMember(){
-
-        System.out.println(MemberManager.getInstance().getMember().getMoney());
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
         frame.setIconImage(icon);
