@@ -162,6 +162,12 @@ public class PaymentScreenMenu implements ActionListener {
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
                     ControllerDatabase.updatePointValue(MemberManager.getInstance().getMember().getUsername(),MemberManager.getInstance().getMember().getPoint()+totalBiayaSetelahDiskon*ControllerDatabase.getPoint().getPointValue());
                     listProductCart.clear();
+                    if(SellerManager.getInstance().getSeller()!=null){
+                        new SellerMenu();
+                    }else if(MemberManager.getInstance().getMember()!=null){
+                        new MemberMenu();
+                    }
+                    frame.dispose();
                 }else{
                     JOptionPane.showMessageDialog(frame, "Insufficient Money, Please Top Up", "Failed Buy", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -201,6 +207,12 @@ public class PaymentScreenMenu implements ActionListener {
                     }
                     JOptionPane.showMessageDialog(frame, "Success Buying", "Success Buy", JOptionPane.INFORMATION_MESSAGE);
                     listProductCart.clear();
+                    if(SellerManager.getInstance().getSeller()!=null){
+                        new SellerMenu();
+                    }else if(MemberManager.getInstance().getMember()!=null){
+                        new MemberMenu();
+                    }
+                    frame.dispose();
                 }else{
                     JOptionPane.showMessageDialog(frame, "Insufficient Money, Please Top Up", "Failed Buy", JOptionPane.INFORMATION_MESSAGE);
                 }

@@ -24,6 +24,8 @@ public class MemberTopUp implements ActionListener {
     JLabel lblBalanceMember = new JLabel();
     JTextField txtBalanceMember = new JTextField();
 
+    JLabel lblPointMember = new JLabel();
+
     JButton topUpButton = new JButton("Top Up");
     JButton submitButton = new JButton("Submit");
     JButton backButton = new JButton("<<<");
@@ -33,6 +35,7 @@ public class MemberTopUp implements ActionListener {
     public MemberTopUp() {
         // label Balance
         lblBalanceMember.setText("Your Balance: "+MemberManager.getInstance().getMember().getMoney());
+        lblPointMember.setText("Your Point: "+MemberManager.getInstance().getMember().getPoint());
 
         // Set Title Icon
         Image icon = Toolkit.getDefaultToolkit().getImage("media/logoFSF.png");
@@ -72,6 +75,8 @@ public class MemberTopUp implements ActionListener {
         // Balance Label
         lblBalanceMember.setFont(new Font("Arial", Font.BOLD, 20));
         lblBalanceMember.setForeground(Color.WHITE);
+        lblPointMember.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPointMember.setForeground(Color.WHITE);
 
         // Balance Text Field
         txtBalanceMember.setVisible(false);
@@ -79,6 +84,7 @@ public class MemberTopUp implements ActionListener {
 
         // Form Tax Value
         panelForm.add(lblBalanceMember);
+        panelForm.add(lblPointMember);
         panelForm.add(txtBalanceMember);
 
         // Edit Button
