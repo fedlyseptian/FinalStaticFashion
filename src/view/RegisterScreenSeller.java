@@ -368,10 +368,11 @@ public class RegisterScreenSeller implements ActionListener {
                     JOptionPane.showMessageDialog(null,"Please fill in the blank");
                 }else {
                     controller.insertMember(member);
-                    Discount d = new Discount(Controller.generateNewProductID(isiUsernameSeller.getText(), isiStoreName.getText()), 0.0);
+                    Discount d = new Discount(Controller.generateNewDiscountID(isiUsernameSeller.getText(), isiStoreName.getText()), 0.0);
                     ControllerDatabase.insertDiscount(d);
                     Seller seller = new Seller(member, isiStoreName.getText(), null,Controller.generateNewProductID(isiUsernameSeller.getText(), isiStoreName.getText()),"");
                     SellerManager.getInstance().setSeller(seller);
+                    MemberManager.getInstance().setMember(member);
                     controller.insertSeller(seller);
                     new SellerMenu();
                     frame.dispose();

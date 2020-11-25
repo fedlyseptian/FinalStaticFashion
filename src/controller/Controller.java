@@ -118,21 +118,34 @@ public class Controller {
         char middleS = storeName.charAt(storeName.length()/2);
         String ID1 = (String.valueOf(firstS)+String.valueOf(middleS)+String.valueOf(lastS)+"-"+String.valueOf(firstP)+String.valueOf(middleP)+String.valueOf(lastP)).toUpperCase();
         int count = 1;
-        String ID2 = "";
-        String newID = ID1+String.format("%03d", count);
-        boolean found = false;
+        String ID2 = ID1+String.format("%03d", count);
         ArrayList<Product> listProduct = ControllerDatabase.getAllProducts();
         for(int i=0;i<listProduct.size();i++){
-            if(newID.equals(listProduct.get(i).getProductID())){
-                found=true;
+            if(ID2.equals(listProduct.get(i).getProductID())){
                 count++;
                 ID2 = ID1+String.format("%03d", count);
             }
         }
-        if(!found){
-            return newID;
-        }else{
-            return ID2;
+        return ID2;
+    }
+
+    public static String generateNewDiscountID(String username, String storeName){
+        char firstP = username.charAt(0);
+        char lastP = username.charAt(username.length()-1);
+        char middleP = username.charAt(username.length()/2);
+        char firstS = storeName.charAt(0);
+        char lastS = storeName.charAt(storeName.length()-1);
+        char middleS = storeName.charAt(storeName.length()/2);
+        String ID1 = (String.valueOf(firstS)+String.valueOf(middleS)+String.valueOf(lastS)+"-"+String.valueOf(firstP)+String.valueOf(middleP)+String.valueOf(lastP)).toUpperCase();
+        int count = 1;
+        String ID2 = ID1+String.format("%03d", count);
+        ArrayList<Discount> listDiscount = ControllerDatabase.getAllDiscount();
+        for(int i=0;i<listDiscount.size();i++){
+            if(ID2.equals(listDiscount.get(i).getDiscountID())){
+                count++;
+                ID2 = ID1+String.format("%03d", count);
+            }
         }
+        return ID2;
     }
 }
