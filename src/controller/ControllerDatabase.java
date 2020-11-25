@@ -307,6 +307,28 @@ public class ControllerDatabase {
             e.printStackTrace();
             return (false);
         }
+    }//
+    // Update Member
+    public static boolean updateMember(Member member) {
+        conn.connect();
+        String query = "UPDATE member SET " +
+                "password='" + member.getPassword() + "', " +
+                "name='" + member.getName() + "', " +
+                "address='" + member.getAddress() + "', " +
+                "gender='" + member.getGender()+ "', " +
+                "email='" + member.getEmail() + "', " +
+                "birthDate='" + new Date(member.getYear()-1900, member.getMonth()-1,member.getDay()) + "', " +
+                "point='" + member.getPoint() + "', " +
+                "money='" + member.getMoney() + "' " +
+                "WHERE username='" + member.getUsername() + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
     }
 
     // Update Product Stock
